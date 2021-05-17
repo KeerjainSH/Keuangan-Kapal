@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Keuangan Kapal | Management Proyek')
+@section('title', 'Keuangan Kapal | Pendapatan')
 
 @section('content_header')
-<h5 class="pl-3"><b>MANAGEMENT PROYEK</b></h5>
+<h5 class="pl-3"><b>Pendapatan</b></h5>
 @endsection
 
 @section('content')
@@ -29,24 +29,21 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Nama Perusahaan</th>
-                        <th scope="col">Nama Pemilik</th>
-                        <th scope="col">Kode Proyek</th>
-                        <th scope="col">Status Proyek</th>
-                        <th scope="col">Jenis Proyek</th>
+                        <th scope="col">Pendapatan</th>
+                        <th scope="col">Pendapatan Proyek</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                             <tr>
                                 <td>
+                                    Rp200juta
                                 </td>
                                 <td>
+                                    Rp2Milliar
                                 </td>
                                 <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
+                                    <a href="{{ route('management_projek.pendapatan.detail_pendapatan.index', ['id_projek' => 1, 'id_pendapatan' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
                                 </td>
                             </tr>
                 </tbody>

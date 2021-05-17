@@ -29,26 +29,19 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Nama Perusahaan</th>
-                        <th scope="col">Nama Pemilik</th>
-                        <th scope="col">Kode Proyek</th>
-                        <th scope="col">Status Proyek</th>
-                        <th scope="col">Jenis Proyek</th>
+                        <th scope="col">Nama Proyek</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                            Bermain Bersama Binatang
+                        </td>
+                        <td>
+                            <a href="{{ route('management_projek.pendapatan.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

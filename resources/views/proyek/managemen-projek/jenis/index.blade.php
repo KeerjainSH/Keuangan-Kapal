@@ -3,7 +3,7 @@
 @section('title', 'Keuangan Kapal | Management Proyek')
 
 @section('content_header')
-<h5 class="pl-3"><b>MANAGEMENT PROYEK</b></h5>
+<h5 class="pl-3"><b>Biaya</b></h5>
 @endsection
 
 @section('content')

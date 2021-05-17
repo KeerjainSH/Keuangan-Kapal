@@ -20,27 +20,27 @@ class TesPageController extends Controller
     // pendapatan
     public function list_pendapatan($id_projek)
     {
-        return view('projek\managemen-projek\pendapatan\index');
+        return view('proyek\managemen-projek\pendapatan\index');
     }
 
     public function detail_pendapatan($id_projek, $id_pendapatan)
     {
-        return view('projek\managemen-projek\pendapatan\show');
+        return view('proyek\managemen-projek\pendapatan\show');
     }
 
     // biaya
     public function list_jenis($id_projek, $flag)
     {
-        return view('projek\managemen-projek\jenis\index');
+        return view('proyek\managemen-projek\jenis\index');
     }
 
     public function list_biaya($id_projek, $flag, $id_jenis)
     {
-        return view('projek\managemen-projek\jenis\biaya\index');
+        return view('proyek\managemen-projek\jenis\biaya\index');
     }
 
     public function detail_biaya($id_projek, $flag, $id_jenis,$id_biaya)
     {
-        return view('projek\managemen-projek\jenis\biaya\show');
+        return view('proyek\managemen-projek\jenis\biaya\show');
     }
 }
