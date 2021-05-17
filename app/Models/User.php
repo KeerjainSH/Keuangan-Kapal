@@ -47,7 +47,7 @@ class User extends Authenticatable
     {
         return 'https://cdn.idntimes.com/content-images/community/2020/09/20200915-220626-958d3c98578738c0e239152d117462b2.jpg';
     }
-    
+
     public function adminlte_desc()
     {
         switch($this->role)
@@ -70,14 +70,14 @@ class User extends Authenticatable
         }
         return $role;
     }
-    
+
     public function adminlte_profile_url()
     {
         return 'profile/';
     }
 
     public function perusahaan(){
-        return $this->belongsTo('\App\Models\Perusahaan');
+        return $this->belongsTo('\App\Models\Perusahaan', 'id_perusahaan', 'id');
     }
 
     public function proyek(){

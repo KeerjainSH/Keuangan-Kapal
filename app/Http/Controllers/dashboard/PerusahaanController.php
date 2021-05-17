@@ -103,7 +103,7 @@ class PerusahaanController extends Controller
         $user->role = null;
         $user->id_perusahaan = null;
         $user->save();
-        
+
         return $request;
     }
 }

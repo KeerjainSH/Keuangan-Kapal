@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Keuangan Kapal | Transaksi Kantor')
+@section('title', 'Keuangan Kapal | Management Proyek')
 
 @section('content_header')
-<h5 class="pl-3"><b>ANGGARAN LABA RUGI</b></h5>
+<h5 class="pl-3"><b>MANAGEMENT PROYEK</b></h5>
 @endsection
 
 @section('content')
@@ -29,15 +29,35 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Tanggal</th>
-                        <th scope="col">Transaksi</th>
-                        <th scope="col">Keterangan</th>
-                        <th scope="col">Kas/Bank</th>
-                        <th scope="col">Keluar/Masuk</th>
-                        <th scope="col">Jumlah</th>
+                        <th scope="col">Aksi</th>
+                        <th scope="col">Jenis Proyek</th>
                     </tr>
                 </thead>
                 <tbody>
+                    <tr id="{{ $proyek->id }}">
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah</button></a>
+                        </td>
+                        <td>
+                            Pendapatan
+                        </td>
+                    </tr>
+                    <tr id="{{ $proyek->id }}">
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah</button></a>
+                        </td>
+                        <td>
+                            Pengeluaran Langsung
+                        </td>
+                    </tr>
+                    <tr id="{{ $proyek->id }}">
+                        <td>
+                            <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah</button></a>
+                        </td>
+                        <td>
+                            Pengeluaran Tidak Langsung
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
@@ -61,23 +81,43 @@
         </button>
       </div>
       <div class="modal-body">
-      <form id="add-transaksi" method="post" action="{{ route('create_transaksi_kantor') }}">
+      <form id="add-transaksi" method="post" action="{{ route('list_proyek') }}">
         @csrf
             <div class="form-group">
-                <label for="nama-akun">Tanggal</label>
-                <input id="daterange-form" name="tgl_transaksi" value="01/01/2018" type="text" class="form-control">
+            <label for="kodeproyek">Kode Proyek</label>
+                <input autocomplete="off" type="text" id="kodeproyek" name="kodeproyek" class="form-control">
             </div>
             <div class="form-group">
-                <label for="jenis-akun">Jenis Transaksi</label>
-                <select class="form-control" id="jenis-akun" name="jenis_transaksi" required>
-                <option disabled selected value> -- pilih jenis transaksi -- </option>
+                <label for="jenis-akun">Status Proyek</label>
+                <select class="form-control" id="jenis-status" name="jenis_status" required>
+                <option disabled selected value> -- pilih status proyek -- </option>
+                <option value="Aktif">Aktif</option>
+                <option value="Selesai">Selesai</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="keterangan">Keterangan</label>
-                <input autocomplete="off" type="text" id="keterangan" name="keterangan"  class="form-control">
+                <label for="jenis-akun">Nama Perusahaan</label>
+                <select class="form-control" id="nama-perusahaan" name="nama_perusahaan" required>
+
+                {{-- @foreach ($perusahaans as $perusahaan)
+                    <option value="{{$perusahaan->id}}">{{$perusahaan->nama_perusahaan}}</option>
+                @endforeach --}}
+                </select>
             </div>
             <div class="form-group">
+                <label for="jenis-akun">Nama Pemilik</label>
+                <select class="form-control" id="nama-pemilik" name="nama_pemilik" required>
+                <option disabled selected value> -- pilih pemilik -- </option>
+                @foreach ($pemiliks as $pemilik)
+                    <option value="{{$pemilik->id}}">{{$pemilik->name}}</option>
+                @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jenisproyek">Jenis Proyek</label>
+                <input autocomplete="off" type="text" id="jenisproyek" name="jenisproyek"  class="form-control">
+            </div>
+            <!-- <div class="form-group">
                 <label for="kas-bank">Kas/Bank</label>
                 <select class="form-control" id="kas-bank" name="akun_neraca" required>
                 <option disabled selected value> -- pilih akun -- </option>
@@ -88,7 +128,7 @@
                     <label for="jumlah-transaksi">Jumlah (Rp)</label>
                     <input type="text" id="jumlah-transaksi" class="form-control" name="jumlah_transaksi" required>
                 </div>
-            </div>
+            </div> -->
         </form>
       </div>
       <div class="modal-footer">
@@ -104,41 +144,55 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="editModalLabel">Tambah Data</h5>
+        <h5 class="modal-title" id="editModalLabel">Edit Data</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form id="edit-transaksi" method="post" action="{{ route('update_transaksi_kantor') }}">
+      <form id="edit-transaksi" method="post" action="{{ route('update_list_proyek') }}">
         @csrf
             <input id="edit-id" name="id" type="hidden" class="form-control">
             <div class="form-group">
-                <label for="nama-akun">Tanggal</label>
-                <input id="daterange-edit" name="tgl_transaksi" type="text" class="form-control">
+            <label for="kodeproyek">Kode Proyek</label>
+                <input autocomplete="off" type="text" id="edit-kodeproyek" name="kodeproyek" class="form-control">
             </div>
             <div class="form-group">
-                <label for="jenis-akun">Jenis Transaksi</label>
-                <select class="form-control" id="edit-jenis-akun" name="jenis_transaksi" required>
-                <option disabled selected value> -- pilih jenis transaksi -- </option>
+                <label for="status-proyek">Status Proyek</label>
+                <select class="form-control" id="edit-jenis-status" name="jenis_status" required>
+                <option disabled selected value> -- pilih status proyek -- </option>
+                <option value="Aktif">Aktif</option>
+                <option value="Selesai">Selesai</option>
                 </select>
             </div>
             <div class="form-group">
-                <label for="keterangan">Keterangan</label>
-                <input autocomplete="off" type="text" id="edit-keterangan" name="keterangan" class="form-control">
-            </div>
-            <div class="form-group">
-                <label for="kas-bank">Kas/Bank</label>
-                <select class="form-control" id="edit-kas-bank" name="akun_neraca" required>
-                <option disabled selected value> -- pilih akun -- </option>
+                <label for="jenis-akun">Nama Perusahaan</label>
+                <select class="form-control" id="edit-nama-perusahaan" name="nama_perusahaan" required>
+                <option disabled selected value> -- pilih perusahaan -- </option>
+                @foreach ($perusahaans as $perusahaan)
+                    <option value="{{$perusahaan->id}}">{{$perusahaan->nama_perusahaan}}</option>
+                @endforeach
                 </select>
             </div>
             <div class="form-group">
+                <label for="jenis-akun">Nama Pemilik</label>
+                <select class="form-control" id="edit-nama-pemilik" name="nama_pemilik" required>
+                <option disabled selected value> -- pilih pemilik -- </option>
+                @foreach ($pemiliks as $pemilik)
+                    <option value="{{$pemilik->id}}">{{$pemilik->name}}</option>
+                @endforeach
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="jenisproyek">Jenis Proyek</label>
+                <input autocomplete="off" type="text" id="edit-jenisproyek" name="jenisproyek"  class="form-control">
+            </div>
+            {{-- <div class="form-group">
                 <div class="form-group">
                     <label for="edit-jumlah-transaksi">Jumlah (Rp)</label>
                     <input type="text" id="edit-jumlah-transaksi" class="form-control" name="jumlah_transaksi" required>
                 </div>
-            </div>
+            </div> --}}
         </form>
       </div>
       <div class="modal-footer">
@@ -165,6 +219,28 @@
 @section('js')
 <script src="https://unpkg.com/autonumeric"></script>
 <script type="text/javascript">
+    const pemilik=document.getElementById('nama-pemilik');
+    //console.log(pemilik);
+    pemilik.addEventListener('change', (e)=>{
+        $.ajax({
+            url: '{{route("get_perusahaan")}}',
+            data: {
+                '_token':"{{csrf_token()}}",
+                'id':e.srcElement.value
+            },
+            error: function(xhr,status,error) {
+
+            },
+            success: function(data) {
+                let newOption = '<option disabled selected value> -- pilih perusahaan -- </option>';
+                newOption+=`<option value=${data.id}>${data.nama_perusahaan}</option>`
+                const perusahaan = document.querySelector('#nama-perusahaan');
+                perusahaan.innerHTML = newOption;
+            },
+            type: 'POST',
+            async: true
+        });
+    })
     $(document).ready(function() {
         var role = <?php echo Auth::user()->role; ?>;
 
@@ -233,7 +309,9 @@
             }
         });
     });
+
 </script>
-<script src="{{ asset('js/bootstable-transaksi-kantor.js') }}"></script>
+
+<script src="{{ asset('js/bootstable-list-proyek.js') }}"></script>
 
 @endsection

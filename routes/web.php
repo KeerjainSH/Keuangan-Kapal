@@ -39,6 +39,8 @@ Route::get('/transaksi_kantor/{date_range?}', [App\Http\Controllers\CatatanContr
 Route::get('/hutang_piutang', [App\Http\Controllers\CatatanController::class, 'pageHutangPiutang'])->name('hutang_piutang');
 Route::get('/gudang/{date_range?}', [App\Http\Controllers\GudangController::class, 'pageGudang'])->name('gudang');
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
+Route::get('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'index'])->name('list_proyek');
+Route::get('/manajemen_proyek', [App\Http\Controllers\Proyek\ManajemenProyekController::class, 'index'])->name('manajemen_proyek');
 Route::post('/users/update', [App\Http\Controllers\ProfileController::class,'update'])->name('users.update');
 
 Route::get('/laba_rugi/{id_proyek?}/{date_range?}', [App\Http\Controllers\LaporanController::class, 'pageLabaRugi'])->name('laba_rugi');
@@ -88,3 +90,29 @@ Route::post('update_anggaran', [App\Http\Controllers\Catatan\AnggaranController:
 
 Route::get('/get_transaksi_proyek/{id}', [App\Http\Controllers\Catatan\TransaksiProyekController::class, 'getById']);
 Route::get('/get_transaksi_kantor/{id}', [App\Http\Controllers\Catatan\TransaksiKantorController::class, 'getById']);
+
+//Route Proyek
+// Route::get('/get_list_proyek/{id}', [App\Http\Controllers\Proyek\ProyekController::class, 'getById'])->name('get_list_proyek_byId');
+Route::post('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'insert'])->name('list_proyek');
+Route::post('update_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'edit'])->name('update_list_proyek');
+Route::post('delete_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'delete'])->name('delete_list_proyek');
+
+Route::post('/get_perusahaan', [App\Http\Controllers\Proyek\ProyekController::class, 'getPerusahaan'])->name('get_perusahaan');
+
+
+Route::prefix('list_proyek/{id_projek}')->name('management_projek.')->group(function () {
+    Route::get('/', [App\Http\Controllers\TesPageController::class, 'management_projek'])->name('index');
+    Route::prefix('pendapatan')->name('pendapatan.')->group(function () {
+        Route::get('/', [App\Http\Controllers\TesPageController::class, 'list_pendapatan'])->name('index');
+        Route::get('/{id_pendapatan}', [App\Http\Controllers\TesPageController::class, 'detail_pendapatan'])->name('show');
+    });
+
+    Route::prefix('{flag}/jenis')->name('jenis.')->group(function () {
+        Route::get('/', [App\Http\Controllers\TesPageController::class, 'list_jenis'])->name('index');
+        Route::prefix('{id_jenis}/biaya')->name('biaya.')->group(function () {
+            Route::get('/', [App\Http\Controllers\TesPageController::class, 'list_biaya'])->name('index');
+            Route::get('/{id_biaya}/detail', [App\Http\Controllers\TesPageController::class, 'detail_biaya'])->name('show');
+        });
+    });
+
+});
