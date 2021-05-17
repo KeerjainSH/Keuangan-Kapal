@@ -256,7 +256,7 @@ return [
         ],
         [
             'text' => 'anggaran',
-            'url'  => 'anggaran',
+            'url'  => 'list_proyek',
             'logo' => 'A',
             'icon_color' => 'secondary',
             'role' => [1, 2, 3]

@@ -14,7 +14,7 @@ class TesPageController extends Controller
 
     public function management_projek($id_projek)
     {
-        return view('projek.managemen-projek.index');
+        return view('proyek\managemen-projek\index');
     }
 
     // pendapatan

@@ -24,7 +24,8 @@
     </div>
     <!-- /.card-header -->
 
-    <div class="card-body " style="max-width: 1200px;">
+    <div class="card-body ">
+
         <div class="dataTables_wrapper">
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
@@ -34,6 +35,7 @@
                         <th scope="col">Kode Proyek</th>
                         <th scope="col">Status Proyek</th>
                         <th scope="col">Jenis Proyek</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -53,6 +55,11 @@
                                 </td>
                                 <td>
                                     {{$proyek->jenis}}
+                                </td>
+                                <td>
+                                <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-pencil-alt" > </i></button>
+                                <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
+                                <a href="{{ route('management_projek.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -310,6 +317,6 @@
 
 </script>
 
-<script src="{{ asset('js/bootstable-list-proyek.js') }}"></script>
+<!-- <script src="{{ asset('js/bootstable-list-proyek.js') }}"></script> -->
 
 @endsection

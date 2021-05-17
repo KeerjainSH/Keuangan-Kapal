@@ -37,25 +37,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                        @foreach ($proyeks as $proyek)
-                            <tr id="{{ $proyek->id }}">
+                            <tr>
                                 <td>
-                                    {{$proyek->perusahaan->nama_perusahaan}}
                                 </td>
                                 <td>
-                                    {{$proyek->user->name}}
                                 </td>
                                 <td>
-                                    {{$proyek->kode_proyek}}
                                 </td>
                                 <td>
-                                    {{$proyek->status}}
                                 </td>
                                 <td>
-                                    {{$proyek->jenis}}
                                 </td>
                             </tr>
-                        @endforeach
                 </tbody>
             </table>
         </div>
