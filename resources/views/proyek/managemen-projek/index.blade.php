@@ -12,7 +12,7 @@
 @if(!empty(Auth::user()->id_perusahaan))
 <div class="card">
     <div class="card-header">
-        <div class="row">
+        <!-- <div class="row">
             <div class="col-sm">
                 @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                 <div class="row justify-content-start pl-2 pt-2">
@@ -20,7 +20,7 @@
                 </div>
                 @endif
             </div>
-        </div>
+        </div> -->
     </div>
     <!-- /.card-header -->
 
@@ -29,17 +29,33 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Nama Proyek</th>
+                        <th scope="col">Management projek</th>
                         <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                            Bermain Bersama Binatang
+                            Pendapatan
                         </td>
                         <td>
                             <a href="{{ route('management_projek.pendapatan.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Biaya Langsung
+                        </td>
+                        <td>
+                            <a href="{{ route('management_projek.jenis.index', ['id_projek' => 1,'flag' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Biaya Tidak Langsung
+                        </td>
+                        <td>
+                            <a href="{{ route('management_projek.jenis.index', ['id_projek' => 1,'flag' => 2]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
                         </td>
                     </tr>
                 </tbody>

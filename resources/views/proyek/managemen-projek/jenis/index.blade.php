@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Keuangan Kapal | Management Proyek')
+@section('title', 'Keuangan Kapal | Jenis Biaya')
 
 @section('content_header')
-<h5 class="pl-3"><b>Biaya</b></h5>
+<h5 class="pl-3"><b>JENIS BIAYA</b></h5>
 @endsection
 
 @section('content')
@@ -29,26 +29,19 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Nama Perusahaan</th>
-                        <th scope="col">Nama Pemilik</th>
-                        <th scope="col">Kode Proyek</th>
-                        <th scope="col">Status Proyek</th>
-                        <th scope="col">Jenis Proyek</th>
+                        <th scope="col">Jenis Biaya</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                            <tr>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                                <td>
-                                </td>
-                            </tr>
+                    <tr>
+                        <td>
+                        Biaya Material Langsung
+                        </td>
+                        <td>
+                            <a href="{{ route('management_projek.jenis.biaya.show', ['id_projek' => 1,'flag' => 2,'id_jenis' => 1,'id_biaya' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

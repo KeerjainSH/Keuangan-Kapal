@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title', 'Keuangan Kapal | Management Proyek')
+@section('title', 'Keuangan Kapal | Detail Projek')
 
 @section('content_header')
-<h5 class="pl-3"><b>MANAGEMENT PROYEK</b></h5>
+<h5 class="pl-3"><b>DETAIL PROJEK</b></h5>
 @endsection
 
 @section('content')
@@ -29,24 +29,37 @@
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
                     <tr>
-                        <th scope="col">Nama Perusahaan</th>
-                        <th scope="col">Nama Pemilik</th>
-                        <th scope="col">Kode Proyek</th>
-                        <th scope="col">Status Proyek</th>
-                        <th scope="col">Jenis Proyek</th>
+                        <th scope="col">Nama Barang</th>
+                        <th scope="col">Ukuran</th>
+                        <th scope="col">Jenis</th>
+                        <th scope="col">Volume</th>
+                        <th scope="col">Satuan</th>
+                        <th scope="col">Harga Satuan</th>
+                        <th scope="col">Total</th>
                     </tr>
                 </thead>
                 <tbody>
                             <tr>
                                 <td>
+                                Kayu lunas
                                 </td>
                                 <td>
+                                0.20 x 0.20 x 16 m
                                 </td>
                                 <td>
+                                Meranti/Seumantok
                                 </td>
                                 <td>
+                                1
                                 </td>
                                 <td>
+                                Batang
+                                </td>
+                                <td>
+                                Rp 1,600,000.00 
+                                </td>
+                                <td>
+                                Rp 1,600,000.00 
                                 </td>
                             </tr>
                 </tbody>

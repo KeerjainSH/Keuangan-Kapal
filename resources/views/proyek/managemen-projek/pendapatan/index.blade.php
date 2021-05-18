@@ -31,20 +31,20 @@
                     <tr>
                         <th scope="col">Pendapatan</th>
                         <th scope="col">Pendapatan Proyek</th>
-                        <th scope="col">Aksi</th>
+                        <!-- <th scope="col">Aksi</th> -->
                     </tr>
                 </thead>
                 <tbody>
                             <tr>
                                 <td>
-                                    Rp200juta
+                                    Projek
                                 </td>
                                 <td>
-                                    Rp2Milliar
+                                    Rp 2.000.000
                                 </td>
-                                <td>
-                                    <a href="{{ route('management_projek.pendapatan.detail_pendapatan.index', ['id_projek' => 1, 'id_pendapatan' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
-                                </td>
+                                <!-- <td>
+                                    <a href="{{ route('management_projek.pendapatan.show', ['id_projek' => 1,'id_pendapatan' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-eye" > </i></a>
+                                </td> -->
                             </tr>
                 </tbody>
             </table>
