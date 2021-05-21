@@ -26,8 +26,9 @@
                     <thead>
                         <tr style="text-align: center">
                             {{-- <th scope="col">Aksi</th> --}}
-                            <th scope="col">Kode Proyek</th>
-                            <th scope="col">Kode Proyek</th>
+                            <th scope="col">Tes</th>
+                            <th scope="col">Tes</th>
+                            <th scope="col">Tes</th>
                             <th scope="col">Kode Proyek</th>
                             <th scope="col">Keterangan</th>
                             <th scope="col">Ukuran</th>
@@ -39,15 +40,18 @@
                         </tr>
                     </thead>
                     <tbody >
-                    <tr >
+                    <tr style="text-align: center">
                             <td>
                                 Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
                                 Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
-                            <td colspan="2">
+                            <td>
                                 Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                            </td>
+                            <td >
+
                             </td>
                             <td >
                                 Kayu Lunas
@@ -71,51 +75,20 @@
                                 Rp 1,600,000.00
                             </td>
                         </tr>
-                        <tr >
-                            <td class="h6">
+                        <tr style="text-align: center">
+                            <td>
                                 Biaya Tidak Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
                                 Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
-                            <td colspan="2">
+                            <td>
                                 Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
-
                             <td >
-                                Kayu Lunas
-                            </td>
-                            <td>
-                                0.20 x 0.20 x 16 m
-                            </td>
-                            <td>
-                                Meranti/Seumantok
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Batang
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                        </tr>
-                        <tr >
-                            <td>
-                                Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
 
-                            <td>
+                            </td>
+                            <td >
                                 Kayu Lunas
                             </td>
                             <td>
