@@ -48,7 +48,42 @@
                                 Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
-                                Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                                &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                            </td>
+                            <td >
+
+                            </td>
+                            <td >
+                                Kayu Lunas
+                            </td>
+                            <td>
+                                0.20 x 0.20 x 16 m
+                            </td>
+                            <td>
+                                Meranti/Seumantok
+                            </td>
+                            <td>
+                                1
+                            </td>
+                            <td>
+                                Batang
+                            </td>
+                            <td>
+                                Rp 1,600,000.00
+                            </td>
+                            <td>
+                                Rp 1,600,000.00
+                            </td>
+                        </tr>
+                        <tr style="text-align: center">
+                            <td>
+                                Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                            </td>
+                            <td>
+                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                            </td>
+                            <td>
+                                &nbsp &nbsp Biaya Mesin dan Perlengkapannya<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td >
 
