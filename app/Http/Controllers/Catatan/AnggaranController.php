@@ -30,7 +30,17 @@ class AnggaranController extends Controller
         $perusahaan = Perusahaan::where('id', '=', Auth::user()->id_perusahaan)->first();
         return redirect()->route('anggaran');
         // return view('catatan/anggaran', [
-        //     'perusahaan' => $perusahaan, 
+        //     'perusahaan' => $perusahaan,
         // ]);
+    }
+
+    public function list_biaya($id_projek)
+    {
+        return view('proyek\biaya\index');
+    }
+
+    public function list_pendapatan($id_projek)
+    {
+        return view('proyek\pendapatan\index');
     }
 }
