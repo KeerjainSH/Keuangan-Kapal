@@ -25,7 +25,6 @@
     <!-- /.card-header -->
 
     <div class="card-body ">
-
         <div class="dataTables_wrapper">
             <table id="table-transaksi-kantor" class="display table table-stripped table-hover table-condensed table-sm dataTable">
                 <thead>
@@ -57,10 +56,10 @@
                                     {{$proyek->jenis}}
                                 </td>
                                 <td class="text-center">
-                                <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$proyek->id}}"><i class="fas fa-pencil-alt" > </i></button>
-                                <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
-                                <a href="{{ route('management_projek.pendapatan.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-wallet" > </i></a>
-                                <a href="{{ route('management_projek.biaya.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-shopping-cart" > </i></a>
+                                    <button id="bEdit" type="button" onclick="rowEdit(this);" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal"><i class="fas fa-pencil-alt" > </i></button>
+                                    <button id="bElim" type="button" onclick="rowElim(this);" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
+                                    <a href="{{ route('management_projek.pendapatan.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-wallet" > </i></a>
+                                    <a href="{{ route('management_projek.biaya.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-shopping-cart" > </i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -146,9 +145,7 @@
 </div>
 
 <!-- Modal -->
-@foreach ($proyeks as $proyek)
-
-<div class="modal fade" id="editModal{{$proyek->id}}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -163,7 +160,7 @@
                     <input id="edit-id" name="id" type="hidden" class="form-control">
                     <div class="form-group">
                         <label for="kodeproyek">Kode Proyek</label>
-                        <input autocomplete="off" type="text" id="edit-kodeproyek" name="kodeproyek" class="form-control" value="{{$proyek->kode_proyek}}">
+                        <input autocomplete="off" type="text" id="edit-kodeproyek" name="kodeproyek" class="form-control">
                     </div>
                     <div class="form-group">
                         <label for="status-proyek">Status Proyek</label>
@@ -204,7 +201,6 @@
         </div>
     </div>
 </div>
-@endforeach
 @endif
 @endif
 @endsection
@@ -250,11 +246,6 @@
         if(role == 1)
         {
             $('table').SetEditable();
-        }
-
-        if(role == 1 || role == 2)
-        {
-            new AutoNumeric('#jumlah-transaksi');
         }
 
         var columnDefs = [];
@@ -312,9 +303,8 @@
             }
         });
     });
-
 </script>
 
-<!-- <script src="{{ asset('js/bootstable-list-proyek.js') }}"></script> -->
+<script src="{{ asset('js/bootstable-list-proyek.js') }}"></script>
 
 @endsection

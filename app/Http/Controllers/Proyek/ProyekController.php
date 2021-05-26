@@ -40,7 +40,7 @@ class ProyekController extends Controller
 
     public function edit(Request $request)
     {
-        //dd($request);
+        //dd($request->all());
         $proyek = Proyek::find($request->id);
 
         $proyek->id_pemilik = $request->nama_pemilik;

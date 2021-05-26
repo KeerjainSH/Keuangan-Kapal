@@ -92,7 +92,7 @@ Route::get('/get_transaksi_proyek/{id}', [App\Http\Controllers\Catatan\Transaksi
 Route::get('/get_transaksi_kantor/{id}', [App\Http\Controllers\Catatan\TransaksiKantorController::class, 'getById']);
 
 //Route Proyek
-// Route::get('/get_list_proyek/{id}', [App\Http\Controllers\Proyek\ProyekController::class, 'getById'])->name('get_list_proyek_byId');
+Route::get('/get_list_proyek/{id}', [App\Http\Controllers\Proyek\ProyekController::class, 'getById'])->name('get_list_proyek_byId');
 Route::post('/get_perusahaan', [App\Http\Controllers\Proyek\ProyekController::class, 'getPerusahaan'])->name('get_perusahaan');
 Route::post('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'insert'])->name('list_proyek');
 Route::post('update_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'edit'])->name('update_list_proyek');
@@ -105,5 +105,6 @@ Route::prefix('list_proyek/{id_projek}')->name('management_projek.')->group(func
     });
     Route::prefix('biaya')->name('biaya.')->group(function () {
         Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_biaya'])->name('index');
+        Route::post('/insert', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertBiaya'])->name('insertBiaya');
     });
 });

@@ -8,30 +8,51 @@ use Illuminate\Support\Facades\Auth;
 
 use App\Models\Catatan\Anggaran;
 use App\Models\Perusahaan;
+use App\Models\AkunTransaksiKantor;
 
 class AnggaranController extends Controller
 {
     //
-    public function edit(Request $request){
-        // dd($request);
-        foreach ($request->except('_token') as $key => $value) {
-            $id_akun = intval(str_replace('akun-', '', $key));
-            $anggaran = Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
-                        ->where('id_akun_tr_proyek', $id_akun)
-                        ->where('id_proyek', $request->id_proyek)
-                        ->first();
+    public function index(Request $request){
+        $perusahaans = Perusahaan::all();
+        $pemiliks = User::all();
+        $proyeks = Proyek::all();
+        $anggarans = Anggaran::all();
+        $akuntransaksikantors = AkunTransaksiKantor::all();
+        return view('proyek.biaya.index', compact('perusahaans', 'pemiliks', 'proyeks', 'akuntransaksikantors', 'anggarans'));
+    }
 
-            if(!(is_null($anggaran)))
-            {
-                $anggaran->nominal = floatval(str_replace(',', '', $value));
-                $anggaran->save();
-            }
-        }
-        $perusahaan = Perusahaan::where('id', '=', Auth::user()->id_perusahaan)->first();
-        return redirect()->route('anggaran');
-        // return view('catatan/anggaran', [
-        //     'perusahaan' => $perusahaan,
-        // ]);
+    public function insertBiaya (Request $request) {
+        //dd($request->all());
+        $anggaran = Anggaran::create([
+            'id_akun_tr_proyek' => $request->idakuntrproyek,
+            'id_perusahaan' => $request->jenis_status,
+            'id_proyek' => $request->jenisproyek,
+            'ukuran' => $request->biaya_ukuran,
+            'jenis' => $request->biaya_jenis,
+            'volume' => $request->biaya_volume,
+            'satuan' => $request->biaya_satuan,
+            'hargasatuan' => $request->biaya_hargasatuan,
+            'nominal' => $request->biaya_nominal,
+        ]);
+
+        return redirect()->back();
+    }
+
+    public function edit(Request $request)
+    {
+        //dd($request->all());
+        $proyek = Anggaran::find($request->id);
+
+        $proyek->id_pemilik = $request->nama_pemilik;
+        $proyek->jenis = $request->jenisproyek;
+        $proyek->status = $request->jenis_status;
+        $proyek->id_perusahaan = $request->nama_perusahaan;
+        $proyek->kode_proyek = $request->kodeproyek;
+
+        $proyek->save();
+
+        return redirect()->route('proyek.biaya.index');
     }
 
     public function list_biaya($id_projek)

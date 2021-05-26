@@ -212,7 +212,7 @@
     font-size: 12px;
 }
 </style>
-<meta name="csrf-token" content="{{ Session::token() }}"> 
+<meta name="csrf-token" content="{{ Session::token() }}">
 @endsection
 
 @section('js')

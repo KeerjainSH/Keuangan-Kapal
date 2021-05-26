@@ -55,10 +55,10 @@
                                 Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
-                                &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                                &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#contohModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td >
 
@@ -94,16 +94,16 @@
                                 Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
                             </td>
                             <td>
-                                &nbsp &nbsp Biaya Mesin dan Perlengkapannya<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                                &nbsp &nbsp Biaya Mesin dan Perlengkapannya<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
                             </td>
                             <td >
 
                             </td>
                             <td >
-                                Kayu Lunas
+                                Kayu Belum Lunas
                             </td>
                             <td>
                                 0.20 x 0.20 x 16 m
@@ -139,10 +139,9 @@
                                 &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
                             </td>
                             <td >
-
                             </td>
                             <td >
-                                Kayu Lunas
+                                Kayu Sudah Lunas
                             </td>
                             <td>
                                 0.20 x 0.20 x 16 m
@@ -169,7 +168,97 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body">
+                <form id="add-transaksi" method="post" action="{{ route('list_proyek') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="jenis-akun">Biaya</label>
+                        <select class="form-control" id="jenis-status" name="jenis_status" required>
+                        <option disabled selected value> -- pilih biaya -- </option>
+                        <option value="Biaya Langsung">Biaya Langsung</option>
+                        <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jenis-akun">Jenis Biaya</label>
+                        <select class="form-control" id="jenis-status" name="jenis_status" required>
+                        <option disabled selected value> -- pilih jenis biaya -- </option>
+                        <option value="Biaya Langsung">Biaya Langsung</option>
+                        <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                    <label for="kodeproyek">Nama Biaya</label>
+                        <input autocomplete="off" type="text" id="kodeproyek" name="kodeproyek" class="form-control">
+                    </div>
+                </form>
+            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="add-transaksi">Simpan</button>
+                    </div>
+                </div>
+            </div>
         </div>
+
+        <div class="modal fade" id="contohModal" tabindex="-1" role="dialog" aria-labelledby="contohModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="contohModalLabel">Tambah Data</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                <div class="modal-body">
+                <form id="add-transaksi" method="post" action="{{ route('list_proyek') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="edit-keterangan">Keterangan</label>
+                        <input autocomplete="off" type="text" id="edit-keterangan" name="keterangan" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-ukuran">Pendapatan Proyek</label>
+                        <input autocomplete="off" type="number" id="edit-ukuran" name="ukuran" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-jenis">Jenis</label>
+                        <input autocomplete="off" type="text" id="edit-jenis" name="jenis" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-volume">Volume</label>
+                        <input autocomplete="off" type="text" id="edit-volume" name="volume" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-satuan">Satuan</label>
+                        <input autocomplete="off" type="text" id="edit-satuan" name="satuan" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-hargasatuan">Harga Satuan</label>
+                        <input autocomplete="off" type="number" id="edit-hargasatuan" name="hargasatuan" class="form-control">
+                    </div>
+                </form>
+            </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="add-transaksi">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {{-- Edit detail biaya --}}
         <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

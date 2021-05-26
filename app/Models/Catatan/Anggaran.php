@@ -14,13 +14,18 @@ class Anggaran extends Model
         'id_akun_tr_proyek',
         'id_perusahaan',
         'id_proyek',
+        'ukuran',
+        'jenis',
+        'volume',
+        'satuan',
+        'hargasatuan',
         'nominal',
     ];
 
     public function akun_tr_proyek(){
         return $this->belongsTo('\App\Models\AkunTransaksiProyek', 'id_akun_tr_proyek', 'id');
     }
-    
+
     public function proyek(){
         return $this->belongsTo('\App\Models\Proyek', 'id_proyek', 'id');
     }
