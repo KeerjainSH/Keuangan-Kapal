@@ -99,12 +99,13 @@ Route::post('update_list_proyek', [App\Http\Controllers\Proyek\ProyekController:
 Route::post('delete_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'delete'])->name('delete_list_proyek');
 
 Route::get('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'index'])->name('list_proyek');
-Route::prefix('list_proyek/{id_projek}')->name('management_projek.')->group(function () {
+Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(function () {
     Route::prefix('pendapatan')->name('pendapatan.')->group(function () {
         Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_pendapatan'])->name('index');
     });
     Route::prefix('biaya')->name('biaya.')->group(function () {
         Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_biaya'])->name('index');
         Route::post('/insert', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertBiaya'])->name('insertBiaya');
+        Route::post('/insertjenis', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertJenisBiaya'])->name('insertJenisBiaya');
     });
 });

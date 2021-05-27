@@ -11,22 +11,10 @@ class Manajemen extends Model
     protected $table = 'manajemen';
 
     protected $fillable = [
-        'nama',
+        'namaManajemen',
         'idParent',
+        'flag',
     ];
 
     protected $hidden = [
-    ];
-
-    public function user(){
-        return $this->hasMany('\App\Models\User', 'id_perusahaan');
-    }
-
-    public function invitation(){
-        return $this->hasMany('\App\Models\Invitation', 'id_perusahaan');
-    }
-
-    public function catatan_transaksi_proyek(){
-        return $this->hasMany('\App\Models\Catatan\TransaksiProyek', 'id', 'id_perusahaan');
-    }
-}
+    ];}

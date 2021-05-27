@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddColumnNamaAtManajemen extends Migration
+class AddColumnFlagAtManajemen extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class AddColumnNamaAtManajemen extends Migration
      */
     public function up()
     {
-        Schema::table('manajemen', function($table) {
-            $table->string('namaManajemen')->after('id');
-            $table->integer('idParent')->after('namaManajemen')->nullable();
+        Schema::table('manajemen', function ($table) {
+            $table->string('flag')->after('idParent');
         });
     }
 
@@ -26,6 +25,8 @@ class AddColumnNamaAtManajemen extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('manajemen', function (Blueprint $table) {
+            //
+        });
     }
 }

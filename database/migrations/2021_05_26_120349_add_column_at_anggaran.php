@@ -15,8 +15,8 @@ class AddColumnAtAnggaran extends Migration
     {
         Schema::table('anggaran_proyek', function($table) {
             $table->string('ukuran')->after('id_proyek')->nullable();
-            $table->string('jenis')->after('ukuran')->nullable();
-            $table->integer('volume')->after('jenis')->nullable();
+            $table->string('jenisAnggaran')->after('ukuran')->nullable();
+            $table->float('volume', 8, 2)->after('jenisAnggaran')->nullable();
             $table->string('satuan')->after('volume')->nullable();
             $table->integer('hargasatuan')->after('satuan')->nullable();
         });

@@ -10,7 +10,7 @@ class AkunTransaksiProyek extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama', 'jenis','id_perusahaan',
+        'nama', 'jenis','id_perusahaan', 'idmanajemen',
     ];
 
     public function catatan_transaksi_proyek(){

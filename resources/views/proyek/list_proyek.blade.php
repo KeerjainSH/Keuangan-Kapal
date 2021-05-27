@@ -58,8 +58,8 @@
                                 <td class="text-center">
                                     <button id="bEdit" type="button" onclick="rowEdit(this);" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal"><i class="fas fa-pencil-alt" > </i></button>
                                     <button id="bElim" type="button" onclick="rowElim(this);" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
-                                    <a href="{{ route('management_projek.pendapatan.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-wallet" > </i></a>
-                                    <a href="{{ route('management_projek.biaya.index', ['id_projek' => 1]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-shopping-cart" > </i></a>
+                                    <a href="{{ route('management_projek.pendapatan.index', ['id_proyek' => $proyek->id]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-wallet" > </i></a>
+                                    <a href="{{ route('management_projek.biaya.index', ['id_proyek' => $proyek->id]) }}" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-shopping-cart" > </i></a>
                                 </td>
                             </tr>
                         @endforeach

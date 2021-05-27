@@ -15,7 +15,7 @@ class Anggaran extends Model
         'id_perusahaan',
         'id_proyek',
         'ukuran',
-        'jenis',
+        'jenisAnggaran',
         'volume',
         'satuan',
         'hargasatuan',

@@ -25,7 +25,9 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="row justify-content-start pl-2 pt-2">
-                        <a href="{{ route('list_proyek') }}"><button type="button" class="btn btn-sm btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                        <a href="{{ route('list_proyek') }}"><button type="button" class="btn btn-sm btn-secondary mr-2"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                        <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Jenis Biaya</button></a>
+                        <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#contohModal"><i class="fas fa-plus"></i> Detail Biaya</button></a>
                     </div>
                 </div>
             </div>
@@ -50,122 +52,51 @@
                         </tr>
                     </thead>
                     <tbody >
-                    <tr style="text-align: center">
-                            <td>
-                                Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#contohModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td >
-
-                            </td>
-                            <td >
-                                Kayu Lunas
-                            </td>
-                            <td>
-                                0.20 x 0.20 x 16 m
-                            </td>
-                            <td>
-                                Meranti/Seumantok
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Batang
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt" > </i></button>
-                                <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
-                            </td>
-                        </tr>
+                        @foreach ($akunTransaksiProjeks as $projeks)
                         <tr style="text-align: center">
-                            <td>
-                                Biaya Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                &nbsp &nbsp Biaya Mesin dan Perlengkapannya<button type="button" class="btn btn-sm px-1 mx-1"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td >
+                                <td>
+                                    @if ($projeks->flag == '1')
+                                    Biaya Langsung
+                                        @else
+                                    Biaya Tidak Langsung
+                                    @endif
+                                </td>
+                                <td>
+                                    {{ $projeks->parent}}
+                                </td>
+                                <td>
+                                    &nbsp &nbsp {{ $projeks->namaManajemen }}
+                                </td>
+                                <td >
 
-                            </td>
-                            <td >
-                                Kayu Belum Lunas
-                            </td>
-                            <td>
-                                0.20 x 0.20 x 16 m
-                            </td>
-                            <td>
-                                Meranti/Seumantok
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Batang
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-pencil-alt" > </i></button>
-                                <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
-                            </td>
-                        </tr>
-                        <tr style="text-align: center">
-                            <td>
-                                Biaya Tidak Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                Biaya Material Langsung<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td>
-                                &nbsp &nbsp Biaya Konstruksi Kasko Kapal<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
-                            </td>
-                            <td >
-                            </td>
-                            <td >
-                                Kayu Sudah Lunas
-                            </td>
-                            <td>
-                                0.20 x 0.20 x 16 m
-                            </td>
-                            <td>
-                                Meranti/Seumantok
-                            </td>
-                            <td>
-                                1
-                            </td>
-                            <td>
-                                Batang
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                Rp 1,600,000.00
-                            </td>
-                            <td>
-                                <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-pencil-alt" > </i></button>
-                                <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
-                            </td>
-                        </tr>
+                                </td>
+                                <td >
+                                {{ $projeks->nama }}
+                                </td>
+                                <td>
+                                    {{ $projeks->ukuran }}
+                                </td>
+                                <td>
+                                    {{ $projeks->jenisAnggaran }}
+                                </td>
+                                <td>
+                                    {{ $projeks->volume }}
+                                </td>
+                                <td>
+                                    {{ $projeks->satuan }}
+                                </td>
+                                <td>
+                                    {{ $projeks->hargasatuan }}
+                                </td>
+                                <td>
+                                    {{ $projeks->nominal }}
+                                </td>
+                                <td>
+                                    <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt" > </i></button>
+                                    {{-- <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button> --}}
+                                </td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -174,33 +105,36 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Tambah Data</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Jenis Biaya</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 <div class="modal-body">
-                <form id="add-transaksi" method="post" action="{{ route('list_proyek') }}">
+                <form id="add-transaksi" method="post" action="{{ route('management_projek.biaya.insertJenisBiaya',['id_proyek' => $id_proyek]) }}">
                     @csrf
                     <div class="form-group">
-                        <label for="jenis-akun">Biaya</label>
-                        <select class="form-control" id="jenis-status" name="jenis_status" required>
+                        <label for="flag">Biaya</label>
+                        <select class="form-control" id="flag" name="flag" required>
                         <option disabled selected value> -- pilih biaya -- </option>
-                        <option value="Biaya Langsung">Biaya Langsung</option>
-                        <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        <option value="1">Biaya Langsung</option>
+                        <option value="2">Biaya Tidak Langsung</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="jenis-akun">Jenis Biaya</label>
-                        <select class="form-control" id="jenis-status" name="jenis_status" required>
-                        <option disabled selected value> -- pilih jenis biaya -- </option>
-                        <option value="Biaya Langsung">Biaya Langsung</option>
-                        <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        <label for="idParent">Jenis Biaya</label>
+                        <select class="form-control" id="idParent" name="idParent">
+                        <option selected value=""> Tidak ada </option>
+                        @foreach ($jenisBiaya as $jenisB)
+                        <option value="{{$jenisB->id}}"> {{$jenisB->namaManajemen}}</option>
+                        @endforeach
+                        {{-- <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        <option value="Biaya Langsung"></option> --}}
                         </select>
                     </div>
                     <div class="form-group">
-                    <label for="kodeproyek">Nama Biaya</label>
-                        <input autocomplete="off" type="text" id="kodeproyek" name="kodeproyek" class="form-control">
+                    <label for="namaManajemen">Nama Biaya</label>
+                        <input autocomplete="off" type="text" id="namaManajemen" name="namaManajemen" class="form-control">
                     </div>
                 </form>
             </div>
@@ -216,43 +150,65 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="contohModalLabel">Tambah Data</h5>
+                        <h5 class="modal-title" id="contohModalLabel">Detail Biaya</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                 <div class="modal-body">
-                <form id="add-transaksi" method="post" action="{{ route('list_proyek') }}">
+                <form id="add-detailBiaya" method="post" action="{{ route('management_projek.biaya.insertBiaya',['id_proyek' => $id_proyek]) }}">
                     @csrf
+                    <input id="add-idproyek" name="id_proyek" type="hidden" class="form-control" value="{{$id_proyek}}">
                     <div class="form-group">
-                        <label for="edit-keterangan">Keterangan</label>
-                        <input autocomplete="off" type="text" id="edit-keterangan" name="keterangan" class="form-control">
+                        <label for="idParentChild">Jenis Biaya</label>
+                        <select class="form-control" id="idParentChild" name="idParentChild" required>
+                        <option disabled selected value> -- pilih jenis biaya --</option>
+                        @foreach ($jenisBiayaChild as $jenisBC)
+                        <option value="{{$jenisBC->id}}"> {{$jenisBC->namaManajemen}}</option>
+                        @endforeach
+                        {{-- <option value="Biaya Tidak Langsung">Biaya Tidak Langsung</option>
+                        <option value="Biaya Langsung"></option> --}}
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit-ukuran">Pendapatan Proyek</label>
-                        <input autocomplete="off" type="number" id="edit-ukuran" name="ukuran" class="form-control">
+                        <label for="add-keterangan">Keterangan</label>
+                        <input autocomplete="off" type="text" id="add-keterangan" name="nama" class="form-control">
+                    </div>
+                    <div id="jenis_neraca" class="form-group">
+                        <label>Jenis Neraca</label>
+                        <select class="form-control" name="jenis_neraca">
+                        <option value="Aset Lancar">Aset Lancar</option>
+                        <option value="Aset Tetap">Aset Tetap</option>
+                        <option value="Kewajiban Lancar">Kewajiban Lancar</option>
+                        <option value="Kewajiban Panjang">Kewajiban Jangka Panjang</option>
+                        <option value="Ekuitas">Ekuitas</option>
+                        </select>
                     </div>
                     <div class="form-group">
-                        <label for="edit-jenis">Jenis</label>
-                        <input autocomplete="off" type="text" id="edit-jenis" name="jenis" class="form-control">
+                        <label for="add-ukuran">Ukuran</label>
+                        <input autocomplete="off" type="text" id="add-ukuran" name="biaya_ukuran" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="edit-volume">Volume</label>
-                        <input autocomplete="off" type="text" id="edit-volume" name="volume" class="form-control">
+                        <label for="add-jenis">Jenis</label>
+                        <input autocomplete="off" type="text" id="add-jenis" name="biaya_jenis" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="edit-satuan">Satuan</label>
-                        <input autocomplete="off" type="text" id="edit-satuan" name="satuan" class="form-control">
+                        <label for="add-volume">Volume</label>
+                        <input autocomplete="off" type=number step=0.01 id="add-volume" name="biaya_volume" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label for="edit-hargasatuan">Harga Satuan</label>
-                        <input autocomplete="off" type="number" id="edit-hargasatuan" name="hargasatuan" class="form-control">
+                        <label for="add-satuan">Satuan</label>
+                        <input autocomplete="off" type="text" id="add-satuan" name="biaya_satuan" class="form-control" required>
                     </div>
-                </form>
-            </div>
+                    <div class="form-group">
+                        <label for="add-hargasatuan">Harga Satuan</label>
+                        <input autocomplete="off" type="number" id="add-hargasatuan" name="biaya_hargasatuan" class="form-control" required>
+                    </div>
+                </div>
+            </form>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" form="add-transaksi">Simpan</button>
+                        <button type="submit" class="btn btn-primary" form="add-detailBiaya">Simpan</button>
                     </div>
                 </div>
             </div>
