@@ -68,7 +68,6 @@
                                     &nbsp &nbsp {{ $projeks->namaManajemen }}
                                 </td>
                                 <td >
-
                                 </td>
                                 <td >
                                 {{ $projeks->nama }}
@@ -92,8 +91,8 @@
                                     {{ $projeks->nominal }}
                                 </td>
                                 <td>
-                                    <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt" > </i></button>
-                                    {{-- <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button> --}}
+                                    <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>
+                                    <a href="{{ route('management_projek.biaya.delete', ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
                                 </td>
                             </tr>
                         @endforeach
@@ -213,9 +212,9 @@
                 </div>
             </div>
         </div>
-
+        @foreach ($akunTransaksiProjeks as $projeks)
         {{-- Edit detail biaya --}}
-        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+        <div class="modal fade" id="editModal{{ $projeks->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -225,45 +224,46 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form id="edit-transaksi" method="post" action="{{ route('update_list_proyek') }}">
+                        <form id="edit-transaksi{{$projeks->id}}" method="post" action="{{ route('management_projek.biaya.edit', ['id_proyek' => $id_proyek]) }}">
                             @csrf
-                            <input id="edit-id" name="id" type="hidden" class="form-control">
+                            <input id="edit-id" name="id" type="hidden" class="form-control" value="{{$projeks->id}}">
                             <div class="form-group">
                                 <label for="edit-keterangan">Keterangan</label>
-                                <input autocomplete="off" type="text" id="edit-keterangan" name="keterangan" class="form-control">
+                                <input autocomplete="off" type="text" id="edit-keterangan" name="keterangan" class="form-control" value="{{$projeks->nama}}" disabled>
                             </div>
                             <div class="form-group">
-                                <label for="edit-ukuran">Pendapatan Proyek</label>
-                                <input autocomplete="off" type="number" id="edit-ukuran" name="ukuran" class="form-control">
+                                <label for="edit-ukuran">Ukuran</label>
+                                <input autocomplete="off" type="text" id="edit-ukuran" name="ukuran" class="form-control" value="{{$projeks->ukuran}}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-jenis">Jenis</label>
-                                <input autocomplete="off" type="text" id="edit-jenis" name="jenis" class="form-control">
+                                <input autocomplete="off" type="text" id="edit-jenis" name="jenisAnggaran" class="form-control" value="{{$projeks->jenisAnggaran}}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-volume">Volume</label>
-                                <input autocomplete="off" type="text" id="edit-volume" name="volume" class="form-control">
+                                <input autocomplete="off" type=number step=0.01 id="edit-volume" name="volume" class="form-control" value="{{$projeks->volume}}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-satuan">Satuan</label>
-                                <input autocomplete="off" type="text" id="edit-satuan" name="satuan" class="form-control">
+                                <input autocomplete="off" type="text" id="edit-satuan" name="satuan" class="form-control" value="{{$projeks->satuan}}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-hargasatuan">Harga Satuan</label>
-                                <input autocomplete="off" type="number" id="edit-hargasatuan" name="hargasatuan" class="form-control">
+                                <input autocomplete="off" type="number" id="edit-hargasatuan" name="hargasatuan" class="form-control" value="{{$projeks->hargasatuan}}">
                             </div>
                         </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" form="edit-transaksi">Simpan</button>
+                        <button type="submit" class="btn btn-primary" form="edit-transaksi{{$projeks->id}}">Simpan</button>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endif
-@endsection
+    @endforeach
+    @endif
+    @endsection
 
 @section('js')
 <script>
@@ -281,4 +281,8 @@
         } );
     } );
 </script>
+
+<script src="{{ asset('js/bootstable-biaya.js') }}"></script>
+
+
 @endsection

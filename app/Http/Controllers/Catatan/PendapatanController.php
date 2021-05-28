@@ -16,7 +16,7 @@ use App\Models\User;
 use App\Models\Proyek;
 
 
-class AnggaranController extends Controller
+class PendapatanController extends Controller
 {
     //
     public function index($id_proyek){
@@ -29,10 +29,10 @@ class AnggaranController extends Controller
         // return view('proyek.biaya.index', compact('perusahaans', 'pemiliks', 'proyeks', 'akuntransaksikantors', 'anggarans'));
     }
 
-    public function insertBiaya (Request $request) {
+    public function insertPendapatan (Request $request) {
         // dd($request->all());
 
-        $jumlah = $request->biaya_volume * $request->biaya_hargasatuan;
+        // $jumlah = $request->biaya_volume * $request->biaya_hargasatuan;
 
         $akun = AkunTransaksiProyek::create([
             'nama' => $request->nama,
@@ -40,7 +40,7 @@ class AnggaranController extends Controller
             'id_perusahaan' => (User::find(Auth::user()->id))->id_perusahaan,
             'jenis_neraca' => $request->jenis_neraca,
             'idmanajemen' => $request->idParentChild,
-            'jenis' => 'Keluar',
+            'jenis' => 'Masuk',
         ]);
 
         $anggaran = Anggaran::create([
@@ -71,16 +71,6 @@ class AnggaranController extends Controller
         return redirect()->back();
     }
 
-    public function insertJenisBiaya (Request $request) {
-        $manajemen = Manajemen::create([
-            'namaManajemen' => $request->namaManajemen,
-            'idParent' => $request->idParent,
-            'flag' => $request->flag,
-            ]);
-
-            //dd($manajemen);
-        return redirect()->back();
-    }
 
 
     public function edit(Request $request, $id_proyek)
@@ -115,36 +105,21 @@ class AnggaranController extends Controller
         return redirect()->back();
     }
 
-    public function list_biaya($id_proyek)
+    public function list_pendapatan($id_proyek)
     {
         $anggarans = Anggaran::where('id', '=', 'proyeks.id')->get();
         $akun_neraca_saldos = AkunNeracaSaldo::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
-        $jenisBiaya = Manajemen::whereNull('idParent')->get();
-        $jenisBiayaChild = Manajemen::whereNotNull('idParent')->get();
-        $akunTransaksiProjeks = AkunTransaksiProyek::where([['akun_transaksi_proyeks.jenis', 'Keluar'],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan]])
+        $akunTransaksiProjeks = AkunTransaksiProyek::where([['akun_transaksi_proyeks.jenis', 'Masuk'],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan]])
             ->join('anggaran_proyek','anggaran_proyek.id_akun_tr_proyek','=','akun_transaksi_proyeks.id')
                 // ->join('manajemen', 'manajemen.id', '=', 'akun_transaksi_proyeks.idmanajemen')
-                    ->where('anggaran_proyek.id_proyek', '=', $id_proyek)
-                        ->whereNotNull('akun_transaksi_proyeks.idmanajemen')->get();
-        foreach($akunTransaksiProjeks as $projek){
-            $manajemens = Manajemen::select('id as idmanajemen', 'namaManajemen', 'idParent', 'flag')
-                ->where("id", '=', $projek->idmanajemen)->get();
-            foreach ($manajemens as $manajemen) {
-                //dd($manajemen);
-                $projek->namaManajemen = $manajemen->namaManajemen;
-                //$projek->idParent = $manajemen->idParent;
-                $projek->flag = $manajemen->flag;
-                $namaprojek = Manajemen::select('namaManajemen')->where("id", '=', $manajemen->idParent)->first()->toArray();
-                $projek->parent = $namaprojek['namaManajemen'];
-            }
-        }
+                    ->where('anggaran_proyek.id_proyek', '=', $id_proyek)->get();
         // dd($akunTransaksiProjeks);
         //dd($jenisBiaya);
-        return view('proyek\biaya\index', compact('akunTransaksiProjeks', 'anggarans', 'jenisBiaya', 'id_proyek', 'jenisBiayaChild', 'akun_neraca_saldos'));
+        return view('proyek\pendapatan\index', compact('akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
     }
 
-    public function list_pendapatan($id_projek)
-    {
-        return view('proyek\pendapatan\index');
-    }
+    // public function list_pendapatan($id_projek)
+    // {
+    //     return view('proyek\pendapatan\index');
+    // }
 }

@@ -15,7 +15,8 @@
         <div class="row">
             <div class="col-sm">
                 <div class="row justify-content-start pl-2 pt-2">
-                    <a href="{{ route('list_proyek') }}"><button type="button" class="btn btn-sm btn-secondary"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                    <a href="{{ route('list_proyek') }}"><button type="button" class="btn btn-sm btn-secondary mr-2"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                    <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Pendapatan</button></a>
                 </div>
             </div>
         </div>
@@ -45,12 +46,13 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($akunTransaksiProjeks as $projeks)
                     <tr style="text-align: center">
                         <td>
-                            Pendapatan<button type="button" class="btn btn-sm px-1 mx-1" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i></button>
+                            Pendapatan
                         </td>
                         <td>
-                            Nama Pendapatan
+                            {{ $projeks->namaManajemen }}
                         </td>
                         <td>
                             Jumlah
@@ -60,6 +62,7 @@
                             <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>
@@ -75,7 +78,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-transaksi" method="post" action="{{ route('update_list_proyek') }}">
+                    <form id="edit-transaksi" method="post" action="{{ route('management_projek.pendapatan.edit',['id_proyek' => 1]) }}">
                         @csrf
                         <input id="edit-id" name="id" type="hidden" class="form-control">
                         <div class="form-group">

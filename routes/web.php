@@ -98,14 +98,20 @@ Route::post('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class
 Route::post('update_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'edit'])->name('update_list_proyek');
 Route::post('delete_list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'delete'])->name('delete_list_proyek');
 
+Route::get('/get_biaya/{id}', [App\Http\Controllers\Proyek\AnggaranController::class, 'getById'])->name('get_biaya_byId');
 Route::get('/list_proyek', [App\Http\Controllers\Proyek\ProyekController::class, 'index'])->name('list_proyek');
 Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(function () {
     Route::prefix('pendapatan')->name('pendapatan.')->group(function () {
-        Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_pendapatan'])->name('index');
+        Route::get('/', [App\Http\Controllers\Catatan\PendapatanController::class, 'list_pendapatan'])->name('index');
+        Route::post('/insert', [App\Http\Controllers\Catatan\PendapatanController::class, 'insertPendapatan'])->name('insertPendapatan');
+        Route::post('/edit', [App\Http\Controllers\Catatan\PendapatanController::class, 'edit'])->name('edit');
+        Route::get('/delete/{id}', [App\Http\Controllers\Catatan\PendapatanController::class, 'delete'])->name('delete');
     });
     Route::prefix('biaya')->name('biaya.')->group(function () {
         Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_biaya'])->name('index');
         Route::post('/insert', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertBiaya'])->name('insertBiaya');
         Route::post('/insertjenis', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertJenisBiaya'])->name('insertJenisBiaya');
+        Route::post('/edit', [App\Http\Controllers\Catatan\AnggaranController::class, 'edit'])->name('edit');
+        Route::get('/delete/{id}', [App\Http\Controllers\Catatan\AnggaranController::class, 'delete'])->name('delete');
     });
 });
