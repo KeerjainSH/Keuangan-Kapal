@@ -56,9 +56,11 @@
                         <tr style="text-align: center">
                                 <td>
                                     @if ($projeks->flag == '1')
-                                    Biaya Langsung
-                                        @else
-                                    Biaya Tidak Langsung
+                                        Biaya Langsung
+                                    @elseif ($projeks->flag == '2')
+                                        Biaya Tidak Langsung
+                                    @else
+                                        Biaya Overhead
                                     @endif
                                 </td>
                                 <td>
@@ -118,6 +120,7 @@
                         <option disabled selected value> -- pilih biaya -- </option>
                         <option value="1">Biaya Langsung</option>
                         <option value="2">Biaya Tidak Langsung</option>
+                        <option value="3">Biaya Overhead</option>
                         </select>
                     </div>
                     <div class="form-group">

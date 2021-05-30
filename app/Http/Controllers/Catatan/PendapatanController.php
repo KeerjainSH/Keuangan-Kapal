@@ -35,11 +35,10 @@ class PendapatanController extends Controller
         // $jumlah = $request->biaya_volume * $request->biaya_hargasatuan;
 
         $akun = AkunTransaksiProyek::create([
-            'nama' => $request->nama,
+            'nama' => $request->namaPendapatan,
             'jenis' => $request->at_jenis,
             'id_perusahaan' => (User::find(Auth::user()->id))->id_perusahaan,
             'jenis_neraca' => $request->jenis_neraca,
-            'idmanajemen' => $request->idParentChild,
             'jenis' => 'Masuk',
         ]);
 
@@ -47,12 +46,7 @@ class PendapatanController extends Controller
             'id_akun_tr_proyek' => $akun->id,
             'id_perusahaan' => Auth::user()->id_perusahaan,
             'id_proyek' => $request->id_proyek,
-            'ukuran' => $request->biaya_ukuran,
-            'jenisAnggaran' => $request->biaya_jenis,
-            'volume' => $request->biaya_volume,
-            'satuan' => $request->biaya_satuan,
-            'hargasatuan' => $request->biaya_hargasatuan,
-            'nominal' => $jumlah,
+            'nominal' => $request->jumlahPendapatan,
         ]);
 
         // $proyeks = Proyek::where('id_perusahaan', Auth::user()->id_perusahaan)->get();
@@ -76,18 +70,14 @@ class PendapatanController extends Controller
     public function edit(Request $request, $id_proyek)
     {
         $anggaran = Anggaran::find($request->id);
-        $jumlah = $request->volume * $request->hargasatuan;
-
-        // dd($jumlah);
+        // dd($anggaran->id_akun_tr_proyek);
+        $akuntrproyek = AkunTransaksiProyek::find($anggaran->id_akun_tr_proyek);
         $anggaran->id = $request->id;
-        $anggaran->ukuran = $request->ukuran;
-        $anggaran->jenisAnggaran = $request->jenisAnggaran;
-        $anggaran->volume = $request->volume;
-        $anggaran->satuan = $request->satuan;
-        $anggaran->hargasatuan = $request->hargasatuan;
-        $anggaran->nominal = $jumlah;
+        $akuntrproyek->nama = $request->nama;
+        $anggaran->nominal = $request->nominal;
 
         $anggaran->save();
+        $akuntrproyek->save();
 
         return redirect()->back();
     }
@@ -99,6 +89,7 @@ class PendapatanController extends Controller
             $anggarans = Anggaran::find($anggaran);
             $akuntrproyek = AkunTransaksiProyek::find($anggarans->id_akun_tr_proyek)->delete();
             $anggarans->delete();
+            // $akuntrproyek->delete()
         } catch (Exception $e) {
             return $e->getMessage();
         }
@@ -114,7 +105,7 @@ class PendapatanController extends Controller
                 // ->join('manajemen', 'manajemen.id', '=', 'akun_transaksi_proyeks.idmanajemen')
                     ->where('anggaran_proyek.id_proyek', '=', $id_proyek)->get();
         // dd($akunTransaksiProjeks);
-        //dd($jenisBiaya);
+        // dd($request->all());
         return view('proyek\pendapatan\index', compact('akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
     }
 

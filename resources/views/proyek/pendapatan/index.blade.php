@@ -52,14 +52,15 @@
                             Pendapatan
                         </td>
                         <td>
-                            {{ $projeks->namaManajemen }}
+                            {{ $projeks->nama }}
                         </td>
                         <td>
-                            Jumlah
+                            {{ $projeks->nominal }}
                         </td>
                         <td>
                             <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal"><i class="fas fa-pencil-alt" > </i></button>
-                            <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button>
+                            <a href="{{ route('management_projek.pendapatan.delete', ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
+                            {{-- <button id="bElim" type="button" class="btn btn-sm btn-link p-0 mx-1" ><i class="fas fa-trash-alt" > </i></button> --}}
                         </td>
                     </tr>
                     @endforeach
@@ -67,7 +68,48 @@
             </table>
         </div>
     </div>
+
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Jenis Biaya</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            <div class="modal-body">
+            <form id="add-transaksi" method="post" action="{{ route('management_projek.pendapatan.insertPendapatan',['id_proyek' => $id_proyek]) }}">
+                @csrf
+                <div class="form-group">
+                    <label for="namaPendapatan">Nama Pendapatan</label>
+                    <input autocomplete="off" type="text" id="namaPendapatan" name="namaPendapatan" class="form-control">
+                </div>
+                <div id="jenis_neraca" class="form-group">
+                    <label>Jenis Neraca</label>
+                    <select class="form-control" name="jenis_neraca">
+                    <option value="Aset Lancar">Aset Lancar</option>
+                    <option value="Aset Tetap">Aset Tetap</option>
+                    <option value="Kewajiban Lancar">Kewajiban Lancar</option>
+                    <option value="Kewajiban Panjang">Kewajiban Jangka Panjang</option>
+                    <option value="Ekuitas">Ekuitas</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="jumlahPendapatan">Jumlah Pendapatan</label>
+                    <input autocomplete="off" type=number step=0.01 id="jumlahPendapatan" name="jumlahPendapatan" class="form-control">
+                </div>
+            </form>
+        </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" form="add-transaksi">Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- /.card-body -->
+    @foreach ($akunTransaksiProjeks as $projeks)
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -78,26 +120,27 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="edit-transaksi" method="post" action="{{ route('management_projek.pendapatan.edit',['id_proyek' => 1]) }}">
+                    <form id="edit-transaksi{{$projeks->id}}" method="post" action="{{ route('management_projek.pendapatan.edit',['id_proyek' => $id_proyek]) }}">
                         @csrf
-                        <input id="edit-id" name="id" type="hidden" class="form-control">
+                        <input id="edit-id" name="id" type="hidden" class="form-control" value="{{$projeks->id}}">
                         <div class="form-group">
                             <label for="edit-namapendapatan">Nama Pendapatan</label>
-                            <input autocomplete="off" type="text" id="edit-namapendapatan" name="namapendapatan" class="form-control">
+                            <input autocomplete="off" type="text" id="edit-namapendapatan" name="namapendapatan" class="form-control" value="{{$projeks->nama}}">
                         </div>
                         <div class="form-group">
                             <label for="edit-pendapatanproyek">Pendapatan Proyek</label>
-                            <input autocomplete="off" type="number" id="edit-pendapatanproyek" name="pendapatanproyek" class="form-control">
+                            <input autocomplete="off" type="number" id="edit-pendapatanproyek" name="pendapatanproyek" class="form-control" value="{{$projeks->nominal}}">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" form="edit-transaksi">Simpan</button>
+                    <button type="submit" class="btn btn-primary" form="edit-transaksi{{$projeks->id}}">Simpan</button>
                 </div>
             </div>
         </div>
     </div>
+    @endforeach
     <div class="card-footer">
     </div>
     <!-- /.card-footer -->
