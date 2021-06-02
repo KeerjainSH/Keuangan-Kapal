@@ -97,7 +97,7 @@
                 </div>
                 <div class="form-group">
                     <label for="jumlahPendapatan">Jumlah Pendapatan</label>
-                    <input autocomplete="off" type=number step=0.01 id="jumlahPendapatan" name="jumlahPendapatan" class="form-control">
+                    <input autocomplete="off" type=number step=0.001 id="jumlahPendapatan" name="jumlahPendapatan" class="form-control">
                 </div>
             </form>
         </div>

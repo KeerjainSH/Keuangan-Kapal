@@ -21,6 +21,7 @@ class Gudang extends Model
         'jenis',
         'sisa',
         'keterangan',
+        'tanggal_transaksi_gudang',
         //  'harga_satuan',
     ];
 

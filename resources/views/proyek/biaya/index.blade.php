@@ -196,7 +196,7 @@
                     </div>
                     <div class="form-group">
                         <label for="add-volume">Volume</label>
-                        <input autocomplete="off" type=number step=0.01 id="add-volume" name="biaya_volume" class="form-control" required>
+                        <input autocomplete="off" type=number step=0.001 id="add-volume" name="biaya_volume" class="form-control" required>
                     </div>
                     <div class="form-group">
                         <label for="add-satuan">Satuan</label>
@@ -244,7 +244,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="edit-volume">Volume</label>
-                                <input autocomplete="off" type=number step=0.01 id="edit-volume" name="volume" class="form-control" value="{{$projeks->volume}}">
+                                <input autocomplete="off" type=number step=0.001 id="edit-volume" name="volume" class="form-control" value="{{$projeks->volume}}">
                             </div>
                             <div class="form-group">
                                 <label for="edit-satuan">Satuan</label>

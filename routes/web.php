@@ -55,8 +55,12 @@ Route::post('rej_invite', [App\Http\Controllers\dashboard\PerusahaanController::
 Route::post('edit_role', [App\Http\Controllers\dashboard\PerusahaanController::class, 'edit_role'])->name('edit_role');
 Route::post('delete_member', [App\Http\Controllers\dashboard\PerusahaanController::class, 'delete_member'])->name('delete_member');
 
+//Route Gudang
 Route::post('create_gudang', [App\Http\Controllers\GudangController::class, 'create'])->name('create_gudang');
-
+Route::prefix('gudang')->name('gudang.')->group(function () {
+    Route::post('/edit', [App\Http\Controllers\GudangController::class, 'edit'])->name('edit');
+    Route::get('/delete/{id}', [App\Http\Controllers\GudangController::class, 'delete'])->name('delete');
+});
 Route::post('form_neraca', [App\Http\Controllers\AkunController::class, 'addAkunNeraca'])->name('form_neraca');
 Route::post('form_pemasok', [App\Http\Controllers\AkunController::class, 'addPemasok'])->name('form_pemasok');
 Route::post('form_proyek', [App\Http\Controllers\AkunController::class, 'addProyek'])->name('form_proyek');
@@ -84,6 +88,7 @@ Route::post('delete_transaksi_proyek', [App\Http\Controllers\Catatan\TransaksiPr
 Route::post('create_transaksi_kantor', [App\Http\Controllers\Catatan\TransaksiKantorController::class, 'insert'])->name('create_transaksi_kantor');
 Route::post('update_transaksi_kantor', [App\Http\Controllers\Catatan\TransaksiKantorController::class, 'edit'])->name('update_transaksi_kantor');
 Route::post('delete_transaksi_kantor', [App\Http\Controllers\Catatan\TransaksiKantorController::class, 'delete'])->name('delete_transaksi_kantor');
+
 
 // Route Anggaran
 Route::post('update_anggaran', [App\Http\Controllers\Catatan\AnggaranController::class, 'edit'])->name('update_anggaran');

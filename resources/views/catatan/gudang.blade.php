@@ -30,6 +30,7 @@
         <div class="dataTables_wrapper">
             <table id="table1" class="table table-stripped table-hover dataTable table-condensed table-sm">
                 <thead class="thead-light">
+                    <th>Tanggal</th>
                     <th style="width: 10%">Id Proyek</th>
                     <th style="width: 40%">Nama Barang</th>
                     <th style="width: 30%">Satuan</th>
@@ -37,11 +38,12 @@
                     <th style="width: 10%">Jenis</th>
                     <th style="width: 10%">Sisa</th>
                     <th style="width: 30%">Keterangan</th>
-
+                    <th style="text-align: center">Aksi</th>
                 </thead>
                 <tbody>
                     @foreach($items as $item)
                     <tr>
+                        <td>{{$item->tanggal_transaksi_gudang}}</td>
                         <td>{{$item->kode_proyek}}</td>
                         <td>{{$item->nama_barang}}</td>
                         <td>{{$item->satuan}}</td>
@@ -49,6 +51,10 @@
                         <td>{{$item->jenis}}</td>
                         <td>{{$item->sisa}}</td>
                         <td>{{$item->keterangan}}</td>
+                        <td>
+                        <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$item->id}}"><i class="fas fa-pencil-alt" > </i></button>
+                        <a href="{{ route('gudang.delete', ['id' => $item->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -77,6 +83,10 @@
                 <form id="form-gudang" method="POST" action="{{route ('create_gudang')}}">
                     @csrf
                     <div class="form-group">
+                        <label for="nama-akun">Tanggal</label>
+                        <input id="daterange-form" name="tanggal_transaksi_gudang" value="01/01/2018" type="text" class="form-control">
+                    </div>
+                    <div class="form-group">
                         <label for="nama_barang">Nama Barang - id proyek - id transaksi</label>
                         <select class="form-control" id="nama_barang" name="id_parent">
                             @foreach($inventoris as $inventori)
@@ -102,6 +112,53 @@
         </div>
     </div>
 </div>
+
+@foreach ($items as $item)
+{{-- Edit detail biaya --}}
+<div class="modal fade" id="editModal{{ $item->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Biaya</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-transaksi{{$item->id}}" method="post" action="{{ route('gudang.edit', ['id' => $item->id]) }}">
+                    @csrf
+                    <input id="edit-id" name="id" type="hidden" class="form-control" value="{{$item->id}}">
+                    <div class="form-group">
+                        <label for="nama-akun">Tanggal</label>
+                        <input id="daterange-form" name="edit_tanggal_transaksi_gudang" value="01/01/2018" type="text" class="form-control" value="{{$item->tanggal_transaksi_gudang}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="nama_barang">Nama Barang - id proyek - id transaksi</label>
+                        <select class="form-control" id="nama_barang" name="edit_id_parent">
+                            @foreach($inventoris as $inventori)
+                            <option value="{{ $inventori->nama_barang.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}">{{$inventori->nama_barang." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="jumlah">Jumlah</label>
+                        <input autocomplete="off" type="number" id="jumlah" class="form-control" name="edit_jumlah" value="{{$item->jumlah}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="keterangan">Keterangan</label>
+                        <textarea name="edit_keterangan" id="keterangan" cols="30" rows="5" class="form-control" >{{$item->keterangan}}</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="edit-transaksi{{$item->id}}">Simpan</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+@endforeach
 @endif
 @endsection
 
@@ -154,7 +211,7 @@
             window.location.href = url;
             // console.log("A new date selection was made: " + start + ' to ' + end);
         });
-        $('input[name="tgl_transaksi"]').daterangepicker({
+        $('input[name="tanggal_transaksi_gudang"]').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,

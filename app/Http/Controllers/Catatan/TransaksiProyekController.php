@@ -106,7 +106,8 @@ class TransaksiProyekController extends Controller
                 'jenis' => 'Masuk',
                 //  'harga_satuan' => (floatval(str_replace(",","",$request->jumlah_transaksi))/$request->jumlah_material),
                 'sisa' => intval($request->jumlah_material) + intval($sisa),
-                'keterangan' => '-'
+                'keterangan' => '-',
+                'tanggal_transaksi_gudang' => DateTime::CreateFromFormat('d/m/Y', $request->tanggal_transaksi),
             ]);
         }
 

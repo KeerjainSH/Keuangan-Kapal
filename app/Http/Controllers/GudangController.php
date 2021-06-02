@@ -50,10 +50,9 @@ class GudangController extends Controller
         // else if($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
 
 
-        // dd($request);
         $split = explode("-", $request->id_parent);
         $data = DB::table('gudangs')
-            ->select('*')
+        ->select('*')
             ->where('id_proyek', '=', $split[1])
             ->where('nama_barang', '=', $split[0])
             ->orderByDesc('id')
@@ -78,9 +77,11 @@ class GudangController extends Controller
                 // 'harga_satuan' => $request->harga_satuan,
                 'id_perusahaan' => $perusahaan->id,
                 'sisa' => $sisa - $request->jumlah,
-                'keterangan' => $request->keterangan
-            ]);
-            return redirect()->route('gudang');
+                'keterangan' => $request->keterangan,
+                'tanggal_transaksi_gudang' => $request->tanggal_transaksi_gudang
+                ]);
+                // dd($request->all());
+                return redirect()->route('gudang');
         } else {
             //kalau belum ada perusahaan, data tidak bisa masuk hehehe
             return redirect()->route('gudang');
@@ -95,6 +96,19 @@ class GudangController extends Controller
      */
     public function store(Request $request)
     {
+    }
+
+    public function delete($gudang)
+    {
+        // dd($request);
+        try {
+            $gudangs = Gudang::find($gudang);
+            // $akuntrproyek = AkunTransaksiProyek::find($anggarans->id_akun_tr_proyek)->delete();
+            $gudangs->delete();
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return redirect()->back();
     }
 
     /**
@@ -114,9 +128,21 @@ class GudangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request)
     {
-        //
+        $gudang = Gudang::find($request->id);
+
+        $gudang->id = $request->id;
+        // $gudang->nama_barang = $request->edit_nama_barang;
+        // $gudang->satuan = $request->edit_satuan;
+        $gudang->jumlah = $request->edit_jumlah;
+        // $gudang->tanggal_transaksi_gudang->$request->edit_tanggal_transaksi_gudang;
+        $gudang->keterangan = $request->edit_keterangan;
+        // dd($gudang);
+
+        $gudang->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -138,7 +164,8 @@ class GudangController extends Controller
             'satuan' => $request->satuan,
             'jumlah' => $request->jumlah,
             'sisa' => $request->sisa,
-            'keterangan' => $request->keterangan
+            'keterangan' => $request->keterangan,
+            'tanggal_transaksi_gudang' => $request->tanggal_transaksi_gudang
             // 'harga_satuan' => $request->harga_satuan,
         ]);
 
@@ -159,6 +186,7 @@ class GudangController extends Controller
     {
         //
         Gudang::where('id', $id)->destroy();
+        return redirect()->back();
     }
 
     public function pageGudang($date_range = null)
@@ -172,8 +200,8 @@ class GudangController extends Controller
             //     ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)
             //     ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end])
             //     ->get();
-            // $catatan_gudangs = DB::select('select g.* from gudangs g, perusahaans p, catatan_transaksi_proyeks c 
-            // where p.id = g.id_perusahaan 
+            // $catatan_gudangs = DB::select('select g.* from gudangs g, perusahaans p, catatan_transaksi_proyeks c
+            // where p.id = g.id_perusahaan
             // and c.id = g.id_transaksi')
             // ->whereBetween('c.tanggal_transaksi', [$start, $end])
             // ->get();
