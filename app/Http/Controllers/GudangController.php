@@ -8,6 +8,7 @@ use App\Models\Perusahaan;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Catatan\TransaksiProyek;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 use Carbon\Carbon;
 
 class GudangController extends Controller
@@ -27,6 +28,7 @@ class GudangController extends Controller
             ->get();
         $inventoris = Gudang::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
             ->where('jenis', '=', 'Masuk')->get();
+            // dd($items[1]);
         // dd($items);
         return view('catatan/gudang', compact('items', 'perusahaan', 'inventoris'));
     }
@@ -66,7 +68,7 @@ class GudangController extends Controller
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         // $parent = Gudang::find($request->id_parent);
         if (!empty($perusahaan)) {
-            Gudang::create([
+            $data = Gudang::create([
                 // 'id_parent' => $request->id_parent,
                 'id_proyek' => $split[1],
                 'nama_barang' => $split[0],
@@ -78,9 +80,9 @@ class GudangController extends Controller
                 'id_perusahaan' => $perusahaan->id,
                 'sisa' => $sisa - $request->jumlah,
                 'keterangan' => $request->keterangan,
-                'tanggal_transaksi_gudang' => $request->tanggal_transaksi_gudang
+                'tanggal_transaksi_gudang' => DateTime::CreateFromFormat('d/m/Y', $request->tanggal_transaksi_gudang),
                 ]);
-                // dd($request->all());
+                // dd($data);
                 return redirect()->route('gudang');
         } else {
             //kalau belum ada perusahaan, data tidak bisa masuk hehehe
@@ -131,15 +133,16 @@ class GudangController extends Controller
     public function edit(Request $request)
     {
         $gudang = Gudang::find($request->id);
+        $sisas = $gudang->jumlah + $gudang->sisa - $request->edit_jumlah;
 
         $gudang->id = $request->id;
         // $gudang->nama_barang = $request->edit_nama_barang;
         // $gudang->satuan = $request->edit_satuan;
         $gudang->jumlah = $request->edit_jumlah;
-        // $gudang->tanggal_transaksi_gudang->$request->edit_tanggal_transaksi_gudang;
+        $gudang->sisa = $sisas;
+        $gudang->tanggal_transaksi_gudang = DateTime::CreateFromFormat('d/m/Y', $request->edit_tanggal_transaksi_gudang);
         $gudang->keterangan = $request->edit_keterangan;
-        // dd($gudang);
-
+        // dd($gudang->sisa);
         $gudang->save();
 
         return redirect()->back();
@@ -264,7 +267,7 @@ class GudangController extends Controller
         // $bank_sum = AkunNeracaSaldo::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
         //     ->where('jenis_akun', '=', 'Bank')
         //     ->sum('saldo');
-        //dd($date_range);
+        // dd($catatan_gudangs);
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         return view('catatan/gudang', [
             'items' => $catatan_gudangs,

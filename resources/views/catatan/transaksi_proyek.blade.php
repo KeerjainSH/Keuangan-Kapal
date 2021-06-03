@@ -37,7 +37,7 @@
                     <div class="col-2 text-left">
                         <b> Kas </b>
                     </div>
-                    <div class=" col-3 text-right">
+                    <div class=" col-5 text-right">
                         {{ number_format($kas_sum, 2, '.', ',') }}
                     </div>
                 </div>
@@ -46,7 +46,7 @@
                     <div class="col-2 text-left">
                         <b> Bank </b>
                     </div>
-                    <div class="col-3 text-right">
+                    <div class="col-5 text-right">
                         {{ number_format($bank_sum, 2, '.', ',') }}
                     </div>
                 </div>

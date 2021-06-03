@@ -87,8 +87,8 @@
                         <input id="daterange-form" name="tanggal_transaksi_gudang" value="01/01/2018" type="text" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="nama_barang">Nama Barang - id proyek - id transaksi</label>
-                        <select class="form-control" id="nama_barang" name="id_parent">
+                        <label for="nama_barang1">Nama Barang - id proyek - id transaksi</label>
+                        <select class="form-control" id="nama_barang1" name="id_parent">
                             @foreach($inventoris as $inventori)
                             <option value="{{ $inventori->nama_barang.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}">{{$inventori->nama_barang." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
                             @endforeach
@@ -97,11 +97,11 @@
 
                     <div class="form-group">
                         <label for="jumlah">Jumlah</label>
-                        <input autocomplete="off" type="number" id="jumlah" class="form-control" name="jumlah" required>
+                        <input autocomplete="off" type="number" id="jumlah1" class="form-control" name="jumlah" required>
                     </div>
                     <div class="form-group">
                         <label for="keterangan">Keterangan</label>
-                        <textarea name="keterangan" id="keterangan" cols="30" rows="5" class="form-control" required></textarea>
+                        <textarea name="keterangan" id="keterangan1" cols="30" rows="5" class="form-control" required></textarea>
                     </div>
                 </form>
             </div>
@@ -130,13 +130,19 @@
                     <input id="edit-id" name="id" type="hidden" class="form-control" value="{{$item->id}}">
                     <div class="form-group">
                         <label for="nama-akun">Tanggal</label>
-                        <input id="daterange-form" name="edit_tanggal_transaksi_gudang" value="01/01/2018" type="text" class="form-control" value="{{$item->tanggal_transaksi_gudang}}">
+                        <input id="daterange-edit" name="edit_tanggal_transaksi_gudang" type="text" class="form-control" value="{{date('d/m/Y',strtotime($item->tanggal_transaksi_gudang))}}">
                     </div>
                     <div class="form-group">
                         <label for="nama_barang">Nama Barang - id proyek - id transaksi</label>
-                        <select class="form-control" id="nama_barang" name="edit_id_parent">
+                        <select class="form-control" id="nama_barang" name="edit_id_parent" disabled>
                             @foreach($inventoris as $inventori)
-                            <option value="{{ $inventori->nama_barang.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}">{{$inventori->nama_barang." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
+                            <option value="{{ $inventori->nama_barang.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}"
+                            @php
+                                $cek = $inventori->nama_barang;
+                                if($cek == $item->nama_barang){
+                                    echo 'selected';
+                                }
+                            @endphp   >{{$inventori->nama_barang." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -212,6 +218,15 @@
             // console.log("A new date selection was made: " + start + ' to ' + end);
         });
         $('input[name="tanggal_transaksi_gudang"]').daterangepicker({
+            singleDatePicker: true,
+            showDropdowns: true,
+            minYear: 1901,
+            maxYear: parseInt(moment().format('YYYY'), 10),
+            locale: {
+                format: 'DD/MM/YYYY',
+            }
+        });
+        $('input[name="edit_tanggal_transaksi_gudang"]').daterangepicker({
             singleDatePicker: true,
             showDropdowns: true,
             minYear: 1901,
