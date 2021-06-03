@@ -53,10 +53,10 @@ class User extends Authenticatable
         switch($this->role)
         {
             case(1):
-                $role="Administrator";
+                $role="Finance";
                 break;
             case(2):
-                $role="Akuntan";
+                $role="Procurement";
                 break;
             case(3):
                 $role="Pemilik";

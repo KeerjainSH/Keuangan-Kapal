@@ -214,18 +214,19 @@ class GudangController extends Controller
                 ->join('proyeks', 'proyeks.id', '=', 'gudangs.id_proyek')
                 ->join('catatan_transaksi_proyeks', 'catatan_transaksi_proyeks.id', '=', 'gudangs.id_transaksi')
                 ->select('proyeks.kode_proyek', 'gudangs.*')
-                ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end])
+                ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end], 'catatan_transaksi_proyeks.nama_material')
                 ->get();
 
             $date_range = str_replace('-', '/', $date_range);
             $date_range = str_replace(' / ', ' - ', $date_range);
-            // dd($start, $end, $catatan_tr_proyeks);
         } else {
             $catatan_gudangs = DB::table('gudangs')
-                ->join('proyeks', 'proyeks.id', '=', 'gudangs.id_proyek')
-                ->where('gudangs.id_perusahaan', '=', Auth::user()->id_perusahaan)
-                ->select('proyeks.kode_proyek', 'gudangs.*')
-                ->get();
+            ->join('proyeks', 'proyeks.id', '=', 'gudangs.id_proyek')
+            ->join('catatan_transaksi_proyeks', 'catatan_transaksi_proyeks.id', '=', 'gudangs.id_transaksi')
+            ->where('gudangs.id_perusahaan', '=', Auth::user()->id_perusahaan)
+            ->select('proyeks.kode_proyek', 'gudangs.*', 'catatan_transaksi_proyeks.nama_material', 'catatan_transaksi_proyeks.satuan_material')
+            ->get();
+            // dd($catatan_gudangs);
         }
 
         // $sisa = DB::table('gudangs')

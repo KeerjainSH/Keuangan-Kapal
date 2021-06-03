@@ -12,7 +12,7 @@
         color: #CC0000;
     }
 </style>
-<meta name="csrf-token" content="{{ Session::token() }}"> 
+<meta name="csrf-token" content="{{ Session::token() }}">
 @endsection
 
 @section('content_header')
@@ -31,25 +31,25 @@
                     <ul class="list-group list-group-unbordered mb-3">
                         <li class="list-group-item">
                             <div class="row">
-                                <b class="col-md-3">Alamat</b> 
+                                <b class="col-md-3">Alamat</b>
                                 <a id="alamat" class="col">{{ $perusahaan->alamat }}</a>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <b class="col-md-3">Email</b> 
+                                <b class="col-md-3">Email</b>
                                 <a id="email" class="col">{{ $perusahaan->email }}</a>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <b class="col-md-3">Website</b> 
+                                <b class="col-md-3">Website</b>
                                 <a target="_blank" href="http://{{ $perusahaan->website }}" id="web" class="col">{{ $perusahaan->website }}</a>
                             </div>
                         </li>
                         <li class="list-group-item">
                             <div class="row">
-                                <b class="col-md-3">Telp/Fax</b> 
+                                <b class="col-md-3">Telp/Fax</b>
                                 <a id="telp" class="col">{{ $perusahaan->telp }}</a>
                             </div>
                         </li>
@@ -97,16 +97,16 @@
                                     <td>{{ $anggota->name }}</td>
                                     @switch($anggota->role)
                                         @case(1)
-                                            <td>Administrator</td>
+                                            <td>Finance</td>
                                             @break
                                         @case(2)
-                                            <td>Akuntan</td>
+                                            <td>Procurement</td>
                                             @break
                                         @case(3)
-                                            <td>Pemilik Perusahaan</td>
+                                            <td>Direktur</td>
                                             @break
                                         @case(4)
-                                            <td>Pemilik Proyek</td>
+                                            <td>Ship Owner</td>
                                             @break
                                         @default
                                             <td>Super Admin</td>
@@ -136,9 +136,9 @@
                                         <td>
                                             <select class="form-control" name="add_jabatan[]">
                                                 <option value="3">Pemilik</option>
-                                                <option value="4">Pemilik Proyek</option>
-                                                <option value="1">Administrator</option>
-                                                <option value="2">Akuntan</option>
+                                                <option value="4">Ship Owner</option>
+                                                <option value="1">Finance</option>
+                                                <option value="2">Procurement</option>
                                             </select>
                                         </td>
                                     </tr>
@@ -166,16 +166,16 @@
                                         <td>{{ $invitation->email }}</td>
                                         @switch($invitation->role)
                                             @case(1)
-                                                <td>Administrator</td>
+                                                <td>Finance</td>
                                                 @break
                                             @case(2)
-                                                <td>Akuntan</td>
+                                                <td>Procurement</td>
                                                 @break
                                             @case(3)
                                                 <td>Pemilik</td>
                                                 @break
                                             @case(4)
-                                                <td>Pemilik Proyek</td>
+                                                <td>Ship Owner</td>
                                                 @break
                                             @default
                                                 <td>Super Admin</td>
@@ -223,16 +223,16 @@
                             <dt class="col-sm-3">Posisi</dt>
                             @switch($invite->role)
                                 @case(1)
-                                    <dd class="col-sm-9">Administrator</dd>
+                                    <dd class="col-sm-9">Finance</dd>
                                     @break
                                 @case(2)
-                                    <dd class="col-sm-9">Akuntan</dd>
+                                    <dd class="col-sm-9">Procurement</dd>
                                     @break
                                 @case(3)
                                     <dd class="col-sm-9">Pemilik</dd>
                                     @break
                                 @case(4)
-                                    <dd class="col-sm-9">Pemilik Proyek</dd>
+                                    <dd class="col-sm-9">Ship Owner</dd>
                                     @break
                                 @default
                                     <dd class="col-sm-9">Super Admin</dd>
@@ -263,12 +263,12 @@
             <div class="col text-center">
                 <h3 class="my-5">Maaf, Anda belum tergabung perusahaan & tidak ada undangan</h3>
                 <div class="row justify-content-center">
-                    <img src="/images/NoCompany.png" style="width:200px; height:200px;">   
+                    <img src="/images/NoCompany.png" style="width:200px; height:200px;">
                 </div>
                 <div class="row justify-content-center mt-5">
                     <button class="btn btn-primary" data-toggle="modal" data-target="#modalCreate">Buat Perusahaan</button>
                 </div>
-               
+
             </div>
         </div>
         <!-- /.card-body -->
@@ -358,7 +358,7 @@ h5 {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                     });
-    
+
                     $.ajax({
                         url: '/edit_role',
                         method: 'post',
@@ -367,7 +367,7 @@ h5 {
                             user_id: user_id,
                         },
                         success:function(data){
-                            console.log(data);          
+                            console.log(data);
                         }
                     });
                 },
@@ -378,7 +378,7 @@ h5 {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         }
                     });
-    
+
                     $.ajax({
                         url: '/delete_member',
                         method: 'post',
@@ -386,7 +386,7 @@ h5 {
                             user_id: user_id,
                         },
                         success:function(data){
-                            console.log(data);          
+                            console.log(data);
                         }
                     });
                 },
@@ -398,12 +398,12 @@ h5 {
                 var temp_email = $('#email').html();
                 var temp_web = $('#web').html();
                 var temp_telp = $('#telp').html();
-    
+
                 $(this).hide();
                 $('#save-perusahaan').show();
                 $('#alamat').html('<textarea rows="2" cols="30" style="resize: none;">' + temp_alamat + '</textarea>');
                 $('#email').html('<input type="email" size="30" value="' + temp_email + '">');
-    
+
                 $('#web').removeAttr("target href");
                 $('#web').html('<input type="text" size="30" value="' + temp_web + '">');
                 $('#telp').html('<input type="text" size="30" value="' + temp_telp + '">');
@@ -421,18 +421,18 @@ h5 {
                     target: "_blank"});
                 $('#web').html( $($('#web').children("input")[0]).val());
                 $('#telp').html( $($('#telp').children("input")[0]).val());
-                
+
             });
-            
+
             $('#add-anggota').click(function(){
                 $('#table-undang tr:last').after('<tr> \
                 <td><input type="email" class="form-control" name="add_email[]" placeholder="Masukkan e-mail untuk diundang"></td> \
                 <td> \
                     <select class="form-control" name="add_jabatan[]"> \
                         <option value="3">Pemilik</option> \
-                        <option value="4">Pemilik Proyek</option> \
-                        <option value="1">Administrator</option> \
-                        <option value="2">Akuntan</option> \
+                        <option value="4">Ship Owner</option> \
+                        <option value="1">Finance</option> \
+                        <option value="2">Procurement</option> \
                     </select> \
                 </td> \
             </tr>');
@@ -445,7 +445,7 @@ h5 {
             scrollCollapse    : true,
             info        : false,
         });
-        
+
 
 
     } );

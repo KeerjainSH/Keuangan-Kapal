@@ -53,7 +53,7 @@ class AdminPerusahaanSeeder extends Seeder
 
         User::create([
             'name' => 'Boots',
-            'email' => 'akuntan@a.a',
+            'email' => 'Procurement@a.a',
             'id_perusahaan' => $perusahaan->id,
             'role' => 2,
             'password' => Hash::make('admin123'),

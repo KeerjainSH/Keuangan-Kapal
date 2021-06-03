@@ -10,6 +10,7 @@ use App\Models\Proyek;
 use App\Models\Catatan\TransaksiProyek;
 use App\Models\Catatan\Anggaran;
 use App\Models\AkunTransaksiProyek;
+use App\Models\Manajemen;
 use Illuminate\Support\Facades\DB;
 use App\Models\Catatan\TransaksiKantor;
 use App\Models\Perusahaan;
@@ -46,7 +47,7 @@ class LaporanController extends Controller
             $date_range = str_replace(' / ', ' - ', $date_range);
         }
         else $date_range = null;
-        
+
         if(Auth::user()->role == 4)
         {
             $proyeks = Proyek::where('id_pemilik', Auth::user()->id)->get();
@@ -72,10 +73,10 @@ class LaporanController extends Controller
                 ->get();
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         // dd($anggarans, $realisasis);
-        return view('laporan/laba_rugi', compact('proyeks', 'curr_proyek', 
+        return view('laporan/laba_rugi', compact('proyeks', 'curr_proyek',
         'pendapatans', 'biayas', 'start_date', 'end_date', 'date_range', 'perusahaan'));
     }
-    
+
     public function pageLabaRugiKantor($date_range = null){
         if(!(is_null($date_range)))
         {
@@ -103,7 +104,7 @@ class LaporanController extends Controller
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         return view('laporan/laba_rugi_kantor', [
             'date_range' => $date_range,
-            'perusahaan' => $perusahaan, 
+            'perusahaan' => $perusahaan,
             'sum_per_akuns' => $sum_per_akuns,
         ]);
     }
@@ -122,7 +123,7 @@ class LaporanController extends Controller
             $date_range = str_replace(' / ', ' - ', $date_range);
         }
         else $date_range = null;
-        
+
         if(Auth::user()->role == 4)
         {
             $proyeks = Proyek::where('id_pemilik', Auth::user()->id)->get();
@@ -143,12 +144,19 @@ class LaporanController extends Controller
         $pendapatans = AkunTransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
                     ->where('jenis', 'Masuk')
                     ->get();
-        $biayas = AkunTransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                ->where('jenis', 'Keluar')
+        $biayas = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
+                ->select('akun_transaksi_proyeks.*','manajemen.*')
+                ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
+                ->where('akun_transaksi_proyeks.jenis', 'Keluar')
+                ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
+                // ->groupBy("manajemen.id")
                 ->get();
+
+        // $jenisBiayaChild = Manajemen::whereNotNull('idParent')->get();
+
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         // dd($anggarans, $realisasis);
-        return view('laporan/laba_rugi_proyek', compact('proyeks', 'curr_proyek', 
+        return view('laporan/laba_rugi_proyek', compact('proyeks', 'curr_proyek',
         'pendapatans', 'biayas', 'start_date', 'end_date', 'date_range', 'perusahaan'));
     }
 }

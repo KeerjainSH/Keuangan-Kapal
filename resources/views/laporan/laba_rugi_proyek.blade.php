@@ -109,7 +109,7 @@
                             @php
                                 $anggaran = $anggaran->sum('nominal');
                             @endphp
-                            {{ 
+                            {{
                                 number_format($anggaran, 2, '.', ',')
                             }}
                             </td>
@@ -121,7 +121,7 @@
                                         ->where('id_akun_tr_proyek', $pendapatan->id)
                         @endphp
                         @if(Auth::user()->role == 4)
-                            @php 
+                            @php
                             $realisasi = $realisasi->whereHas('proyek', function($query){
                                 return $query->where('id_pemilik', Auth::user()->id);
                             })
@@ -136,7 +136,7 @@
                         @php
                             $realisasi = $realisasi->sum('terbayar');
                         @endphp
-                        {{ 
+                        {{
                             number_format($realisasi, 2, '.', ',')
                         }}
                         </td>
@@ -145,12 +145,12 @@
                             @php
                                 $selisih = $realisasi - $anggaran;
                             @endphp
-                            {{ 
+                            {{
                                 number_format($selisih, 2, '.', ',')
                             }}
                             </td>
                             <td>
-                            {{ 
+                            {{
                                 number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
                             }}%
                             </td>
@@ -193,7 +193,7 @@
                             });
                         @endphp
                         @if(Auth::user()->role == 4)
-                            @php 
+                            @php
                             $realisasi = $realisasi->whereHas('proyek', function($query){
                                 return $query->where('id_pemilik', Auth::user()->id);
                             })
@@ -217,12 +217,12 @@
                             @php
                                 $selisih = $realisasi - $anggaran;
                             @endphp
-                            {{ 
+                            {{
                                 number_format($selisih, 2, '.', ',')
                             }}
                             </td>
                             <td class="end-row">
-                            {{ 
+                            {{
                                 number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
                             }}%
                             </td>
@@ -240,71 +240,74 @@
                         <td colspan="6"><b class="float-left">Biaya</b></td>
                     </tr>
                     @foreach($biayas as $biaya)
-                    <tr>
-                        <td>{{ $biaya->nama }}</td>
-                        <td>
-                        @php
-                            $anggaran = \App\Models\Catatan\Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
-                                ->where('id_akun_tr_proyek', $biaya->id);
-                        @endphp
-                        @if(!(is_null($curr_proyek)))
-                            @php $anggaran = $anggaran->where('id_proyek', $curr_proyek->id) @endphp
-                        @endif
-                        @php
-                            $anggaran = $anggaran->sum('nominal');
-                        @endphp
-                        {{ 
-                            number_format($anggaran, 2, '.', ',')
-                        }}
-                        </td>
-                        <td>
-                        @php
-                            $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                                        ->where('id_akun_tr_proyek', $biaya->id);
-                        @endphp
-                        @if(Auth::user()->role == 4)
-                            @php 
-                            $realisasi = $realisasi->whereHas('proyek', function($query){
-                                return $query->where('id_pemilik', Auth::user()->id);
-                            })
-                            @endphp
-                        @endif
-                        @if(!(is_null($curr_proyek)))
-                            @php $realisasi = $realisasi->where('id_proyek', $curr_proyek->id) @endphp
-                        @endif
-                        @if(!(is_null($start_date)) && !(is_null($end_date)))
-                            @php $realisasi = $realisasi->whereBetween('tanggal_transaksi', [$start_date, $end_date]) @endphp
-                        @endif
-                        @php
-                            $realisasi = $realisasi->sum('jumlah');
-                        @endphp
-                        {{ 
-                            number_format($realisasi, 2, '.', ',')
-                        }}
-                        </td>
-                        @if(Auth::user()->role != 4)
+                        {{-- @foreach ($jenisBiayaChild as $jenisBC) --}}
+                        <tr>
+                            <td>{{$biaya->namaManajemen}}</td>
+                            {{-- <td>{{ $biaya->nama }}</td> --}}
                             <td>
-                            @php
-                                $selisih = $anggaran - $realisasi;
+                                @php
+                                $anggaran = \App\Models\Catatan\Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
+                                    ->where('id_akun_tr_proyek', $biaya->id);
                             @endphp
-                            {{ 
-                                number_format($selisih, 2, '.', ',')
+                            @if(!(is_null($curr_proyek)))
+                                @php $anggaran = $anggaran->where('id_proyek', $curr_proyek->id) @endphp
+                            @endif
+                            @php
+                                $anggaran = $anggaran->sum('nominal');
+                            @endphp
+                            {{
+                                number_format($anggaran, 2, '.', ',')
                             }}
                             </td>
                             <td>
-                            {{ 
-                                number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
-                            }}%
-                            </td>
-                            @if($selisih > 0)
-                            <td><i class="fa fa-arrow-alt-circle-up"></i></td>
-                            @elseif($selisih < 0)
-                            <td><i class="fa fa-arrow-alt-circle-down"></i></td>
-                            @else
-                            <td></td>
+                                @php
+                                $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
+                                            ->where('id_akun_tr_proyek', $biaya->id);
+                                            @endphp
+                            @if(Auth::user()->role == 4)
+                            @php
+                                $realisasi = $realisasi->whereHas('proyek', function($query){
+                                    return $query->where('id_pemilik', Auth::user()->id);
+                                })
+                                @endphp
                             @endif
-                        @endif
-                    </tr>
+                            @if(!(is_null($curr_proyek)))
+                                @php $realisasi = $realisasi->where('id_proyek', $curr_proyek->id) @endphp
+                            @endif
+                            @if(!(is_null($start_date)) && !(is_null($end_date)))
+                                @php $realisasi = $realisasi->whereBetween('tanggal_transaksi', [$start_date, $end_date]) @endphp
+                            @endif
+                            @php
+                                $realisasi = $realisasi->sum('jumlah');
+                                @endphp
+                            {{
+                                number_format($realisasi, 2, '.', ',')
+                            }}
+                            </td>
+                            @if(Auth::user()->role != 4)
+                                <td>
+                                @php
+                                    $selisih = $anggaran - $realisasi;
+                                @endphp
+                                {{
+                                    number_format($selisih, 2, '.', ',')
+                                }}
+                                </td>
+                                <td>
+                                    {{
+                                        number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
+                                }}%
+                                </td>
+                                @if($selisih > 0)
+                                <td><i class="fa fa-arrow-alt-circle-up"></i></td>
+                                @elseif($selisih < 0)
+                                <td><i class="fa fa-arrow-alt-circle-down"></i></td>
+                                @else
+                                <td></td>
+                                @endif
+                            @endif
+                        </tr>
+                        {{-- @endforeach --}}
                     @endforeach
                     <tr>
                         <td class="right" ><b>Jumlah Biaya</b></td>
@@ -333,7 +336,7 @@
                             });
                         @endphp
                         @if(Auth::user()->role == 4)
-                            @php 
+                            @php
                             $realisasi = $realisasi->whereHas('proyek', function($query){
                                 return $query->where('id_pemilik', Auth::user()->id);
                             })
@@ -357,12 +360,12 @@
                             @php
                                 $selisih = $anggaran - $realisasi;
                             @endphp
-                            {{ 
+                            {{
                                 number_format($selisih, 2, '.', ',')
                             }}
                             </td>
                             <td class="end-row">
-                            {{ 
+                            {{
                                 number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
                             }}%
                             </td>
@@ -378,7 +381,7 @@
                     <tr>
                         @if(Auth::user()->role != 4)
                         <td class="right"><b>Laba/Rugi</b></td>
-                        
+
                             <!-- Anggaran -->
                             <td class="end-row">
                                 @php
@@ -394,9 +397,9 @@
 
                                 @endphp
                                 @if(!(is_null($curr_proyek)))
-                                    @php 
+                                    @php
                                         $p_anggaran = $p_anggaran->where('id_proyek', $curr_proyek->id);
-                                        $b_anggaran = $b_anggaran->where('id_proyek', $curr_proyek->id) 
+                                        $b_anggaran = $b_anggaran->where('id_proyek', $curr_proyek->id)
                                     @endphp
                                 @endif
                                 @php
@@ -422,7 +425,7 @@
 
                             @endphp
                             @if(Auth::user()->role == 4)
-                                @php 
+                                @php
                                     $p_realisasi = $p_realisasi->whereHas('proyek', function($query){
                                         return $query->where('id_pemilik', Auth::user()->id);
                                     });
@@ -433,15 +436,15 @@
                                 @endphp
                             @endif
                             @if(!(is_null($curr_proyek)))
-                                @php 
+                                @php
                                     $p_realisasi = $p_realisasi->where('id_proyek', $curr_proyek->id);
-                                    $b_realisasi = $b_realisasi->where('id_proyek', $curr_proyek->id) 
+                                    $b_realisasi = $b_realisasi->where('id_proyek', $curr_proyek->id)
                                 @endphp
                             @endif
                             @if(!(is_null($start_date)) && !(is_null($end_date)))
-                                @php 
+                                @php
                                     $p_realisasi = $p_realisasi->whereBetween('tanggal_transaksi', [$start_date, $end_date]);
-                                    $b_realisasi = $b_realisasi->whereBetween('tanggal_transaksi', [$start_date, $end_date]); 
+                                    $b_realisasi = $b_realisasi->whereBetween('tanggal_transaksi', [$start_date, $end_date]);
                                 @endphp
                             @endif
                             @php
@@ -455,12 +458,12 @@
                             @php
                                 $selisih = $realisasi - $anggaran;
                             @endphp
-                            {{ 
+                            {{
                                 number_format($selisih, 2, '.', ',')
                             }}
                             </td>
                             <td class="end-row">
-                            {{ 
+                            {{
                                 number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
                             }}%
                             </td>
@@ -480,7 +483,7 @@
                     <div class="row"><h6>Keterangan :</h6></div>
                     <div class="row">
                         <i class="fa fa-arrow-alt-circle-up"></i>
-                        
+
                         <p>&nbsp; Menguntungkan</p>
                     </div>
                     <div class="row">
@@ -570,7 +573,7 @@
             window.location.href = url;
             // console.log("A new date selection was made: " + start + ' to ' + end);
         });
-    });  
+    });
      $(document).ready(function() {
         $('#table-laba-rugi-proyek').DataTable({
             'paging'      : true,
@@ -620,5 +623,5 @@
         // newWin.document.write(divToPrint.outerHTML);
         // newWin.print();
     }
-</script> 
+</script>
 @endsection

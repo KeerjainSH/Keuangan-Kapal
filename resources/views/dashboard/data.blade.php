@@ -231,7 +231,7 @@
             </div>
             <div id="form-proyek" style="display: none;">
                 <div class="form-group">
-                    <label for="nama-pemilik-proyek">Pemilik Proyek</label>
+                    <label for="nama-pemilik-proyek">Ship Owner</label>
                     <select class="form-control" id="nama-pemilik-proyek" name="pr_kode">
                     @foreach($man_proyek as $man)
                     <option value="{{ $man->id }}">{{ $man->name }}</option>
@@ -268,7 +268,7 @@
             if(!empty($_POST['jenis-transaksi'])) {
             foreach($_POST['jenis-transaksi'] as $selected){
                 echo '  ' . $selected;
-            }          
+            }
             } else {
             echo 'Please select the value.';
             }
@@ -306,7 +306,7 @@
             $('#jenis-akun').change(function(){
                 var selected = $("#jenis-akun").find("option:selected").text();
                 // console.log();
-    
+
                 switch(selected){
                     case "Akun Transaksi Kantor":
                         $('#form-neraca').hide();
@@ -315,7 +315,7 @@
                         $('#form-proyek').hide();
                         $('#form-akun-all').prop('action', "{{ route('form_transaksi_kantor') }}");
                         $('#jenis_neraca').show();
-                        
+
                         break;
                     case "Akun Transaksi Proyek":
                         $('#form-neraca').hide();
@@ -325,7 +325,7 @@
                         $('#form-akun-all').prop('action', "{{ route('form_transaksi_proyek') }}");
                         $('#jenis_neraca').show();
                         break;
-                    case "Pemasok": 
+                    case "Pemasok":
                         $('#form-neraca').hide();
                         $('#form-transaksi').hide();
                         $('#form-pemasok').show();
@@ -377,7 +377,7 @@
                 scrollCollapse    : true,
                 info        : false,
             });
-            
+
             $('#table-pemasok').DataTable({
                 paging      : false,
                 searching   : false,

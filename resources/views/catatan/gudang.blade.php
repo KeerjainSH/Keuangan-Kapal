@@ -45,8 +45,8 @@
                     <tr>
                         <td>{{$item->tanggal_transaksi_gudang}}</td>
                         <td>{{$item->kode_proyek}}</td>
-                        <td>{{$item->nama_barang}}</td>
-                        <td>{{$item->satuan}}</td>
+                        <td>{{$item->nama_material}}</td>
+                        <td>{{$item->satuan_material}}</td>
                         <td>{{$item->jumlah}}</td>
                         <td>{{$item->jenis}}</td>
                         <td>{{$item->sisa}}</td>
@@ -135,14 +135,14 @@
                     <div class="form-group">
                         <label for="nama_barang">Nama Barang - id proyek - id transaksi</label>
                         <select class="form-control" id="nama_barang" name="edit_id_parent" disabled>
-                            @foreach($inventoris as $inventori)
-                            <option value="{{ $inventori->nama_barang.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}"
+                            @foreach($items as $inventori)
+                            <option value="{{ $inventori->nama_material.'-'.$inventori->id_proyek. '-' .$inventori->id_transaksi}}"
                             @php
-                                $cek = $inventori->nama_barang;
-                                if($cek == $item->nama_barang){
+                                $cek = $inventori->nama_material;
+                                if($cek == $item->nama_material){
                                     echo 'selected';
                                 }
-                            @endphp   >{{$inventori->nama_barang." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
+                            @endphp   >{{$inventori->nama_material." - ".$inventori->id_proyek. " - " .$inventori->id_transaksi}}</option>
                             @endforeach
                         </select>
                     </div>
