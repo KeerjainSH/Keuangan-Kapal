@@ -73,8 +73,10 @@ class PendapatanController extends Controller
         // dd($anggaran->id_akun_tr_proyek);
         $akuntrproyek = AkunTransaksiProyek::find($anggaran->id_akun_tr_proyek);
         $anggaran->id = $request->id;
-        $akuntrproyek->nama = $request->nama;
-        $anggaran->nominal = $request->nominal;
+        $akuntrproyek->nama = $request->namapendapatan;
+        $anggaran->nominal = $request->pendapatanproyek;
+
+        // dd($request->all());
 
         $anggaran->save();
         $akuntrproyek->save();
