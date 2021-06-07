@@ -245,7 +245,8 @@
                             <td>{{$biaya->namaManajemen}}</td>
                             {{-- <td>{{ $biaya->nama }}</td> --}}
                             <td>
-                                @php
+                                {{$biaya->jumlah}}
+                                {{-- @php
                                 $anggaran = \App\Models\Catatan\Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
                                     ->where('id_akun_tr_proyek', $biaya->id);
                             @endphp
@@ -257,7 +258,7 @@
                             @endphp
                             {{
                                 number_format($anggaran, 2, '.', ',')
-                            }}
+                            }} --}}
                             </td>
                             <td>
                                 @php

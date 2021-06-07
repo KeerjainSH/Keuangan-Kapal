@@ -144,14 +144,26 @@ class LaporanController extends Controller
         $pendapatans = AkunTransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
                     ->where('jenis', 'Masuk')
                     ->get();
-        $biayas = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
-                ->select('akun_transaksi_proyeks.*','manajemen.*')
+        $biayas = AkunTransaksiProyek::select('manajemen.*')
                 ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
                 ->where('akun_transaksi_proyeks.jenis', 'Keluar')
                 ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
-                // ->groupBy("manajemen.id")
+                ->groupBy("manajemen.id")
                 ->get();
 
+        foreach($biayas as $biaya){
+            $biaya->jumlah = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
+            ->where([["akun_transaksi_proyeks.idManajemen",$biaya->id],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan]])->sum("anggaran_proyek.nominal");
+        }
+        // dd($biayas[0]);
+
+        // $biayas = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
+        // ->select('akun_transaksi_proyeks.*','manajemen.*')
+        // ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
+        // ->where('akun_transaksi_proyeks.jenis', 'Keluar')
+        // ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
+        // ->groupBy("manajemen.id")
+        // ->get();
         // $jenisBiayaChild = Manajemen::whereNotNull('idParent')->get();
 
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
