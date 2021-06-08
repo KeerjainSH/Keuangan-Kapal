@@ -132,6 +132,15 @@ class TransaksiProyekController extends Controller
         if ($sisa > 0 && $akun->jenis == 'Keluar') $jenis = 'Utang';
         else if ($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
 
+        $dataGudang = Gudang::join('catatan_transaksi_proyeks','catatan_transaksi_proyeks.id','=','gudangs.id_transaksi')
+                    ->where([['gudangs.id_transaksi',$tr_proyek->id],['gudangs.tanggal_transaksi_gudang',$tr_proyek->tanggal_transaksi]])
+                    ->select('gudangs.*')
+                    ->first();
+        $dataGudang->sisa = $dataGudang->sisa - $tr_proyek->jumlah_material + $request->jumlah_material;
+        $dataGudang->jumlah = $dataGudang->jumlah - $tr_proyek->jumlah_material + $request->jumlah_material;
+        $dataGudang->tanggal_transaksi_gudang = DateTime::CreateFromFormat('Y-m-d', $request->tanggal_transaksi);
+        $dataGudang->save();
+
         $tr_proyek->tanggal_transaksi = DateTime::CreateFromFormat('Y-m-d', $request->tanggal_transaksi);
         $tr_proyek->id_akun_tr_proyek = $request->jenis_transaksi;
         $tr_proyek->id_pemasok = $request->id_pemasok;

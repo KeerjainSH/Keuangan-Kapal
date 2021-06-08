@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Gudang;
 use App\Models\Perusahaan;
-use Illuminate\Support\Facades\Auth;
 use App\Models\Catatan\TransaksiProyek;
+use Illuminate\Support\Facades\Auth;
+// use App\Models\Catatan\TransaksiProyek;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Carbon\Carbon;
@@ -82,7 +83,7 @@ class GudangController extends Controller
                 'keterangan' => $request->keterangan,
                 'tanggal_transaksi_gudang' => DateTime::CreateFromFormat('d/m/Y', $request->tanggal_transaksi_gudang),
                 ]);
-                // dd($data);
+                // dd($request->jumlah_material);
                 return redirect()->route('gudang');
         } else {
             //kalau belum ada perusahaan, data tidak bisa masuk hehehe
@@ -133,6 +134,8 @@ class GudangController extends Controller
     public function edit(Request $request)
     {
         $gudang = Gudang::find($request->id);
+        $trproyek = TransaksiProyek::find($request->id);
+
         $sisas = $gudang->jumlah + $gudang->sisa - $request->edit_jumlah;
 
         $gudang->id = $request->id;
@@ -142,7 +145,7 @@ class GudangController extends Controller
         $gudang->sisa = $sisas;
         $gudang->tanggal_transaksi_gudang = DateTime::CreateFromFormat('d/m/Y', $request->edit_tanggal_transaksi_gudang);
         $gudang->keterangan = $request->edit_keterangan;
-        // dd($gudang->sisa);
+        // dd($trproyek->jumlah_material);
         $gudang->save();
 
         return redirect()->back();
@@ -214,7 +217,7 @@ class GudangController extends Controller
                 ->join('proyeks', 'proyeks.id', '=', 'gudangs.id_proyek')
                 ->join('catatan_transaksi_proyeks', 'catatan_transaksi_proyeks.id', '=', 'gudangs.id_transaksi')
                 ->select('proyeks.kode_proyek', 'gudangs.*')
-                ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end], 'catatan_transaksi_proyeks.nama_material')
+                ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end], 'catatan_transaksi_proyeks.nama_material', 'catatan_transaksi_proyeks.jumlah_material')
                 ->get();
 
             $date_range = str_replace('-', '/', $date_range);
@@ -224,7 +227,7 @@ class GudangController extends Controller
             ->join('proyeks', 'proyeks.id', '=', 'gudangs.id_proyek')
             ->join('catatan_transaksi_proyeks', 'catatan_transaksi_proyeks.id', '=', 'gudangs.id_transaksi')
             ->where('gudangs.id_perusahaan', '=', Auth::user()->id_perusahaan)
-            ->select('proyeks.kode_proyek', 'gudangs.*', 'catatan_transaksi_proyeks.nama_material', 'catatan_transaksi_proyeks.satuan_material')
+            ->select('proyeks.kode_proyek', 'gudangs.*', 'catatan_transaksi_proyeks.nama_material', 'catatan_transaksi_proyeks.satuan_material', 'catatan_transaksi_proyeks.jumlah_material')
             ->get();
             // dd($catatan_gudangs);
         }
