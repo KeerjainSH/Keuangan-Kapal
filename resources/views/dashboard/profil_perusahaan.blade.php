@@ -135,7 +135,7 @@
                                         <td><input type="email" class="form-control" name="add_email[]" placeholder="Masukkan e-mail untuk diundang"></td>
                                         <td>
                                             <select class="form-control" name="add_jabatan[]">
-                                                <option value="3">Pemilik</option>
+                                                <option value="3">Director</option>
                                                 <option value="4">Ship Owner</option>
                                                 <option value="1">Finance</option>
                                                 <option value="2">Procurement</option>
@@ -172,7 +172,7 @@
                                                 <td>Procurement</td>
                                                 @break
                                             @case(3)
-                                                <td>Pemilik</td>
+                                                <td>Director</td>
                                                 @break
                                             @case(4)
                                                 <td>Ship Owner</td>
