@@ -103,7 +103,7 @@
                                             <td>Procurement</td>
                                             @break
                                         @case(3)
-                                            <td>Direktur</td>
+                                            <td>Director</td>
                                             @break
                                         @case(4)
                                             <td>Ship Owner</td>

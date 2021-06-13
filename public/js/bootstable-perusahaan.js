@@ -116,7 +116,7 @@ function rowAcep(but) {
     });
     var role;
     switch ($row.find('td:nth-child(3)').html()) {
-        case 'Direktur':
+        case 'Director':
             role = 3;
             break;
         case 'Ship Owner':
@@ -162,7 +162,7 @@ function rowEdit(but) { //Inicia la edición de una fila
         switch (cont) {
             case "Ship Owner":
                 var input = '<select> \
-          <option value="3">Direktur</option> \
+          <option value="3">Director</option> \
           <option selected value="4">Ship Owner</option> \
           <option value="1">Finance</option> \
           <option value="2">Procurement</option> \
@@ -170,7 +170,7 @@ function rowEdit(but) { //Inicia la edición de una fila
                 break;
             case "Finance":
                 var input = '<select> \
-          <option value="3">Direktur</option> \
+          <option value="3">Director</option> \
           <option value="4">Ship Owner</option> \
           <option selected value="1">Finance</option> \
           <option value="2">Procurement</option> \
@@ -178,7 +178,7 @@ function rowEdit(but) { //Inicia la edición de una fila
                 break;
             case "Procurement":
                 var input = '<select> \
-          <option value="3">Direktur</option> \
+          <option value="3">Director</option> \
           <option value="4">Ship Owner</option> \
           <option value="1">Finance</option> \
           <option selected value="2">Procurement</option> \
@@ -186,7 +186,7 @@ function rowEdit(but) { //Inicia la edición de una fila
                 break;
             default:
                 var input = '<select> \
-          <option value="3">Direktur</option> \
+          <option value="3">Director</option> \
           <option value="4">Ship Owner</option> \
           <option value="1">Finance</option> \
           <option value="2">Procurement</option> \
