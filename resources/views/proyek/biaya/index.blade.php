@@ -87,10 +87,16 @@
                                     {{ $projeks->satuan }}
                                 </td>
                                 <td>
-                                    {{ $projeks->hargasatuan }}
+                                    {{
+                                        number_format($projeks->hargasatuan, 2, '.', ',')
+                                    }}
+                                    {{-- {{ $projeks->hargasatuan }} --}}
                                 </td>
                                 <td>
-                                    {{ $projeks->nominal }}
+                                    {{
+                                        number_format($projeks->nominal, 2, '.', ',')
+                                    }}
+                                    {{-- {{ $projeks->nominal }} --}}
                                 </td>
                                 <td>
                                     <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>
@@ -272,7 +278,7 @@
 <script>
     $(document).ready(function() {
         $('#myTable').DataTable( {
-
+            paging:   false,
             order: [[0, 'asc'], [1, 'asc'], [2, 'asc']],
             rowGroup: {
                 dataSrc: [ 0, 1, 2 ] //parents

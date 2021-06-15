@@ -68,8 +68,17 @@ class LaporanController extends Controller
         $pendapatans = AkunTransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
                     ->where('jenis', 'Masuk')
                     ->get();
-        $biayas = AkunTransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                ->where('jenis', 'Keluar')
+        // $biayas = AkunTransaksiProyek::select('manajemen.*')
+        //         ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
+        //         ->where('akun_transaksi_proyeks.jenis', 'Keluar')
+        //         ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
+        //         ->groupBy("manajemen.id")
+        //         ->get();
+        $biayas = AkunTransaksiProyek::select('manajemen.*')
+                ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
+                ->where('akun_transaksi_proyeks.jenis', 'Keluar')
+                ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
+                ->groupBy("manajemen.id")
                 ->get();
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         // dd($anggarans, $realisasis);

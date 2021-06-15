@@ -12,13 +12,13 @@
         <div class="text-center pt-3">
             <div class="row">
                 <div class="col-6">
-                    <div class="float-left">
+                    {{-- <div class="float-left">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-primary" type="button" onclick="print_table()">
                             <i class="fas fa-print"></i>
                             </button>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="col-6">
                     <div class="float-right">
@@ -245,7 +245,10 @@
                             <td>{{$biaya->namaManajemen}}</td>
                             {{-- <td>{{ $biaya->nama }}</td> --}}
                             <td>
-                                {{$biaya->jumlah}}
+                                {{-- {{$biaya->jumlah}} --}}
+                                {{
+                                    number_format($biaya->jumlah, 2, '.', ',')
+                                }}
                                 {{-- @php
                                 $anggaran = \App\Models\Catatan\Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
                                     ->where('id_akun_tr_proyek', $biaya->id);

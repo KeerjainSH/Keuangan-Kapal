@@ -95,7 +95,7 @@
                             @php
                                 $anggaran = $anggaran->sum('nominal');
                             @endphp
-                            {{ 
+                            {{
                                 number_format($anggaran, 2, '.', ',')
                             }}
                             </td>
@@ -115,7 +115,7 @@
                         @php
                             $realisasi = $realisasi->sum('terbayar');
                         @endphp
-                        {{ 
+                        {{
                             number_format($realisasi, 2, '.', ',')
                         }}
                         </td>
@@ -181,7 +181,7 @@
                             @php
                                 $anggaran = $anggaran->sum('nominal');
                             @endphp
-                            {{ 
+                            {{
                                 number_format($anggaran, 2, '.', ',')
                             }}
                             </td>
@@ -192,7 +192,7 @@
                                         ->where('id_akun_tr_proyek', $biaya->id);
                         @endphp
                         @if(Auth::user()->role == 4)
-                            @php 
+                            @php
                             $realisasi = $realisasi->whereHas('proyek', function($query){
                                 return $query->where('id_pemilik', Auth::user()->id);
                             })
@@ -207,7 +207,7 @@
                         @php
                             $realisasi = $realisasi->sum('jumlah');
                         @endphp
-                        {{ 
+                        {{
                             number_format($realisasi, 2, '.', ',')
                         }}
                         </td>
@@ -217,7 +217,7 @@
                         <td>Biaya Kantor</td>
                         <!-- @if(Auth::user()->role == 1)
                             <td>
-                           
+
                             </td>
                         @endif -->
                         @if(Auth::user()->role == 1)
@@ -232,7 +232,7 @@
                             @php
                                 $anggaran = $anggaran->sum('nominal');
                             @endphp
-                            {{ 
+                            {{
                                 number_format($anggaran, 2, '.', ',')
                             }}
                             </td>
@@ -248,11 +248,11 @@
                             @php
                                 $realisasi = $realisasi->sum('jumlah');
                             @endphp
-                            {{ 
+                            {{
                                 number_format($realisasi, 2, '.', ',')
                             }}
                         @else
-                            {{ 
+                            {{
                                 number_format(0, 2, '.', ',')
                             }}
                         @endif
@@ -334,9 +334,9 @@
 
                                 @endphp
                                 @if(!(is_null($curr_proyek)))
-                                    @php 
+                                    @php
                                         $p_anggaran = $p_anggaran->where('id_proyek', $curr_proyek->id);
-                                        $b_anggaran = $b_anggaran->where('id_proyek', $curr_proyek->id) 
+                                        $b_anggaran = $b_anggaran->where('id_proyek', $curr_proyek->id)
                                     @endphp
                                 @endif
                                 @php
@@ -436,7 +436,7 @@
             window.location.href = url;
             // console.log("A new date selection was made: " + start + ' to ' + end);
         });
-    });  
+    });
      $(document).ready(function() {
         $('#table-laba-rugi-proyek').DataTable({
             'paging'      : true,
@@ -463,5 +463,5 @@
 
         console.log(url);
     }
-</script> 
+</script>
 @endsection

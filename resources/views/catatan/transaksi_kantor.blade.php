@@ -7,9 +7,9 @@
     <div class="col-6">
         <h5 class="pl-3"><b>TRANSAKSI KANTOR</b></h5>
     </div>
-    <div class="col-6">
+    {{-- <div class="col-6">
         <input name="daterange" type="text" value="{{ $date_range ?? '-- pilih tanggal --' }}" style="width: 250px; height: 30px;" class="form-control text-center float-right">
-    </div>
+    </div> --}}
 </div>
 @endsection
 

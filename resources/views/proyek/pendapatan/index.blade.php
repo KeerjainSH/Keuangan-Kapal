@@ -55,7 +55,10 @@
                             {{ $projeks->nama }}
                         </td>
                         <td>
-                            {{ $projeks->nominal }}
+                            {{
+                                number_format($projeks->nominal, 2, '.', ',')
+                            }}
+                            {{-- {{ $projeks->nominal }} --}}
                         </td>
                         <td>
                             <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>

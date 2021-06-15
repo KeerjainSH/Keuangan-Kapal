@@ -3,25 +3,33 @@
 @section('title', 'Gudang')
 
 @section('content_header')
-<h5 class="pl-3"><b>GUDANG</b></h5>
+<div class="row">
+    <div class="col-6">
+        <h5 class="pl-3"><b>GUDANG</b></h5>
+    </div>
+    {{-- <div class="col-6">
+        <input name="daterange" type="text" value="{{ $date_range ?? '-- pilih tanggal --' }}" style="width: 250px; height: 30px;" class="form-control text-center float-right">
+    </div> --}}
+</div>
 @endsection
 
 @section('content')
 <div class="card">
-    <div class="card-header">
-        <div class="text-center pt-3 mb-3">
-            <div class="col">
-                <h5>{{ $perusahaan->nama_perusahaan ?? 'PT XYZ'}}</h5>
+    <div class="card-header bg-transparent">
+        <div class="row">
+            <div class="col-sm">
+                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                <div class="row justify-content-start pl-2 pt-2">
+                    <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah Pemakaian Material</button></a>
+                    @endif
+                </div>
+                <div class="col-sm">
+                    <div class="d-flex justify-content-center">
+                        <input name="daterange" value="{{ $date_range ?? '-- pilih tanggal --' }}" type="text" style="width: 250px;" class="form-control text-center">
+                    </div>
+                </div>
+                <!-- <a href="#"><button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save</button></a> -->
             </div>
-        </div>
-        <div class="d-flex justify-content-center">
-            <input name="daterange" value="{{ $date_range ?? '-- pilih tanggal --' }}" type="text" style="width: 250px;" class="form-control text-center">
-        </div>
-        <div class="row justify-content-star pl-2">
-            @if(Auth::user()->role == 1 || Auth::user()->role == 2)
-            <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah Pemakaian Material</button></a>
-            @endif
-            <!-- <a href="#"><button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save</button></a> -->
         </div>
     </div>
     <!-- /.card-header -->
