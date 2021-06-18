@@ -151,10 +151,18 @@
                             <th style="width: 30%;">Ket.</th>
                         </thead>
                         <tbody>
-                            @foreach($akun_transaksi_proyeks as $akun_transaksi_proyek)
-                            <tr id="table-proyek" name="table-proyek" rowId="{{ $akun_transaksi_proyek['id'] }}">
-                                <td id="nama">{{ $akun_transaksi_proyek['nama'] }}</td>
-                                <td id="jenis">{{ $akun_transaksi_proyek['jenis'] }}</td>
+                            @foreach($biayas as $biaya)
+                            <tr id="table-proyek" name="table-proyek" rowId="{{ $biaya['id'] }}">
+                                <td id="nama">{{ $biaya['namaManajemen'] }}</td>
+                                <td id="jenis">
+                                @if ($biaya['flag'] == 1)
+                                    Biaya Langsung
+                                @elseif($biaya['flag'] == 2)
+                                    Biaya Tidak Langsung
+                                @elseif($biaya['flag'] == 3)
+                                    Biaya Overhead
+                                @endif
+                                </td>
                             </tr>
                             @endforeach
                         </tbody>

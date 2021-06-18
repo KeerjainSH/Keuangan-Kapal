@@ -15,6 +15,7 @@ use App\Models\Perusahaan;
 use App\Models\Catatan\TransaksiProyek;
 use App\Models\Catatan\TransaksiKantor;
 use App\Models\Catatan\Anggaran;
+use App\Models\Manajemen;
 use DateTime;
 use Carbon\Carbon;
 
@@ -229,7 +230,7 @@ class CatatanController extends Controller
             $separated = explode(' - ', $date_range);
             $start = Carbon::CreateFromFormat('d-m-Y', $separated[0])->startOfDay();
             $end = Carbon::CreateFromFormat('d-m-Y', $separated[1])->endOfDay();
-            $catatan_tr_proyeks = TransaksiProyek::with('akun_tr_proyek', 'pemasok', 'proyek', 'akun_neraca')
+            $catatan_tr_proyeks = TransaksiProyek::with('manajemen', 'pemasok', 'proyek', 'akun_neraca')
                 ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)
                 ->whereBetween('tanggal_transaksi', [$start, $end])->get();
 
@@ -304,7 +305,7 @@ class CatatanController extends Controller
                     $query->where('jenis_akun', 'Kas');
                 })->sum('jumlah');
         } else {
-            $catatan_tr_proyeks = TransaksiProyek::with('akun_tr_proyek', 'pemasok', 'proyek', 'akun_neraca')
+            $catatan_tr_proyeks = TransaksiProyek::with('manajemen', 'pemasok', 'proyek', 'akun_neraca')
                 ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
 
             // Hitung pemasukan dan pengeluaran Bank
@@ -368,9 +369,26 @@ class CatatanController extends Controller
                 })->sum('jumlah');
         }
 
-        $akun_tr_proyeks = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
+        // $akun_tr_proyeks = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
+        $akun_tr_proyeks = Manajemen::whereNotNull('idParent')->orWhere('flag',4)->get();
+        // $akun_tr_proyeks = Manajemen::where()->get();
+        // dd($akun_tr_proyeks);
         $pemasoks = Pemasok::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
-        $material_barus = Gudang::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->distinct()->get(['nama_barang']);
+        $material_baru1 = Gudang::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->distinct()->get(['nama_barang']);
+        $material_baru2 = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
+                        ->where("jenis","Keluar")
+                        ->distinct()->get(['nama']);
+
+        $material_barus = array();
+        foreach($material_baru1 as $m){
+            array_push($material_barus, $m->nama_barang);
+        }
+        foreach($material_baru2 as $m){
+            $data = new Gudang;
+            $data->nama_barang = $m->nama;
+            array_push($material_barus, $data->nama_barang);
+        }
+
         // dd($material_barus);
         $proyeks = Proyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
         $akun_neracas = AkunNeracaSaldo::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
@@ -608,8 +626,8 @@ class CatatanController extends Controller
     //         //     ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)
     //         //     ->whereBetween('catatan_transaksi_proyeks.tanggal_transaksi', [$start, $end])
     //         //     ->get();
-    //         // $catatan_gudangs = DB::select('select g.* from gudangs g, perusahaans p, catatan_transaksi_proyeks c 
-    //         // where p.id = g.id_perusahaan 
+    //         // $catatan_gudangs = DB::select('select g.* from gudangs g, perusahaans p, catatan_transaksi_proyeks c
+    //         // where p.id = g.id_perusahaan
     //         // and c.id = g.id_transaksi')
     //         // ->whereBetween('c.tanggal_transaksi', [$start, $end])
     //         // ->get();

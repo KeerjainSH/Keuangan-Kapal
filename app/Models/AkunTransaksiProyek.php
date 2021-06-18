@@ -20,4 +20,8 @@ class AkunTransaksiProyek extends Model
     public function anggaran(){
         return $this->hasMany('\App\Models\Catatan\Anggaran', 'id', 'id_akun_tr_proyek');
     }
+
+    public function manajemen(){
+        return $this->hasMany('\App\Models\Manajemen', 'idmanajemen',  'id');
+    }
 }

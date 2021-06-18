@@ -47,6 +47,12 @@ Route::get('/laba_rugi/{id_proyek?}/{date_range?}', [App\Http\Controllers\Lapora
 Route::get('/laba_rugi_proyek/{id_proyek?}/{date_range?}', [App\Http\Controllers\LaporanController::class, 'pageLabaRugiProyek'])->name('laba_rugi_proyek');
 Route::get('/laba_rugi_kantor/{date_range?}', [App\Http\Controllers\LaporanController::class, 'pageLabaRugiKantor'])->name('laba_rugi_kantor');
 
+//Route edit perusahaan
+Route::prefix('perusahaan')->name('perusahaan.')->group(function () {
+    Route::post('/edit', [App\Http\Controllers\DashboardController::class, 'edit'])->name('edit');
+    // Route::get('/delete/{id}', [App\Http\Controllers\GudangController::class, 'delete'])->name('delete');
+});
+
 // Route perusahaan
 Route::post('create_perusahaan', [App\Http\Controllers\dashboard\PerusahaanController::class, 'insert'])->name('create_perusahaan');
 Route::post('invite_anggota', [App\Http\Controllers\dashboard\PerusahaanController::class, 'invite'])->name('invite_anggota');

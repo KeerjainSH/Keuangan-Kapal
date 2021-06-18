@@ -12,13 +12,13 @@
         <div class="text-center pt-3">
             <div class="row">
                 <div class="col-6">
-                    {{-- <div class="float-left">
+                    <div class="float-left">
                         <div class="dropdown">
                             <button class="btn btn-sm btn-primary" type="button" onclick="print_table()">
-                            <i class="fas fa-print"></i>
+                            <i class="fas fa-print"></i> Cetak
                             </button>
                         </div>
-                    </div> --}}
+                    </div>
                 </div>
                 <div class="col-6">
                     <div class="float-right">
@@ -500,9 +500,9 @@
     </div>
     <!-- /.card-body -->
 
-    <div class="card-footer">
+    {{-- <div class="card-footer">
         <button onclick="window.print()" type="button" class="btn btn-sm btn-primary mr-2 "><i class="fas fa-print"></i> Cetak</button>
-    </div>
+    </div> --}}
     <!-- /.card-footer -->
 </div>
 <!-- /.card -->

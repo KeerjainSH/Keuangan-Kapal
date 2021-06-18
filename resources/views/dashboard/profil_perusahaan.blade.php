@@ -56,8 +56,8 @@
                     </ul>
 
                     @if(Auth::user()->role == 1)
-                    <a id="edit-perusahaan" href="#" class="btn btn-primary btn-block"><b>Edit</b></a>
-                    <a id="save-perusahaan" href="#" class="btn btn-primary btn-block" style="display: none;"><b>Save</b></a>
+                    <a href="#"><button type="button" data-toggle="modal" data-target="#editModal{{ $perusahaan->id }}" class="btn btn-lg btn-block p-0 mx-1">edit</a>
+                    {{-- <a id="editModal" href="#" class="btn btn-primary btn-block"><b>Edit</b></a> --}}
                     @endif
                 </div>
                 <!-- /.card-body -->
@@ -276,6 +276,45 @@
     <!-- </div> -->
     @endif
     <!-- /.row -->
+</div>
+
+<div class="modal fade" id="editModal{{ $perusahaan->id }}" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editModalLabel">Edit Detail Perusahaan</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-transaksi{{ $perusahaan->id }}" method="post" action="{{ route('perusahaan.edit', ['id' => $perusahaan->id ]) }}">
+                    @csrf
+                    <input id="edit-id" name="id" type="hidden" class="form-control" value="{{ $perusahaan->id }}">
+                    <div class="form-group">
+                        <label for="edit-alamat">Alamat</label>
+                        <input autocomplete="off" type="text" id="edit-alamat" name="alamat" class="form-control" value="{{ $perusahaan->alamat }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-email">Email</label>
+                        <input autocomplete="off" type="email" id="edit-email" name="email" class="form-control" value="{{ $perusahaan->email }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-website">Website</label>
+                        <input autocomplete="off" type="text" id="edit-website" name="website" class="form-control" value="{{ $perusahaan->website }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="edit-telp">Telp/Fax</label>
+                        <input autocomplete="off" type="tel" pattern="[0-9]" id="edit-telp" name="telp" class="form-control" value="{{ $perusahaan->telp }}">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="edit-transaksi{{ $perusahaan->id }}">Simpan</button>
+            </div>
+        </div>
+    </div>
 </div>
 
 @if(empty(Auth::user()->id_perusahaan))

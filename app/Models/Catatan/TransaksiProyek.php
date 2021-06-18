@@ -30,6 +30,10 @@ class TransaksiProyek extends Model
         return $this->belongsTo('\App\Models\AkunTransaksiProyek', 'id_akun_tr_proyek', 'id');
     }
 
+    public function manajemen(){
+        return $this->belongsTo('\App\Models\Manajemen', 'id_akun_tr_proyek', 'id');
+    }
+
     public function pemasok(){
         return $this->belongsTo('\App\Models\Pemasok', 'id_pemasok', 'id');
     }

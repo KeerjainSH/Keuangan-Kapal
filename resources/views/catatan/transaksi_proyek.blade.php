@@ -55,7 +55,7 @@
     </div>
     <!-- /.card-header -->
 
-    <div class="card-body " style="max-width: 1200px;">
+    <div class="card-body " style="max-width: 100%;">
         <div class="dataTables_wrapper">
             <table id="table-transaksi-proyek" class="display table table-hover table-condensed table-sm dataTable">
                 <thead>
@@ -79,7 +79,7 @@
                     @foreach($catatan_tr_proyeks as $catatan_tr_proyek)
                     <tr id="{{ $catatan_tr_proyek->id }}">
                         <td>{{$catatan_tr_proyek->tanggal_transaksi}}</td>
-                        <td>{{$catatan_tr_proyek->akun_tr_proyek->nama}}</td>
+                        <td>{{$catatan_tr_proyek->manajemen->namaManajemen}}</td>
                         <td>{{$catatan_tr_proyek->pemasok->nama ?? ''}}</td>
                         <td>{{$catatan_tr_proyek->nama_material}}</td>
                         <td>{{$catatan_tr_proyek->jumlah_material}}</td>
@@ -128,7 +128,7 @@
                         <select class="form-control" id="jenis-akun" name="jenis_transaksi" required>
                             <option disabled selected value> -- pilih jenis transaksi -- </option>
                             @foreach($akun_tr_proyeks as $akun_tr_proyek)
-                            <option value="{{ $akun_tr_proyek->id }}">{{ $akun_tr_proyek->nama}}</option>
+                            <option value="{{ $akun_tr_proyek->id }}">{{ $akun_tr_proyek->namaManajemen}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -161,7 +161,7 @@
                         <select class="form-control" name="nama_material">
                             <option disabled selected value> -- pilih material -- </option>
                             @foreach($material_barus as $material_baru)
-                            <option value="{{ $material_baru->nama_barang }}">{{ $material_baru->nama_barang}}</option>
+                            <option value="{{ $material_baru }}">{{ $material_baru}}</option>
                             @endforeach
                         </select>
                     </div>
