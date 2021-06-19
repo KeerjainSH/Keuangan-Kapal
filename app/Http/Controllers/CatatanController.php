@@ -11,7 +11,7 @@ use App\Models\Proyek;
 use App\Models\AkunNeracaSaldo;
 use App\Models\Gudang;
 use App\Models\Perusahaan;
-
+use Illuminate\Support\Facades\DB;
 use App\Models\Catatan\TransaksiProyek;
 use App\Models\Catatan\TransaksiKantor;
 use App\Models\Catatan\Anggaran;
@@ -369,10 +369,19 @@ class CatatanController extends Controller
                 })->sum('jumlah');
         }
 
-        // $akun_tr_proyeks = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
-        $akun_tr_proyeks = Manajemen::whereNotNull('idParent')->orWhere('flag',4)->get();
-        // $akun_tr_proyeks = Manajemen::where()->get();
+        // $akun_tr_proyeks_masuk = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
+        //     ->where('jenis', '=', 'Masuk')->get();
+        $akun_tr_proyeks_masuk = Manajemen::whereNotNull('idParent')->orWhere('flag',4)->get();
+        $masuks = AkunTransaksiProyek::
+            select('id', 'nama as namaManajemen', 'jenis')
+            ->where('jenis', '=', 'Masuk')
+            ->get();
+        // $akun_tr_proyeks = (object)array_merge_recursive((array)$akun_tr_proyeks_masuk , (array)$masuks);
+        $akun_tr_proyeks = $akun_tr_proyeks_masuk->merge($masuks);
+        // $akun_tr_proyeks->namaManajemen="terserah";
+
         // dd($akun_tr_proyeks);
+        // $akun_tr_proyeks = Manajemen::where()->get();
         $pemasoks = Pemasok::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
         $material_baru1 = Gudang::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->distinct()->get(['nama_barang']);
         $material_baru2 = AkunTransaksiProyek::where('id_perusahaan', '=', Auth::user()->id_perusahaan)

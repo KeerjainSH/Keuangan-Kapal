@@ -175,6 +175,14 @@
                         <input type="text" id="satuan-material" name="satuan_material" class="form-control">
                     </div>
                     <div class="form-group">
+                        <label for="jenis">Jenis </label>
+                        <select class="form-control" id="jenis" name="jenis">
+                        <option disabled selected value required> -- pilih jenis -- </option>
+                            <option value="Masuk">Masuk</option>
+                            <option value="Keluar">Keluar</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
                         <label for="kode-proyek">Proyek</label>
                         <select class="form-control" id="kode-proyek" name="id_proyek">
                             <option disabled selected value required> -- pilih proyek -- </option>
@@ -235,7 +243,7 @@
                         <select class="form-control" id="edit-jenis-akun" name="jenis_transaksi" required>
                             <option disabled selected value> -- pilih jenis transaksi -- </option>
                             @foreach($akun_tr_proyeks as $akun_tr_proyek)
-                            <option value="{{ $akun_tr_proyek->id }}">{{ $akun_tr_proyek->nama}}</option>
+                            <option value="{{ $akun_tr_proyek->id }}">{{ $akun_tr_proyek->namaManajemen}}</option>
                             @endforeach
                         </select>
                     </div>

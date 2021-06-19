@@ -155,12 +155,10 @@
                             <tr id="table-proyek" name="table-proyek" rowId="{{ $biaya['id'] }}">
                                 <td id="nama">{{ $biaya['namaManajemen'] }}</td>
                                 <td id="jenis">
-                                @if ($biaya['flag'] == 1)
-                                    Biaya Langsung
-                                @elseif($biaya['flag'] == 2)
-                                    Biaya Tidak Langsung
-                                @elseif($biaya['flag'] == 3)
-                                    Biaya Overhead
+                                @if ($biaya['flag'] == 1 || $biaya['flag'] == 2 || $biaya['flag'] == 3)
+                                    Keluar
+                                @else
+                                    Masuk
                                 @endif
                                 </td>
                             </tr>
