@@ -69,12 +69,19 @@ class DashboardController extends Controller
         $pemasoks = Pemasok::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->get();
         $proyeks = Proyek::with('user')->where('id_perusahaan', '=', 1)->get();
         $man_proyek = User::where('id_perusahaan', '=', Auth::user()->id_perusahaan)->where('role', '=', 4)->get();
-        $biayas = AkunTransaksiProyek::select('manajemen.*')
-                ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
-                ->where('akun_transaksi_proyeks.jenis', 'Keluar')
-                ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
-                ->groupBy("manajemen.id")
+        // $biayas = AkunTransaksiProyek::select('manajemen.*')
+        //         ->where('akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan)
+        //         ->where('akun_transaksi_proyeks.jenis', 'Keluar')
+        //         ->join("manajemen","manajemen.id","akun_transaksi_proyeks.idManajemen")
+        //         ->groupBy("manajemen.id")
+        //         ->get();
+        $biayas2 = Manajemen::whereNotNull('idParent')
                 ->get();
+        $masuks = AkunTransaksiProyek::
+            select('id', 'nama as namaManajemen', 'jenis')
+            ->where('jenis', '=', 'Masuk')
+            ->get();
+        $biayas = $biayas2->merge($masuks);
         // dd($biayas);
         return view('dashboard/data', [
             'akun_transaksi_kantors' => $akun_transaksi_kantors,
