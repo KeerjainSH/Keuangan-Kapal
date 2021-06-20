@@ -79,7 +79,11 @@
                     @foreach($catatan_tr_proyeks as $catatan_tr_proyek)
                     <tr id="{{ $catatan_tr_proyek->id }}">
                         <td>{{$catatan_tr_proyek->tanggal_transaksi}}</td>
-                        <td>{{$catatan_tr_proyek->manajemen->namaManajemen}}</td>
+                        @if($catatan_tr_proyek->jenis2 == "Masuk") :
+                            <td>{{$catatan_tr_proyek->akun_tr_proyek->nama}}</td>
+                        @else :
+                            <td>{{$catatan_tr_proyek->manajemen->namaManajemen}}</td>
+                        @endif
                         <td>{{$catatan_tr_proyek->pemasok->nama ?? ''}}</td>
                         <td>{{$catatan_tr_proyek->nama_material}}</td>
                         <td>{{$catatan_tr_proyek->jumlah_material}}</td>
