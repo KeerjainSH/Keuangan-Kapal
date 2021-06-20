@@ -81,6 +81,7 @@
                             $realisasi = \App\Models\Catatan\TransaksiProyek::with('proyek')
                                         ->where('id_perusahaan', Auth::user()->id_perusahaan)
                                         ->where('id_akun_tr_proyek', $pendapatan->id)
+                                        ->where('jenis2','Masuk')
                         @endphp
                         @if(!(is_null($curr_proyek)))
                             @php $realisasi = $realisasi->where('id_proyek', $curr_proyek->id) @endphp
@@ -102,9 +103,7 @@
                         <td class="end-row">
                         @php
                             $pendapatan_all = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Masuk');
-                            });
+                            ->where('jenis2', 'Masuk');
                         @endphp
                         @if(!(is_null($curr_proyek)))
                             @php $pendapatan_all = $pendapatan_all->where('id_proyek', $curr_proyek->id) @endphp
@@ -181,9 +180,7 @@
                         <td class="end-row">
                         @php
                             $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Keluar');
-                            });
+                            ->where('jenis2', 'Keluar');
                         @endphp
                         @if(!(is_null($curr_proyek)))
                             @php $realisasi = $realisasi->where('id_proyek', $curr_proyek->id) @endphp

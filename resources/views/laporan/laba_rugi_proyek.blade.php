@@ -119,6 +119,7 @@
                             $realisasi = \App\Models\Catatan\TransaksiProyek::with('proyek')
                                         ->where('id_perusahaan', Auth::user()->id_perusahaan)
                                         ->where('id_akun_tr_proyek', $pendapatan->id)
+                                        ->where('jenis2','Masuk')
                         @endphp
                         @if(Auth::user()->role == 4)
                             @php
@@ -188,9 +189,7 @@
                         <td class="end-row">
                         @php
                             $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Masuk');
-                            });
+                            ->where('jenis2', 'Masuk');
                         @endphp
                         @if(Auth::user()->role == 4)
                             @php
@@ -319,9 +318,8 @@
                         <td class="end-row">
                         @php
                             $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Keluar');
-                            });
+                            ->where('jenis2', 'Keluar');
+                           
                         @endphp
                         @if(Auth::user()->role == 4)
                             @php
@@ -402,14 +400,10 @@
                         @endif
                             @php
                             $p_realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Masuk');
-                                });
+                            ->where('jenis2', 'Masuk');
 
                             $b_realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
-                            ->whereHas('akun_tr_proyek', function($query){
-                                return $query->where('jenis', 'Keluar');
-                                });
+                            ->where('jenis2', 'Keluar');
 
                             @endphp
                             @if(Auth::user()->role == 4)
