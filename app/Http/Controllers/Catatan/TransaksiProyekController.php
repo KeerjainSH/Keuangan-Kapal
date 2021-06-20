@@ -64,9 +64,19 @@ class TransaksiProyekController extends Controller
         //         'id_perusahaan' => Auth::user()->id_perusahaan,
         //     ]);
         // }
+        $jenis2 = "Keluar";
+        $jenis_transaksi = $request->jenis_transaksi;
+        if(intval($request->jenis_transaksi) < 0){
+            echo "coba";
+            $jenis_transaksi =  substr($request->jenis_transaksi,1);
+            $jenis2 = "Masuk";
+        }
+        // die;
+        // dd($request);
+
         $tr_proyek = TransaksiProyek::create([
             'tanggal_transaksi' => DateTime::CreateFromFormat('d/m/Y', $request->tanggal_transaksi),
-            'id_akun_tr_proyek' => $request->jenis_transaksi,
+            'id_akun_tr_proyek' => $jenis_transaksi,
             'id_pemasok' => $request->id_pemasok,
             'nama_material' => $request->nama_material,
             'jumlah_material' => $request->jumlah_material,
@@ -77,6 +87,7 @@ class TransaksiProyekController extends Controller
             'terbayar' => $terbayar,
             'sisa' => $sisa,
             'jenis' => $jenis,
+            'jenis2' => $jenis2,
             'id_perusahaan' => Auth::user()->id_perusahaan,
         ]);
 

@@ -86,10 +86,9 @@
                         <td>{{$catatan_tr_proyek->satuan_material}}</td>
                         <td>{{$catatan_tr_proyek->proyek->jenis}}</td>
                         <td>{{$catatan_tr_proyek->akun_neraca->nama}}</td>
-                        <td>{{$catatan_tr_proyek->akun_tr_proyek->jenis}}</td>
+                        <td>{{$catatan_tr_proyek->jenis2}}</td>
                         <td>{{ number_format($catatan_tr_proyek->jumlah, 2, '.', ',') }}</td>
                         <td>{{ number_format($catatan_tr_proyek->terbayar, 2, '.', ',') }}</td>
-
                         <td>{{ number_format($catatan_tr_proyek->sisa, 2, '.', ',') }}</td>
                         <td>{{ $catatan_tr_proyek->jenis }}</td>
                     </tr>
@@ -128,7 +127,7 @@
                         <select class="form-control" id="jenis-akun" name="jenis_transaksi" required>
                             <option disabled selected value> -- pilih jenis transaksi -- </option>
                             @foreach($akun_tr_proyeks as $akun_tr_proyek)
-                            <option value="{{ $akun_tr_proyek->id }}">{{ $akun_tr_proyek->namaManajemen}}</option>
+                            <option <?php if(isset($akun_tr_proyek->jenis)): echo "value='-".$akun_tr_proyek->id."'"; else: echo "value='".$akun_tr_proyek->id."'"; endif; ?>>{{ $akun_tr_proyek->namaManajemen}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -174,14 +173,14 @@
                         <label for="satuan-material">Satuan Material <span class="text-muted">(opsional)</span></label>
                         <input type="text" id="satuan-material" name="satuan_material" class="form-control">
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label for="jenis">Jenis </label>
                         <select class="form-control" id="jenis" name="jenis">
                         <option disabled selected value required> -- pilih jenis -- </option>
                             <option value="Masuk">Masuk</option>
                             <option value="Keluar">Keluar</option>
                         </select>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label for="kode-proyek">Proyek</label>
                         <select class="form-control" id="kode-proyek" name="id_proyek">

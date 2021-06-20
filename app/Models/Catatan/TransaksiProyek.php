@@ -24,6 +24,7 @@ class TransaksiProyek extends Model
         'id_perusahaan',
         'sisa',
         'jenis',
+        'jenis2',
     ];
 
     public function akun_tr_proyek(){

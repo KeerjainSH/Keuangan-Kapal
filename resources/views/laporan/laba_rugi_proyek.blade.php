@@ -240,28 +240,12 @@
                         <td colspan="6"><b class="float-left">Biaya</b></td>
                     </tr>
                     @foreach($biayas as $biaya)
-                        {{-- @foreach ($jenisBiayaChild as $jenisBC) --}}
                         <tr>
                             <td>{{$biaya->namaManajemen}}</td>
-                            {{-- <td>{{ $biaya->nama }}</td> --}}
                             <td>
-                                {{-- {{$biaya->jumlah}} --}}
                                 {{
                                     number_format($biaya->jumlah, 2, '.', ',')
                                 }}
-                                {{-- @php
-                                $anggaran = \App\Models\Catatan\Anggaran::where('id_perusahaan', Auth::user()->id_perusahaan)
-                                    ->where('id_akun_tr_proyek', $biaya->id);
-                            @endphp
-                            @if(!(is_null($curr_proyek)))
-                                @php $anggaran = $anggaran->where('id_proyek', $curr_proyek->id) @endphp
-                            @endif
-                            @php
-                                $anggaran = $anggaran->sum('nominal');
-                            @endphp
-                            {{
-                                number_format($anggaran, 2, '.', ',')
-                            }} --}}
                             </td>
                             <td>
                                 @php
@@ -291,7 +275,7 @@
                             @if(Auth::user()->role != 4)
                                 <td>
                                 @php
-                                    $selisih = $anggaran - $realisasi;
+                                    $selisih = $biaya->jumlah - $realisasi;
                                 @endphp
                                 {{
                                     number_format($selisih, 2, '.', ',')
@@ -299,7 +283,7 @@
                                 </td>
                                 <td>
                                     {{
-                                        number_format($anggaran != 0 ? $realisasi/$anggaran * 100 : 100, 2, '.', ',')
+                                        number_format($biaya->jumlah != 0 ? $realisasi/$biaya->jumlah * 100 : 100, 2, '.', ',')
                                 }}%
                                 </td>
                                 @if($selisih > 0)

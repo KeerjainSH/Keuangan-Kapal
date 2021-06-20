@@ -417,6 +417,7 @@ class CatatanController extends Controller
 
         $kas_sum = $kas_sum + $total_tr_proyeks_masuk_kas + $total_tr_kantors_masuk_kas
             - $total_tr_proyeks_keluar_kas - $total_tr_kantors_keluar_kas;
+        // dd($akun_tr_proyeks);
 
         // dd($bank_sum, $total_tr_kantors_keluar_bank, $total_tr_kantors_masuk_bank, $total_tr_proyeks_keluar_bank, $total_tr_proyeks_masuk_bank);
         // dd($catatan_tr_proyeks->find(1));
