@@ -319,7 +319,7 @@
                         @php
                             $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
                             ->where('jenis2', 'Keluar');
-                           
+
                         @endphp
                         @if(Auth::user()->role == 4)
                             @php

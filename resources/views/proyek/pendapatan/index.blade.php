@@ -72,6 +72,12 @@
         </div>
     </div>
 
+    <div class="card-body ">
+        <div class="mx-auto float-right"><strong>Total Pendapatan Proyek</strong>
+            <p class="mx-3">&nbsp {{number_format($akunTransaksiProjeks->sum('nominal'), 2, '.', ',')}}</p>
+        </div>
+    </div>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

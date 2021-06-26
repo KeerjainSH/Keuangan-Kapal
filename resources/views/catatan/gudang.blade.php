@@ -15,7 +15,7 @@
 
 @section('content')
 <div class="card">
-    <div class="card-header bg-transparent">
+    {{-- <div class="card-header bg-transparent">
         <div class="row">
             <div class="col-sm">
                 @if(Auth::user()->role == 1 || Auth::user()->role == 2)
@@ -29,6 +29,24 @@
                     </div>
                 </div>
                 <!-- <a href="#"><button type="button" class="btn btn-primary"><i class="fas fa-save"></i> Save</button></a> -->
+            </div>
+        </div>
+    </div> --}}
+    <div class="card-header bg-transparent">
+        <div class="row">
+            <div class="col-sm">
+                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                <div class="row justify-content-start pl-2 pt-2">
+                    <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Tambah Pemakaian Material</button></a>
+                </div>
+                @endif
+            </div>
+            <div class="col-sm">
+                <div class="d-flex justify-content-center">
+                    <input name="daterange" value="{{ $date_range ?? '-- pilih tanggal --' }}" type="text" style="width: 250px;" class="form-control text-center">
+                </div>
+            </div>
+            <div class="col-sm">
             </div>
         </div>
     </div>

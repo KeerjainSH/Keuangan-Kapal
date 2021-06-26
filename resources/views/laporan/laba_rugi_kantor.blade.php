@@ -13,12 +13,25 @@
 <div class="card">
     <div class="card-header">
         <div class="text-center pt-3">
-            <div class="col">
-                <h5>{{ $perusahaan->nama_perusahaan}}</h5>
-                <h6>Laporan Anggaran dan Realisasi</h6>
-                <h6>Kantor Pusat</h6>
+            <div class="row">
+                <div class="col-6">
+                    <div class="float-left">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-primary" type="button" onclick="window.print()">
+                            <i class="fas fa-print"></i> Cetak
+                            </button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="row">
+                    <div class="col">
+                        <h5>{{ $perusahaan->nama_perusahaan}}</h5>
+                        <h6>Laporan Anggaran dan Realisasi</h6>
+                        <h6>Kantor Pusat</h6>
+                    </div>
+                </div>
+            </div>
         <div class="d-flex justify-content-center">
             <input name="daterange" value="{{ $date_range ?? '-- pilih tanggal --' }}" type="text" style="width: 250px;" class="form-control text-center">
         </div>
@@ -79,7 +92,7 @@
                         <td class="right" ><b>Jumlah Biaya</b></td>
                         <td class="end-row">{{ number_format($total_keluar, 2, '.', ',') }}</td>
                     </tr>
-                    
+
                     <tr>
                         @if($total_keluar - $total_masuk > 0)
                         <td class="right" ><b>Rugi</b></td>
@@ -94,9 +107,9 @@
     </div>
     <!-- /.card-body -->
 
-    <div class="card-footer">
+    {{-- <div class="card-footer">
         <button onclick="window.print()" type="button" class="btn btn-sm btn-primary mr-2 "><i class="fas fa-print"></i> Cetak</button>
-    </div>
+    </div> --}}
     <!-- /.card-footer -->
 </div>
 <!-- /.card -->
@@ -109,7 +122,7 @@
     .content {
     font-size: 12px;
     }
-    
+
     td.right {
         float: right;
     }
@@ -173,5 +186,5 @@
             // console.log("A new date selection was made: " + start + ' to ' + end);
         });
     });
-</script> 
+</script>
 @endsection

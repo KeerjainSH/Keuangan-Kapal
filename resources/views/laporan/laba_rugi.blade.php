@@ -11,6 +11,16 @@
     <div class="card-header">
         <div class="text-center pt-3">
             <div class="row">
+                <div class="col-6">
+                    <div class="float-left">
+                        <div class="dropdown">
+                            <button class="btn btn-sm btn-primary" type="button" onclick="window.print()">
+                            <i class="fas fa-print"></i> Cetak
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            <div class="row">
                 <div class="col">
                     <div class="float-right">
                         <div class="dropdown">
@@ -227,9 +237,9 @@
     </div>
     <!-- /.card-body -->
 
-    <div class="card-footer">
+    {{-- <div class="card-footer">
         <button onclick="window.print()" type="button" class="btn btn-sm btn-primary mr-2 "><i class="fas fa-print"></i> Cetak</button>
-    </div>
+    </div> --}}
     <!-- /.card-footer -->
 </div>
 <!-- /.card -->
