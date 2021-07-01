@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row">
     <div class="col-md-8">
-        <!-- <h5 class="pl-3"><b>DAFTAR AKUN & RANGE</b></h5> -->
+        <h5 class="pl-3"><b>DAFTAR AKUN & RANGE</b></h5>
     </div>
     @if(!empty(Auth::user()->id_perusahaan))
     <div class="col-md-4">
@@ -33,14 +33,14 @@
                     <!-- Table Akun -->
                     <table id="table-neraca" class="table table-striped table-bordered table-condensed table-sm">
                         <thead class="thead-light">
-                            <tr class="fooH">
+                            <tr>
                                 <th>Akun</th>
                                 <th>Saldo Awal (Rp)</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($akun_neraca_saldos as $akun_neraca_saldo)
-                            <tr class="fooB" id="table-neraca" name="table-neraca" rowId="{{ $akun_neraca_saldo['id'] }}">
+                            <tr id="table-neraca" name="table-neraca" rowId="{{ $akun_neraca_saldo['id'] }}">
                                 <td id="nama" style="width: 70%;">{{ $akun_neraca_saldo['nama'] }}</td>
                                 <td id="saldo" style="width: 30%;">{{ number_format($akun_neraca_saldo['saldo'], 2, '.', ',') }}</td>
                             </tr>
@@ -61,14 +61,14 @@
                 <div class="dataTables_wrapper">
                     <table id="table-pemasok" class="table table-striped table-bordered table-condensed table-sm">
                         <thead style="display: none;">
-                            <tr class="fooH">
+                            <tr>
                                 <th>Akun</th>
                                 <th>Saldo</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach($pemasoks as $pemasok)
-                            <tr class="fooB" id="table-pemasok" name="table-pemasok" rowId="{{ $pemasok['id'] }}">
+                            <tr id="table-pemasok" name="table-pemasok" rowId="{{ $pemasok['id'] }}">
                                 <td id="nama" style="width: 30%;">{{ $pemasok['nama'] }}</td>
                                 <td id="jenis" style="width: 70%;">{{ $pemasok['jenis'] }}</td>
                             </tr>
@@ -86,7 +86,7 @@
                 <div class="dataTables_wrapper">
                     <table id="table-proyekan" class="table table-striped table-bordered table-condensed table-sm">
                         <thead style="display: none;">
-                            <tr class="fooH">
+                            <tr>
                                 <th >Akun</th>
                                 <th >Saldo</th>
                                 <th >Status</th>
@@ -94,7 +94,7 @@
                         </thead>
                         <tbody>
                             @foreach($proyeks as $proyek)
-                            <tr id="table-proyekan" name="table-proyekan " rowId="{{ $proyek['id'] }}">
+                            <tr id="table-proyekan" name="table-proyekan" rowId="{{ $proyek['id'] }}">
                                 <td id="nama" style="width: 30%;">{{ $proyek->kode_proyek }}</td>
                                 <td id="jenis" style="width: 50%;">{{ $proyek['jenis'] }}</td>
                                 <td id="status" style="width: 20%;">{{ $proyek['status'] }}</td>
