@@ -7,13 +7,10 @@
 @endsection
 
 @section('content')
-<style type="text/css" media="print">
-   .no-print { display: none; }
-</style>
 <div class="card">
     <div class="card-header">
         <div class="text-center pt-3">
-            <div class="row no-print">
+            <div class="row">
                 <div class="col-6">
                     <div class="float-left">
                         <div class="dropdown">
@@ -23,8 +20,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row no-print">
+            <div class="row">
                 <div class="col">
                     <div class="float-right">
                         <div class="dropdown">
