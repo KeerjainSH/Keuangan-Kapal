@@ -152,7 +152,13 @@
                         </thead>
                         <tbody>
                             @foreach($biayas as $biaya)
-                            <tr id="table-proyek" class="hided" name="table-proyek" rowId="{{ $biaya['id'] }}">
+                            <!-- <div class="row">
+                                <div class="col-8">
+                                </div>
+                                <div class="col-4">
+                                </div>
+                            </div> -->
+                            <tr id="table-proyek" name="table-proyek" rowId="{{ $biaya['id'] }}">
                                 <td id="nama">{{ $biaya['namaManajemen'] }}</td>
                                 <td id="jenis">
                                 @if ($biaya['flag'] == 1 || $biaya['flag'] == 2 || $biaya['flag'] == 3)
