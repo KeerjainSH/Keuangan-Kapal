@@ -146,13 +146,13 @@
             <div class="card-body">
                 <div class="dataTables_wrapper">
                     <table id="table-proyek" class="table table-striped table-bordered table-condensed table-sm">
-                        <thead class="thead-light">
+                        <thead class="thead-light hided">
                             <th style="width: 70%;">Akun</th>
                             <th style="width: 30%;">Ket.</th>
                         </thead>
                         <tbody>
                             @foreach($biayas as $biaya)
-                            <tr id="table-proyek" name="table-proyek" rowId="{{ $biaya['id'] }}">
+                            <tr id="table-proyek" class="hided" name="table-proyek" rowId="{{ $biaya['id'] }}">
                                 <td id="nama">{{ $biaya['namaManajemen'] }}</td>
                                 <td id="jenis">
                                 @if ($biaya['flag'] == 1 || $biaya['flag'] == 2 || $biaya['flag'] == 3)
