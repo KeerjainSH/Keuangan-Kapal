@@ -34,8 +34,26 @@ $.fn.SetEditable = function (options) {
       onAdd: function() {},     //Called when added a new row
   };
   params = $.extend(defaults, options);
+  // let head = document.querySelectorAll('.fooH');
+  // console.log(head);
+  
+  // for (let index = 0; index < head.length; index++) {
+  //   console.log(head[index].innerHTML);
+  //   head[index].insertAdjacentHTML("beforeend", '<th name="buttons"></th>');
+  //   // head[index].innerHTML += '<th name="buttons"></th>';
+  //   console.log(head[index].innerHTML);
+  // }
+  // console.log(head[index]);
+  
+  // let body = document.querySelectorAll('.fooB');
+  // for (let index = 0; index < body.length; index++) {
+  //   body[index].insertAdjacentHTML("beforeend", colEdicHtml);
+  //   // body[index].innerHTML += colEdicHtml;
+  // }
+
   this.find('thead tr').append('<th name="buttons"></th>');  //encabezado vacío
   this.find('tbody tr').append(colEdicHtml);
+  
   var $tabedi = this;   //Read reference to the current table, to resolve "this" here.
   //Process "addButton" parameter
   if (params.$addButton != null) {
