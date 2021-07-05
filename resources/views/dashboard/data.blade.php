@@ -5,7 +5,7 @@
 @section('content_header')
 <div class="row">
     <div class="col-md-8">
-        <h5 class="pl-3"><b>DAFTAR AKUN & RANGE</b></h5>
+        <!-- <h5 class="pl-3"><b>DAFTAR AKUN & RANGE</b></h5> -->
     </div>
     @if(!empty(Auth::user()->id_perusahaan))
     <div class="col-md-4">
