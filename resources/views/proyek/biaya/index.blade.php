@@ -26,8 +26,10 @@
                 <div class="col-sm">
                     <div class="row justify-content-start pl-2 pt-2">
                         <a href="{{ route('list_proyek') }}"><button type="button" class="btn btn-sm btn-secondary mr-2"><i class="fas fa-arrow-left"></i> Kembali</button></a>
+                        @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                         <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-plus"></i> Jenis Biaya</button></a>
                         <a href="#"><button type="button" class="btn btn-sm btn-primary mr-2 " data-toggle="modal" data-target="#contohModal"><i class="fas fa-plus"></i> Detail Biaya</button></a>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -48,7 +50,9 @@
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Jumlah</th>
+                            @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                             <th scope="col">Aksi</th>
+                            @endif
                         </tr>
                     </thead>
                     <tbody >
@@ -98,10 +102,12 @@
                                     }}
                                     {{-- {{ $projeks->nominal }} --}}
                                 </td>
+                                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
                                 <td>
                                     <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>
                                     <a href="{{ route('management_projek.biaya.delete', ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
                                 </td>
+                                @endif
                             </tr>
                         @endforeach
                     </tbody>
