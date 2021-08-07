@@ -169,9 +169,21 @@ class LaporanController extends Controller
 
                 
         foreach($biayas as $biaya){
-            $biaya->jumlah = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
-            ->where([["akun_transaksi_proyeks.idManajemen",$biaya->id],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan]])->sum("anggaran_proyek.nominal");
-            $biaya->realisasi = TransaksiProyek::where("id_akun_tr_proyek",$biaya->id)->sum("jumlah");
+            if(!(is_null($id_proyek)) && $id_proyek != 'all')
+            {
+                echo '
+                <script> console.log("ga masuk") </script>';
+                $biaya->jumlah = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
+                ->where([["akun_transaksi_proyeks.idManajemen",$biaya->id],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan],['anggaran_proyek.id_proyek',$id_proyek]])->sum("anggaran_proyek.nominal");
+                $biaya->realisasi = TransaksiProyek::where([["id_akun_tr_proyek",$biaya->id],['id_proyek',$id_proyek]])->sum("jumlah");
+            }
+            else{
+                echo '
+                <script> console.log("masuk") </script>';
+                $biaya->jumlah = AkunTransaksiProyek::join("anggaran_proyek","anggaran_proyek.id_akun_tr_proyek","akun_transaksi_proyeks.id")
+                ->where([["akun_transaksi_proyeks.idManajemen",$biaya->id],['akun_transaksi_proyeks.id_perusahaan', Auth::user()->id_perusahaan]])->sum("anggaran_proyek.nominal");
+                $biaya->realisasi = TransaksiProyek::where("id_akun_tr_proyek",$biaya->id)->sum("jumlah");
+            }
         }
         // dd($biayas);
         // dd($biayas[0]);
