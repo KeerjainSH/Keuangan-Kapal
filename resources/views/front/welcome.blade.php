@@ -17,8 +17,7 @@
         <div class="card border-info rounded p-3">
             <div class="card-body bg-primary p-5">
                 <div class="title text-light">
-                    Aplikasi Manajemen Keuangan<br>
-                    Industri Kapal Kayu
+                    Sistem Pelaporan Aktivitas <br> Keuangan Industri Kapal Kayu
                 </div>
             </div>
         </div>
