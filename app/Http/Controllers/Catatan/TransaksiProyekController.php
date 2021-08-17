@@ -43,8 +43,12 @@ class TransaksiProyekController extends Controller
 
         $sisa = $jml - $terbayar;
         $jenis = '-';
-        if ($sisa > 0 && $akun->jenis == 'Keluar') $jenis = 'Utang';
-        else if ($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
+        // if ($sisa > 0 && $akun->jenis == 'Keluar') $jenis = 'Utang';
+        // else if ($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
+        
+        if ($sisa > 0 ) $jenis = 'Utang';
+        else if ($sisa < 0) $jenis = 'Piutang';
+        
         $kas_sum = AkunNeracaSaldo::where('id_perusahaan', '=', Auth::user()->id_perusahaan)
             ->where('jenis_akun', '=', 'Kas')
             ->sum('saldo');
@@ -71,6 +75,9 @@ class TransaksiProyekController extends Controller
             $jenis_transaksi =  substr($request->jenis_transaksi,1);
             $jenis2 = "Masuk";
         }
+        
+        if ($sisa < 0 && $jenis2 == 'Masuk' ) $jenis = 'Utang';
+        else if ($sisa > 0 && $jenis2 == 'Masuk') $jenis = 'Piutang';
         // die;
         // dd($request);
 
@@ -140,17 +147,24 @@ class TransaksiProyekController extends Controller
         $terbayar = floatval(str_replace(",", "", $request->jumlah_dibayar));
         $sisa = $jml - $terbayar;
         $jenis = '-';
-        if ($sisa > 0 && $akun->jenis == 'Keluar') $jenis = 'Utang';
-        else if ($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
+        // if ($sisa > 0 && $akun->jenis == 'Keluar') $jenis = 'Utang';
+        // else if ($sisa > 0 && $akun->jenis == 'Masuk') $jenis = 'Piutang';
+        
+                if ($sisa > 0 ) $jenis = 'Utang';
+        else if ($sisa < 0) $jenis = 'Piutang';
 
         $dataGudang = Gudang::join('catatan_transaksi_proyeks','catatan_transaksi_proyeks.id','=','gudangs.id_transaksi')
-                    ->where([['gudangs.id_transaksi',$tr_proyek->id],['gudangs.tanggal_transaksi_gudang',$tr_proyek->tanggal_transaksi]])
+                    ->where([['catatan_transaksi_proyeks.id',$tr_proyek->id],['catatan_transaksi_proyeks.tanggal_transaksi',$tr_proyek->tanggal_transaksi]])
                     ->select('gudangs.*')
                     ->first();
-        $dataGudang->sisa = $dataGudang->sisa - $tr_proyek->jumlah_material + $request->jumlah_material;
-        $dataGudang->jumlah = $dataGudang->jumlah - $tr_proyek->jumlah_material + $request->jumlah_material;
-        $dataGudang->tanggal_transaksi_gudang = DateTime::CreateFromFormat('Y-m-d', $request->tanggal_transaksi);
-        $dataGudang->save();
+        // dd($dataGudang);
+
+        if (!(is_null($dataGudang))) {
+            $dataGudang->sisa = $dataGudang->sisa - $tr_proyek->jumlah_material + $request->jumlah_material;
+            $dataGudang->jumlah = $dataGudang->jumlah - $tr_proyek->jumlah_material + $request->jumlah_material;
+            $dataGudang->tanggal_transaksi_gudang = DateTime::CreateFromFormat('Y-m-d', $request->tanggal_transaksi);
+            $dataGudang->save();
+        }
 
         $tr_proyek->tanggal_transaksi = DateTime::CreateFromFormat('Y-m-d', $request->tanggal_transaksi);
         $tr_proyek->id_akun_tr_proyek = $request->jenis_transaksi;

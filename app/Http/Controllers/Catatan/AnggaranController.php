@@ -140,11 +140,21 @@ class AnggaranController extends Controller
         }
         // dd($akunTransaksiProjeks);
         //dd($jenisBiaya);
-        return view('proyek\biaya\index', compact('akunTransaksiProjeks', 'anggarans', 'jenisBiaya', 'id_proyek', 'jenisBiayaChild', 'akun_neraca_saldos'));
+        return view('proyek.biaya.index', compact('akunTransaksiProjeks', 'anggarans', 'jenisBiaya', 'id_proyek', 'jenisBiayaChild', 'akun_neraca_saldos'));
     }
 
     public function list_pendapatan($id_projek)
     {
-        return view('proyek\pendapatan\index');
+        return view('proyek.pendapatan.index');
+    }
+    
+    public function insertComment(Request $request, $id_proyek)
+    {
+        $anggaran = Anggaran::find($request->id);
+        $anggaran->comment = $request->comment;
+
+        $anggaran->save();
+
+        return redirect()->back();
     }
 }

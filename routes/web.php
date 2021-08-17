@@ -117,6 +117,7 @@ Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(func
         Route::post('/insert', [App\Http\Controllers\Catatan\PendapatanController::class, 'insertPendapatan'])->name('insertPendapatan');
         Route::post('/edit', [App\Http\Controllers\Catatan\PendapatanController::class, 'edit'])->name('edit');
         Route::get('/delete/{id}', [App\Http\Controllers\Catatan\PendapatanController::class, 'delete'])->name('delete');
+        Route::post('/insertComment/{id}', [App\Http\Controllers\Catatan\PendapatanController::class, 'insertComment'])->name('insertComment');
     });
     Route::prefix('biaya')->name('biaya.')->group(function () {
         Route::get('/', [App\Http\Controllers\Catatan\AnggaranController::class, 'list_biaya'])->name('index');
@@ -124,5 +125,6 @@ Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(func
         Route::post('/insertjenis', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertJenisBiaya'])->name('insertJenisBiaya');
         Route::post('/edit', [App\Http\Controllers\Catatan\AnggaranController::class, 'edit'])->name('edit');
         Route::get('/delete/{id}', [App\Http\Controllers\Catatan\AnggaranController::class, 'delete'])->name('delete');
+        Route::post('/insertComment/{id}', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertComment'])->name('insertComment');
     });
 });

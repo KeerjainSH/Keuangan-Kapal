@@ -50,7 +50,10 @@
                             <th scope="col">Satuan</th>
                             <th scope="col">Harga Satuan</th>
                             <th scope="col">Jumlah</th>
-                            @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                            @if(Auth::user()->role == 1 || Auth::user()->role == 2|| Auth::user()->role == 3)
+                            <th scope="col">Komentar</th>
+                            @endif
+                            @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
                             <th scope="col">Aksi</th>
                             @endif
                         </tr>
@@ -102,10 +105,21 @@
                                     }}
                                     {{-- {{ $projeks->nominal }} --}}
                                 </td>
-                                @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                                @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
                                 <td>
-                                    <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>
-                                    <a href="{{ route('management_projek.biaya.delete', ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
+                                    {{$projeks->comment}}
+                                </td>
+                                @endif
+                                @if(Auth::user()->role == 1 || Auth::user()->role == 2 || Auth::user()->role == 3)
+                                <td>
+                                    @if(Auth::user()->role == 1 || Auth::user()->role == 2)
+                                        <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>
+                                        <a href="{{ route('management_projek.biaya.delete', ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}" class="btn btn-sm btn-link p-0 mx-1" onclick="return confirm('Apakah anda ingin menghapus data ini?')"><i class="fas fa-trash-alt" > </i></a>
+                                    @endif
+                                    
+                                    @if(Auth::user()->role == 3)
+                                        <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editCommentModal{{$projeks->id}}"><i class="fas fa-pencil-alt" > </i></button>                      
+                                    @endif
                                 </td>
                                 @endif
                             </tr>
@@ -281,10 +295,39 @@
                 </div>
             </div>
         </div>
+
+        {{-- Edit detail biaya --}}
+        <div class="modal fade" id="editCommentModal{{ $projeks->id }}" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCommentModalLabel">Edit Komentar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="edit-comment-transaksi{{$projeks->id}}" method="post" action="{{ route('management_projek.biaya.insertComment',  ['id_proyek' => $id_proyek, 'id' => $projeks->id]) }}">
+                            @csrf
+                            <input id="edit-id" name="id" type="hidden" class="form-control" value="{{$projeks->id}}">
+                            <div class="form-group">
+                                <label for="edit-komentar">Komentar</label>
+                                <input autocomplete="off" type="text" id="edit-komentar" name="comment" class="form-control" value="{{$projeks->comment}}" >
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="edit-comment-transaksi{{$projeks->id}}">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        @endforeach
     </div>
-    @endforeach
-    @endif
-    @endsection
+@endif
+@endsection
 
 @section('js')
 <script>

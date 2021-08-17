@@ -108,11 +108,23 @@ class PendapatanController extends Controller
                     ->where('anggaran_proyek.id_proyek', '=', $id_proyek)->get();
         // dd($akunTransaksiProjeks);
         // dd($request->all());
-        return view('proyek\pendapatan\index', compact('akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
+        return view('proyek.pendapatan.index', compact('akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
     }
 
     // public function list_pendapatan($id_projek)
     // {
     //     return view('proyek\pendapatan\index');
     // }
+
+    public function insertComment(Request $request, $id_proyek)
+    {
+        $anggaran = Anggaran::find($request->id);
+        // dd($anggaran->id_akun_tr_proyek);
+        $akuntrproyek = AkunTransaksiProyek::find($anggaran->id_akun_tr_proyek);
+        $akuntrproyek->comment =  $request->comment;
+
+        $akuntrproyek->save();
+
+        return redirect()->back();
+    }
 }

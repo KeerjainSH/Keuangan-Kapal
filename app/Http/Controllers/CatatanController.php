@@ -603,7 +603,7 @@ class CatatanController extends Controller
 
     public function pageHutangPiutang()
     {
-        $piutangs = TransaksiProyek::with('proyek.user')
+        $piutangs = TransaksiProyek::with('proyek.user')->with('pemasok')
             ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)
             ->where('jenis', '=', 'Piutang')
             ->get();
@@ -612,7 +612,7 @@ class CatatanController extends Controller
             ->selectRaw('sum(jumlah) as jumlah, sum(terbayar) as terbayar, sum(sisa) as sisa')
             ->first();
 
-        $utangs = TransaksiProyek::with('pemasok')
+        $utangs = TransaksiProyek::with('pemasok')->with('proyek.user')
             ->where('id_perusahaan', '=', Auth::user()->id_perusahaan)
             ->where('jenis', '=', 'Utang')
             ->get();

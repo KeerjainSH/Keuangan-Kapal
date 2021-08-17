@@ -20,6 +20,7 @@
                 <tr>
                     <th>Proyek</th>
                     <th>Konsumen</th>
+                    <th>Pemasok</th>
                     <th>Transaksi</th>
                     <th>Diterima</th>
                     <th>Piutang</th>
@@ -30,6 +31,7 @@
                 <tr>
                     <td>{{$piutang->proyek->jenis ?? ''}}</td>
                     <td>{{$piutang->proyek->user->name ?? ''}}</td>
+                    <td>{{$piutang->pemasok->nama ?? ''}}</td>
                     <td>{{ number_format($piutang->jumlah, 2, '.', ',') }}</td>
                     <td>{{ number_format($piutang->terbayar, 2, '.', ',') }}</td>
                     <td>{{ number_format($piutang->sisa, 2, '.', ',') }}</td>
@@ -37,8 +39,8 @@
                 @endforeach
             </tbody>
                 <tr>
-                    <td></td>
-                    <td class="font-weight-bold">Jumlah</td>
+                    <!--<td></td>-->
+                    <td colspan="3" class="font-weight-bold">Jumlah</td>
                     <td class="font-weight-bold">{{ number_format($piutang_sum->jumlah, 2, '.', ',') }}</td>
                     <td class="font-weight-bold">{{ number_format($piutang_sum->terbayar, 2, '.', ',') }}</td>
                     <td class="font-weight-bold">{{ number_format($piutang_sum->sisa, 2, '.', ',') }}</td>
@@ -58,6 +60,8 @@
             <table id="table-utang" class="table table-bordered table-condensed table-sm dataTable">
             <thead class="thead-light">
                 <tr>
+                    <th>Proyek</th>
+                    <th>Konsumen</th>
                     <th>Pemasok</th>
                     <th>Transaksi</th>
                     <th>Dibayar</th>
@@ -67,6 +71,8 @@
             <tbody>
                 @foreach($utangs as $utang)
                 <tr>
+                    <td>{{$utang->proyek->jenis ?? ''}}</td>
+                    <td>{{$utang->proyek->user->name ?? ''}}</td>
                     <td>{{$utang->pemasok->nama ?? ''}}</td>
                     <td>{{ number_format($utang->jumlah, 2, '.', ',') }}</td>
                     <td>{{ number_format($utang->terbayar, 2, '.', ',')}}</td>
@@ -75,7 +81,7 @@
                 @endforeach
             </tbody>
             <tr>
-                <td class="font-weight-bold">Jumlah</td>
+                <td colspan="3" class="font-weight-bold">Jumlah</td>
                 <td class="font-weight-bold">{{ number_format($utang_sum->jumlah, 2, '.', ',') }}</td>
                 <td class="font-weight-bold">{{ number_format($utang_sum->terbayar, 2, '.', ',') }}</td>
                 <td class="font-weight-bold">{{ number_format($utang_sum->sisa, 2, '.', ',') }}</td>

@@ -211,6 +211,8 @@ class GudangController extends Controller
             // and c.id = g.id_transaksi')
             // ->whereBetween('c.tanggal_transaksi', [$start, $end])
             // ->get();
+            
+            // dd($start,$end);
 
             $catatan_gudangs = DB::table('gudangs')
                 ->join('perusahaans', 'perusahaans.id', '=', 'gudangs.id_perusahaan')
