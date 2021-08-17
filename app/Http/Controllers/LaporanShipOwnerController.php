@@ -100,7 +100,7 @@ class LaporanShipOwnerController extends Controller
         // dd($biayas);
         // dd($anggarans, $realisasis);
         return view('laporan/laporan_ship_owner', compact('proyeks', 'curr_proyek',
-        'pendapatans', 'biayas', 'perusahaan'));
+         'biayas', 'perusahaan'));
     }
 
     /**
