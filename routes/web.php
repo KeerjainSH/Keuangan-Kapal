@@ -35,7 +35,9 @@ Route::get('/data', [App\Http\Controllers\DashboardController::class, 'PageData'
 Route::get('/anggaran', [App\Http\Controllers\CatatanController::class, 'pageAnggaran'])->name('anggaran');
 Route::get('/neraca/{date_range?}', [App\Http\Controllers\CatatanController::class, 'pageNeraca'])->name('neraca');
 Route::get('/transaksi_proyek/{date_range?}', [App\Http\Controllers\CatatanController::class, 'pageTransaksiProyek'])->name('transaksi_proyek');
+Route::get('/transaksi_proyek_with_type/{type?}', [App\Http\Controllers\CatatanController::class, 'pageTransaksiProyekWithType'])->name('transaksi_proyek_withfilter');
 Route::get('/transaksi_kantor/{date_range?}', [App\Http\Controllers\CatatanController::class, 'pageTransaksiKantor'])->name('transaksi_kantor');
+Route::get('/transaksi_kantor_with_type/{type?}', [App\Http\Controllers\CatatanController::class, 'pageTransaksiKantorWithType'])->name('transaksi_kantor_with_type');
 Route::get('/hutang_piutang', [App\Http\Controllers\CatatanController::class, 'pageHutangPiutang'])->name('hutang_piutang');
 Route::get('/gudang/{date_range?}', [App\Http\Controllers\GudangController::class, 'pageGudang'])->name('gudang');
 Route::get('/profile', [App\Http\Controllers\ProfileController::class, 'index'])->name('profile');
@@ -128,3 +130,4 @@ Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(func
         Route::post('/insertComment/{id}', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertComment'])->name('insertComment');
     });
 });
+Route::get('laporan_ship_owner/{id_proyek?}', [App\Http\Controllers\LaporanShipOwnerController::class, 'index']);

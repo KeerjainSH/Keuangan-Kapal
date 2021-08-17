@@ -20,6 +20,7 @@ class Anggaran extends Model
         'satuan',
         'hargasatuan',
         'nominal',
+        'comment'
     ];
 
     public function akun_tr_proyek(){

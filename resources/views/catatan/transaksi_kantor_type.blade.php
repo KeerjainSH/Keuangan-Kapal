@@ -55,17 +55,23 @@
                 <div class="float-right">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Semua
+                            @if($type == "masuk")
+                                Masuk
+                            @elseif($type =="keluar")
+                                Keluar
+                            @else
+                                Semua
+                            @endif
                         </button>
                         <div class="dropdown-menu dropdown-menu-right checkbox-menu">
-                            <a class="dropdown-item active" style="font-size: 12px;" onclick="tes(this)">
+                            <a class="dropdown-item" style="font-size: 12px;" onclick="tes(this)">
                                 Semua
                             </a>
-                            <a class="dropdown-item" id="masuk" style="font-size: 12px;" onclick="tes(this)">
+                            <a class="dropdown-item {{ $type == 'masuk' ? 'active' : '' }}" id="masuk" style="font-size: 12px;" onclick="tes(this)">
                                 Masuk
                             </a>
                             
-                            <a class="dropdown-item" id="keluar" style="font-size: 12px;" onclick="tes(this)">
+                            <a class="dropdown-item {{ $type == 'keluar' ? 'active' : '' }}" id="keluar" style="font-size: 12px;" onclick="tes(this)">
                                 Keluar
                             </a>
                         </div>
@@ -91,6 +97,11 @@
                 </thead>
                 <tbody>
                     @foreach($catatan_tr_kantors as $catatan_tr_kantor)
+                    @if($type == "masuk" && $catatan_tr_kantor->akun_tr_kantor->jenis == 'Keluar')
+                        @continue
+                    @elseif($type =="keluar" && $catatan_tr_kantor->akun_tr_kantor->jenis == 'Masuk')
+                        @continue
+                    @endif
                     <tr id="{{ $catatan_tr_kantor->id }}">
                         <td>{{$catatan_tr_kantor->tgl_transaksi}}</td>
                         <td>{{$catatan_tr_kantor->akun_tr_kantor->nama}}</td>

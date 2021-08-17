@@ -55,14 +55,13 @@
                 <div class="float-right">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Semua
+                            Masuk
                         </button>
                         <div class="dropdown-menu dropdown-menu-right checkbox-menu">
-                            <a class="dropdown-item {{ is_null($type) ? 'active' : '' }}" style="font-size: 12px;" onclick="tes(this)">
+                            <a class="dropdown-item" style="font-size: 12px;" onclick="tes(this)">
                                 Semua
                             </a>
-
-                            <a class="dropdown-item" id="masuk" style="font-size: 12px;" onclick="tes(this)">
+                            <a class="dropdown-item active" id="masuk" style="font-size: 12px;" onclick="tes(this)">
                                 Masuk
                             </a>
                             
@@ -99,6 +98,10 @@
                 </thead>
                 <tbody>
                     @foreach($catatan_tr_proyeks as $catatan_tr_proyek)
+                    @php
+                        if($catatan_tr_proyek->jenis2 == "Keluar")
+                        continue
+                    @endphp
                     <tr id="{{ $catatan_tr_proyek->id }}">
                         <td>{{$catatan_tr_proyek->tanggal_transaksi}}</td>
                         @if($catatan_tr_proyek->jenis2 == "Masuk") :

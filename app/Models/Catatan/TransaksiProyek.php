@@ -25,6 +25,7 @@ class TransaksiProyek extends Model
         'sisa',
         'jenis',
         'jenis2',
+        'comment'
     ];
 
     public function akun_tr_proyek(){

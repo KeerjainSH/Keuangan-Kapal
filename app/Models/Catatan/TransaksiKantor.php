@@ -10,7 +10,7 @@ class TransaksiKantor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'tgl_transaksi', 'id_akun_tr_kantor','keterangan','id_akun_neraca', 'jumlah','id_perusahaan',
+        'tgl_transaksi', 'id_akun_tr_kantor','keterangan','id_akun_neraca', 'jumlah','id_perusahaan','comment'
     ];
 
     protected $table = 'catatan_transaksi_kantors';

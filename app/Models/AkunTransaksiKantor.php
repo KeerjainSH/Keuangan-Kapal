@@ -10,7 +10,7 @@ class AkunTransaksiKantor extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nama', 'jenis', 'id_perusahaan',
+        'nama', 'jenis', 'id_perusahaan','comment'
     ];
     
     public function catatan_transaksi_proyek(){
