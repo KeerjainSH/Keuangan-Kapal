@@ -236,6 +236,12 @@
             </table>
         </div>
     </div>
+    <div class="row mt-5">
+        <div class="col-12 text-center">
+            <h1>Grafik</h1>
+        </div>
+    </div>
+    <canvas id="myChart" width="150"></canvas>
     <!-- /.card-body -->
 
     {{-- <div class="card-footer">
@@ -292,6 +298,7 @@
 @endsection
 
 @section('js')
+<script src="{{ asset('vendor/chart.js/Chart.js') }}"></script>
 <script type="text/javascript">
     $(function() {
         $('input[name="daterange"]').daterangepicker({
@@ -342,5 +349,50 @@
 
         console.log(url);
     }
+    let labelss = []
+    let valuee = []
+    var words = <?php echo json_encode($cummulativePercentage) ?>;// don't use quotes
+    $.each(words, function(key, value) {
+        labelss.push(key)
+        valuee.push(value)
+        console.log('stuff : ' + key + ", " + value);
+    });
+
+    var canvas = document.getElementById('myChart');
+    var data = {
+        labels: labelss,
+        datasets: [
+            {
+                label: "My First dataset",
+                fill: false,
+                lineTension: 0.1,
+                backgroundColor: "rgba(75,192,192,0.4)",
+                borderColor: "rgba(75,192,192,1)",
+                borderCapStyle: 'butt',
+                borderDash: [],
+                borderDashOffset: 0.0,
+                borderJoinStyle: 'miter',
+                pointBorderColor: "rgba(75,192,192,1)",
+                pointBackgroundColor: "#fff",
+                pointBorderWidth: 1,
+                pointHoverRadius: 5,
+                pointHoverBackgroundColor: "rgba(75,192,192,1)",
+                pointHoverBorderColor: "rgba(220,220,220,1)",
+                pointHoverBorderWidth: 2,
+                pointRadius: 5,
+                pointHitRadius: 10,
+                data: valuee,
+            }
+        ]
+    };
+
+    var option = {
+        showLines: true
+    };
+    var myLineChart = Chart.Line(canvas,{
+        data:data,
+    options:option
+    });
+
 </script>
 @endsection
