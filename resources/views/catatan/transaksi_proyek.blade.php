@@ -27,7 +27,7 @@
                 </div>
                 @endif
             </div>
-            <div class="col-sm-5">
+            <div class="col-sm-6">
                 <div class="d-flex justify-content-center">
                     <input name="daterange" value="{{ $date_range ?? '-- pilih tanggal --' }}" type="text" style="width: 250px;" class="form-control text-center">
                 </div>
@@ -51,7 +51,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-2">
+            <div class="col-sm-1">
                 <div class="float-right">
                     <div class="dropdown">
                         <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
