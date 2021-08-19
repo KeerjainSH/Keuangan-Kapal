@@ -14,6 +14,8 @@ use App\Models\Manajemen;
 use App\Models\AkunNeracaSaldo;
 use App\Models\User;
 use App\Models\Proyek;
+use App\Models\Comments;
+
 
 
 class PendapatanController extends Controller
@@ -108,7 +110,9 @@ class PendapatanController extends Controller
                     ->where('anggaran_proyek.id_proyek', '=', $id_proyek)->get();
         // dd($akunTransaksiProjeks);
         // dd($request->all());
-        return view('proyek.pendapatan.index', compact('akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
+        $comment = Comments::where('place', 2)->first();
+
+        return view('proyek.pendapatan.index', compact('comment','akunTransaksiProjeks', 'anggarans', 'id_proyek', 'akun_neraca_saldos'));
     }
 
     // public function list_pendapatan($id_projek)
@@ -116,14 +120,15 @@ class PendapatanController extends Controller
     //     return view('proyek\pendapatan\index');
     // }
 
-    public function insertComment(Request $request, $id_proyek)
+    public function insertComment(Request $request, $place)
     {
-        $anggaran = Anggaran::find($request->id);
-        // dd($anggaran->id_akun_tr_proyek);
-        $akuntrproyek = AkunTransaksiProyek::find($anggaran->id_akun_tr_proyek);
-        $akuntrproyek->comment =  $request->comment;
 
-        $akuntrproyek->save();
+
+        $comment = Comments::where('place', $place)->first();
+
+        $comment->comment =  $request->comment;
+
+        $comment->save();
 
         return redirect()->back();
     }

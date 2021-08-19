@@ -90,6 +90,47 @@
         </div>
     </div>
     <div class="card-footer">
+        <div class="card-body mb-5">
+                <div class="row">
+                    <div class="col-12 h4">
+                    Komentar
+                    </div>
+                    <div class="col-10">
+                        {{$comment->comment}}
+                    </div>
+                    <div class="col-2">
+                        @if(Auth::user()->role == 3)
+                            <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editCommentModal"><i class="fas fa-pencil-alt" > </i></button>
+                        @endif
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editCommentModalLabel">Edit Komentar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    <form id="edit-comment-transaksi" method="post" action="{{ route('insertComment',  ['place' => 5]) }}">
+                        @csrf
+                            <div class="form-group">
+                                <label for="edit-komentar">Komentar</label>
+                                <input autocomplete="off" type="text" id="edit-komentar" name="comment" class="form-control" value="{{$comment->comment}}" >
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" form="edit-comment-transaksi">Simpan</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <!-- /.card-footer -->
 </div>

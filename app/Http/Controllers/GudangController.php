@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use DateTime;
 use Carbon\Carbon;
+use App\Models\Comments;
 
 class GudangController extends Controller
 {
@@ -197,6 +198,8 @@ class GudangController extends Controller
 
     public function pageGudang($date_range = null)
     {
+        $comment = Comments::where('place', 6)->first();
+
         if (!(is_null($date_range))) {
             $separated = explode(' - ', $date_range);
             $start = Carbon::CreateFromFormat('d-m-Y', $separated[0])->startOfDay();
@@ -276,6 +279,7 @@ class GudangController extends Controller
         // dd($catatan_gudangs);
         $perusahaan = Perusahaan::with('user')->get()->where('kode_perusahaan', '=', Auth::user()->kode_perusahaan)->first();
         return view('catatan/gudang', [
+            'comment' => $comment,
             'items' => $catatan_gudangs,
             'date_range' => $date_range,
             'inventoris' => $inventoris,

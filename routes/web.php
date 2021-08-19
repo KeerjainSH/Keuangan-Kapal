@@ -130,4 +130,7 @@ Route::prefix('list_proyek/{id_proyek}')->name('management_projek.')->group(func
         Route::post('/insertComment/{id}', [App\Http\Controllers\Catatan\AnggaranController::class, 'insertComment'])->name('insertComment');
     });
 });
+
+Route::post('insertComment/{place}', [App\Http\Controllers\Catatan\PendapatanController::class, 'insertComment'])->name('insertComment');
+
 Route::get('laporan_ship_owner/{id_proyek?}', [App\Http\Controllers\LaporanShipOwnerController::class, 'index']);

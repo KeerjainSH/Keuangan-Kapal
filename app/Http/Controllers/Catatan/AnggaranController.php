@@ -12,6 +12,7 @@ use App\Models\AkunTransaksiKantor;
 use App\Models\AkunTransaksiProyek;
 use App\Models\Manajemen;
 use App\Models\AkunNeracaSaldo;
+use App\Models\Comments;
 use App\Models\User;
 use App\Models\Proyek;
 
@@ -138,9 +139,10 @@ class AnggaranController extends Controller
                 $projek->parent = $namaprojek['namaManajemen'];
             }
         }
+        $comment = Comments::where('place', 1)->first();
         // dd($akunTransaksiProjeks);
         //dd($jenisBiaya);
-        return view('proyek.biaya.index', compact('akunTransaksiProjeks', 'anggarans', 'jenisBiaya', 'id_proyek', 'jenisBiayaChild', 'akun_neraca_saldos'));
+        return view('proyek.biaya.index', compact('comment','akunTransaksiProjeks', 'anggarans', 'jenisBiaya', 'id_proyek', 'jenisBiayaChild', 'akun_neraca_saldos'));
     }
 
     public function list_pendapatan($id_projek)
@@ -150,10 +152,10 @@ class AnggaranController extends Controller
     
     public function insertComment(Request $request, $id_proyek)
     {
-        $anggaran = Anggaran::find($request->id);
-        $anggaran->comment = $request->comment;
+        $comment = Comments::where('place', 1)->first();
+        $comment->comment = $request->comment;
 
-        $anggaran->save();
+        $comment->save();
 
         return redirect()->back();
     }

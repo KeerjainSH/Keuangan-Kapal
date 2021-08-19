@@ -100,7 +100,7 @@
                 <thead class="thead-light">
                     <tr>
                         <th >Keterangan</th>
-                        <th >Realisasi</th>
+                        <!-- <th >Realisasi</th> -->
                         <th >Percentage</th>
                         <th >Month 1</th>
                         <th >Month 2</th>
@@ -121,7 +121,7 @@
                     @foreach($biayas as $biaya)
                     <tr>
                         <td>{{ $biaya->namaManajemen }}</td>
-                        <td>
+                        <!-- <td> -->
                         @php
                             $realisasi = \App\Models\Catatan\TransaksiProyek::where('id_perusahaan', Auth::user()->id_perusahaan)
                                         ->where('id_akun_tr_proyek', $biaya->id);
@@ -139,10 +139,7 @@
                         @php
                             $realisasi = $realisasi->sum('jumlah');
                         @endphp
-                        {{
-                            number_format($realisasi, 2, '.', ',')
-                        }}
-                        </td>
+                        <!-- </td> -->
                         @if($biaya_all == 0)
                         <td>
                             100%
@@ -190,11 +187,6 @@
                     @endforeach
                     <tr>
                         <td class="right" ><b>Jumlah Biaya</b></td>
-                        <td class="end-row">
-                        {{
-                            number_format($biaya_all, 2, '.', ',')
-                        }}
-                        </td>
                         <td>100%</td>
                         <td></td>
                         <td></td>
@@ -212,14 +204,14 @@
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-center"><b>TOTAL PERCENTAGE (%)</b></td>
+                        <td colspan="2" class="text-center"><b>TOTAL PERCENTAGE (%)</b></td>
                         @foreach($totalPercentage as $totalP => $key) 
                             <td>{{number_format($key/100, 0 , '.' , ',')}}%</td>
                         @endforeach
                         <td></td>
                     </tr>
                     <tr>
-                        <td colspan="3" class="text-center"><b>CUMMULATIVE PERCENTAGE (%)</b></td>
+                        <td colspan="2" class="text-center"><b>CUMMULATIVE PERCENTAGE (%)</b></td>
                         @php
                             $totalkey = 0;
                         @endphp

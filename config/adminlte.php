@@ -304,7 +304,7 @@ return [
             'role' => [1, 3],
         ],
         [
-            'text' => 'Laporan ShipOwner',
+            'text' => 'S-Curve',
             'url'  => 'laporan_ship_owner',
             'icon' => 'fa fa-sticky-note',
             'role' => [1, 2, 3, 4],

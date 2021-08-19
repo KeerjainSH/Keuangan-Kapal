@@ -18,6 +18,8 @@ use App\Models\Catatan\Anggaran;
 use App\Models\Manajemen;
 use DateTime;
 use Carbon\Carbon;
+use App\Models\Comments;
+
 
 class CatatanController extends Controller
 {
@@ -422,6 +424,8 @@ class CatatanController extends Controller
 
         // dd($bank_sum, $total_tr_kantors_keluar_bank, $total_tr_kantors_masuk_bank, $total_tr_proyeks_keluar_bank, $total_tr_proyeks_masuk_bank);
         // dd($catatan_tr_proyeks->find(1));
+        $comment = Comments::where('place', 4)->first();
+
         return view('catatan/transaksi_proyek', [
             'catatan_tr_proyeks' => $catatan_tr_proyeks,
             'akun_tr_proyeks' => $akun_tr_proyeks,
@@ -432,7 +436,8 @@ class CatatanController extends Controller
             'kas_sum' => $kas_sum,
             'bank_sum' => $bank_sum,
             'material_barus' => $material_barus,
-            'type' => $type
+            'type' => $type,
+            'comment' => $comment
         ]);
     }
 
@@ -555,6 +560,8 @@ class CatatanController extends Controller
 
         // dd($bank_sum, $total_tr_kantors_keluar_bank, $total_tr_kantors_masuk_bank, $total_tr_proyeks_keluar_bank, $total_tr_proyeks_masuk_bank);
         // dd($catatan_tr_proyeks->find(1));
+        $comment = Comments::where('place', 4)->first();
+
         if($type == "masuk"){
             return view('catatan/transaksi_proyek_masuk', [
                 'catatan_tr_proyeks' => $catatan_tr_proyeks,
@@ -566,7 +573,8 @@ class CatatanController extends Controller
                 'kas_sum' => $kas_sum,
                 'bank_sum' => $bank_sum,
                 'material_barus' => $material_barus,
-                'type' => $type
+                'type' => $type,
+                'comment' => $comment
             ]);
         }
         elseif($type == "keluar"){
@@ -580,7 +588,8 @@ class CatatanController extends Controller
                 'kas_sum' => $kas_sum,
                 'bank_sum' => $bank_sum,
                 'material_barus' => $material_barus,
-                'type' => $type
+                'type' => $type,
+                'comment' => $comment
             ]);
         }
         else {
@@ -594,7 +603,8 @@ class CatatanController extends Controller
                 'kas_sum' => $kas_sum,
                 'bank_sum' => $bank_sum,
                 'material_barus' => $material_barus,
-                'type' => $type
+                'type' => $type,
+                'comment' => $comment
             ]);
         }
     }
@@ -757,6 +767,8 @@ class CatatanController extends Controller
         $kas_sum = $kas_sum + $total_tr_proyeks_masuk_kas + $total_tr_kantors_masuk_kas
             - $total_tr_proyeks_keluar_kas - $total_tr_kantors_keluar_kas;
 
+        $comment = Comments::where('place', 3)->first();
+
         return view('catatan/transaksi_kantor', [
             'catatan_tr_kantors' => $catatan_tr_kantors,
             'akun_tr_kantors' => $akun_tr_kantors,
@@ -764,7 +776,8 @@ class CatatanController extends Controller
             'date_range' => $date_range,
             'kas_sum' => $kas_sum,
             'bank_sum' => $bank_sum,
-            'type' => $type
+            'type' => $type,
+            'comment' => $comment
         ]);
     }
 
@@ -926,6 +939,9 @@ class CatatanController extends Controller
         $kas_sum = $kas_sum + $total_tr_proyeks_masuk_kas + $total_tr_kantors_masuk_kas
             - $total_tr_proyeks_keluar_kas - $total_tr_kantors_keluar_kas;
 
+        $comment = Comments::where('place', 3)->first();
+        
+
         if (is_null($type)) {
             return view('catatan/transaksi_kantor', [
                 'catatan_tr_kantors' => $catatan_tr_kantors,
@@ -934,7 +950,8 @@ class CatatanController extends Controller
                 'date_range' => $date_range,
                 'kas_sum' => $kas_sum,
                 'bank_sum' => $bank_sum,
-                'type' => $type
+                'type' => $type,
+                'comment' => $comment
             ]);
         }
         else {
@@ -945,7 +962,8 @@ class CatatanController extends Controller
                 'date_range' => $date_range,
                 'kas_sum' => $kas_sum,
                 'bank_sum' => $bank_sum,
-                'type' => $type
+                'type' => $type,
+                'comment' => $comment
             ]);
         }
     }
@@ -971,7 +989,9 @@ class CatatanController extends Controller
             ->selectRaw('sum(jumlah) as jumlah, sum(terbayar) as terbayar, sum(sisa) as sisa')
             ->first();
         // dd($utangs, $piutangs, $piutang_sum, $utang_sum);
-        return view('catatan/hutang_piutang', compact('piutangs', 'piutang_sum', 'utangs', 'utang_sum'));
+        $comment = Comments::where('place', 5)->first();
+
+        return view('catatan/hutang_piutang', compact('comment','piutangs', 'piutang_sum', 'utangs', 'utang_sum'));
     }
 
     // public function pageGudang($date_range = null)
