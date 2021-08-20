@@ -90,10 +90,12 @@
         </div>
     </div>
     <div class="card-footer">
-        <div class="card-body mb-3">
+        <div class="card-body">
                 <div class="row">
-                    <div class="col-12 h4">
-                    Komentar
+                    <div class="col-12 h6">
+                        <b>
+                            Komentar
+                        </b>
                     </div>
                     <div class="col-11">
                         {{$comment->comment}}
