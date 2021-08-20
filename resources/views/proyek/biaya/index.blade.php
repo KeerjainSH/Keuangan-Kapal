@@ -119,11 +119,13 @@
                     <p>&nbsp {{number_format($akunTransaksiProjeks->sum('nominal'), 2, '.', ',')}}</p>
                 </div>
             </div>
-            <div class="card-body mb-3">
-                    <div class="row">
-                        <div class="col-12 h4">
-                        Komentar
-                        </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 h6">
+                        <b>
+                            Komentar
+                        </b>
+                    </div>
                         <div class="col-11">
                             {{$comment->comment}}
                         </div>
