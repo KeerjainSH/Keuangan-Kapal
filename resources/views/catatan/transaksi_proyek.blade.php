@@ -126,21 +126,22 @@
     <!-- /.card-body -->
 
     <div class="card-footer">
-        <div class="card-body mb-5">
+        <div class="card-body mb-3">
                 <div class="row">
                     <div class="col-12 h4">
                     Komentar
                     </div>
-                    <div class="col-10">
+                    <div class="col-11">
                         {{$comment->comment}}
                     </div>
-                    <div class="col-2">
+                    <div class="col-1">
                         @if(Auth::user()->role == 3)
                             <button id="bEdit" type="button" class="btn btn-sm btn-link p-0 mx-1" data-toggle="modal" data-target="#editCommentModal"><i class="fas fa-pencil-alt" > </i></button>
                         @endif
                     </div>
                 </div>
             </div>
+        </div>
         </div>
         <div class="modal fade" id="editCommentModal" tabindex="-1" role="dialog" aria-labelledby="editCommentModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">

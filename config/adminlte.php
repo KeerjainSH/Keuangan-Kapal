@@ -295,7 +295,7 @@ return [
             'text'    => 'l_laba_rugi_proyek',
             'url'     => 'laba_rugi_proyek',
             'icon' => 'fa fa-desktop',
-            'role' => [1, 3, 4],
+            'role' => [1, 3],
         ],
         [
             'text' => 'l_laba_rugi',
