@@ -230,7 +230,7 @@
     </div>
     <div class="row mt-5">
         <div class="col-12 text-center">
-            <h1>Grafik</h1>
+            <h1>Cost vs Time S-Curve</h1>
         </div>
     </div>
     <canvas id="myChart" width="150"></canvas>
@@ -355,7 +355,7 @@
         labels: labelss,
         datasets: [
             {
-                label: "My First dataset",
+                label: "Cummulative Cost Percentage",
                 fill: false,
                 lineTension: 0.1,
                 backgroundColor: "rgba(75,192,192,0.4)",
